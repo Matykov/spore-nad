@@ -19,13 +19,14 @@ public class ServerClient {
             System.err.println(e);
         }
     }
+    public String getClientInfo(){
+        return socket.toString();
+    }
     public void send(String msg){
         new SendingThread(out, msg);
     }
-    public String recv(){
-        try{
-            return in.readLine();
-        }catch (IOException ignored){}
-        return "";
+
+    public String recv() throws IOException {
+        return in.readLine();
     }
 }

@@ -1,26 +1,32 @@
 
 package NetParts;
 
+import logger.Logger;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Server {
 
     private Socket clientSocket;
     private ServerSocket server;
-    private BufferedReader in;
-    private BufferedWriter out;
-    private LinkedList<ServerClient> clientList;
+    //private BufferedReader in;
+    //private BufferedWriter out;
+    private Queue<ServerClient> clientList;
     private AcceptingThread acceptingThread;
+    private Logger logger = new Logger("log.txt");
 
     public Server(int nSocketPort) {
         try{
             server = new ServerSocket(nSocketPort);
             System.out.println("Lock'n  load, waiting for client");
-            clientList = new LinkedList<ServerClient>();
+            logger.log(nSocketPort + " Lock'n  load, waiting for client");
+            clientList = new ConcurrentLinkedQueue<>();
             acceptingThread = new AcceptingThread(this);
         } catch (IOException e){
             System.err.println(e);
@@ -30,7 +36,10 @@ public class Server {
 
     public void accept(){
         try {
-            clientList.add(new ServerClient(server.accept()));
+            ServerClient client = new ServerClient(server.accept());
+            clientList.add(client);
+            logger.log("incoming connection " + client.getClientInfo());
+            //logger.flush();
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -44,8 +53,14 @@ public class Server {
 
     public List<String> readAll(){
         LinkedList<String> receivedMessages = new LinkedList<String>();
-        for(ServerClient client: clientList){
-            receivedMessages.add(client.recv());
+        try {
+            for (ServerClient client : clientList) {
+                String message = client.recv();
+                receivedMessages.add(message);
+                logger.log(client.getClientInfo() + ": " + message);
+            }
+        }catch (IOException ignored){
+            //logger.log(ioe.toString());
         }
         return receivedMessages;
     }

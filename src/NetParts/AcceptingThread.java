@@ -1,5 +1,7 @@
 package NetParts;
 
+import logger.Logger;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 
