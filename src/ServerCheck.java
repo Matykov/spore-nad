@@ -1,4 +1,4 @@
-import NetParts.Server;
+import netParts.Server;
 
 public class ServerCheck {
     public static void main(String[] args) {

@@ -1,5 +1,4 @@
-import NetParts.Client;
-import NetParts.Server;
+import netParts.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
