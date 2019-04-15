@@ -1,10 +1,7 @@
-package NetParts;
+package netParts;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
 
 public class SendingThread extends Thread{
     private BufferedWriter out;

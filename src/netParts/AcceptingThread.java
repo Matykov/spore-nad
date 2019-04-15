@@ -1,9 +1,6 @@
-package NetParts;
-
-import logger.Logger;
+package netParts;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 
 public class AcceptingThread extends Thread{
     private Server server;

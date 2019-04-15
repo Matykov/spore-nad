@@ -1,4 +1,4 @@
-package NetParts;
+package netParts;
 
 import logger.Logger;
 
