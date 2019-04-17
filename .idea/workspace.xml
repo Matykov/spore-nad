@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/player.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Levels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Levels.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Player.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+            <state relative-caret-position="170">
+              <caret line="81" column="42" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#drawCreature#0;class#MainWindow#0" />
@@ -313,7 +307,7 @@
       <workItem from="1554385324308" duration="6381000" />
       <workItem from="1554393850743" duration="2048000" />
       <workItem from="1555220234613" duration="1764000" />
-      <workItem from="1555513800681" duration="11015000" />
+      <workItem from="1555513800681" duration="11259000" />
     </task>
     <task id="LOCAL-00001" summary="added netParts[Server, Client(not ready)]">
       <created>1555241357164</created>
@@ -336,11 +330,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555500360706</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="improve feeding logic">
+      <created>1555529273865</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1555529273865</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26579000" />
+    <option name="totallyTimeSpent" value="26823000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -353,9 +354,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20347957" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20347957" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -364,7 +364,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6170678" visible="true" weight="0.32569557" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.6170678" visible="true" weight="0.32569557" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48007712" weight="0.39919356" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -392,7 +392,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added netParts[Server, Client(not ready)]" />
     <MESSAGE value="add some logic with simple GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="add some logic with simple GUI" />
+    <MESSAGE value="improve feeding logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="improve feeding logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -644,8 +645,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="81" column="35" selection-start-line="81" selection-start-column="35" selection-end-line="81" selection-end-column="35" />
+        <state relative-caret-position="170">
+          <caret line="81" column="42" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#drawCreature#0;class#MainWindow#0" />
