@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ibxm">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/slick/lib/ibxm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

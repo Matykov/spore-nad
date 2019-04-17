@@ -4,7 +4,7 @@ import netParts.old.Server;
 
 import java.io.IOException;
 
-public class AcceptingThread extends Thread{
+public class AcceptingThread extends Thread {
     private Server server;
     public AcceptingThread(Server server) throws IOException {
         this.server = server;

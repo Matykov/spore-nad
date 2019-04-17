@@ -1,16 +1,52 @@
 package logic;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
+
 public class Food
 {
-    private final int NutritionValue;
+    private int Count;
+    private HashMap<Point, Integer> Pieces;
+    private Point FoodPosition;
 
-    public Food(int nutritionValue)
+    public final int PiecesRarity = 25;
+
+    public Food(Point position, int count)
     {
-        NutritionValue = nutritionValue;
+        Random random = new Random();
+        Pieces = new HashMap<>();
+        for (var i = 0; i < count; i++)
+        {
+            var nutrition = random.nextInt(3) + 1;
+            var piecePosition = new Point(-random.nextInt(PiecesRarity * 2) + position.x - PiecesRarity,
+                    -random.nextInt(PiecesRarity * 2) + position.y - PiecesRarity);
+
+            Pieces.put(piecePosition, nutrition);
+        }
+
+        FoodPosition = position;
+        Count = count;
     }
 
-    public int getNutritionValue()
+    public HashMap<Point, Integer> getPieces()
     {
-        return NutritionValue;
+        return Pieces;
+    }
+
+    public Point getPosition()
+    {
+        return FoodPosition;
+    }
+
+    public int getCount()
+    {
+        return Count;
+    }
+
+    public void destroyPiece(Point position)
+    {
+        Pieces.remove(position);
     }
 }

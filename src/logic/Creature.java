@@ -5,10 +5,14 @@ import java.util.Random;
 
 public class Creature
 {
+    private Random random = new Random();
+
     private int Speed;
     private int Agility;
     private Point Position;
     private int Fattiness;
+
+    public int Damage;
 
     public Creature(Point position, int speed, int agility, int fattiness)
     {
@@ -18,7 +22,13 @@ public class Creature
         Fattiness = fattiness;
     }
 
-    public Creature() { }
+    public Creature()
+    {
+        Position = new Point(50, 50);
+        Speed = 1;
+        Agility = 1;
+        Fattiness = 50;
+    }
 
     public int getSpeed()
     {
@@ -29,6 +39,9 @@ public class Creature
     }
     public Point getPosition() {
         return Position;
+    }
+    public int getFattiness() {
+        return Fattiness;
     }
 
     public void changeSpeed(int newSpeed)
@@ -53,15 +66,35 @@ public class Creature
         Position.y += shift;
     }
 
-    public Food[] die()
+    public Food die()
     {
-        Random random = new Random();
-        Food[] res = new Food[Fattiness];
-        for (var i = 0; i < Fattiness; i++)
-        {
-            res[i] = new Food(random.nextInt(2) + 1);
-        }
-
-        return res;
+        return new Food(Position, Fattiness);
     }
+
+    public void eat(Food food, Point position)
+    {
+        for (var i = 0; i < food.getCount(); i++)
+        {
+            putOnWeight(food.getPieces().get(position));
+        }
+    }
+
+    public void getDamage(Creature enemy)
+    {
+        if (enemy.Damage >= Fattiness)
+        {
+            die();
+        }
+        else
+        {
+            Fattiness -= enemy.Damage;
+            enemy.putOnWeight(enemy.Damage - 3);
+        }
+    }
+
+    public void putOnWeight(int fat)
+    {
+        Fattiness += fat;
+    }
+
 }
