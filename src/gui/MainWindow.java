@@ -10,8 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
 public class MainWindow extends JPanel implements ActionListener
@@ -58,11 +56,9 @@ public class MainWindow extends JPanel implements ActionListener
     public void paint(Graphics g)
     {
         super.paint(g);
-        drawFood(g);
-        drawPlayer(g);
 
-        g.drawOval(50, 50, 1, 1 );
-        g.drawOval(100, 100, 1, 1 );
+        drawPlayer(g);
+        drawFood(g);
     }
 
     public void drawCreature(Graphics g)
@@ -79,11 +75,12 @@ public class MainWindow extends JPanel implements ActionListener
     {
         Creature creature = game.getPlayer();
         g.setColor(new Color(0, 150, 200));
-        g.drawImage(new ImageIcon("/skins/player.png").getImage(), creature.getPosition().x - creature.getFattiness(),
-                creature.getPosition().y - creature.getFattiness(), null);
-//        g.fillOval(creature.getPosition().x - creature.getFattiness(),
-//                creature.getPosition().y - creature.getFattiness(),
-//                creature.getFattiness() * 2, creature.getFattiness()*2);
+        g.drawImage(new ImageIcon("src/skins/player.png").getImage(),
+                            creature.getPosition().x - creature.getFattiness(),
+                            creature.getPosition().y - creature.getFattiness(),
+                            creature.getFattiness() * 2,
+                            creature.getFattiness() * 2,
+                            null);
     }
 
     public void drawFood(Graphics g)
@@ -98,7 +95,7 @@ public class MainWindow extends JPanel implements ActionListener
             for (Point p: pieces.keySet())
             {
                 g.fillOval(p.x - pieces.get(p), p.y - pieces.get(p), pieces.get(p) + 5, pieces.get(p) + 5);
-                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
+                g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
             }
         }
 
