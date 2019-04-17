@@ -1,69 +1,50 @@
-
 package netParts;
 
 import logger.Logger;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
-
-    private Socket clientSocket;
-    private ServerSocket server;
-    //private BufferedReader in;
-    //private BufferedWriter out;
-    private Queue<ServerClient> clientList;
-    private AcceptingThread acceptingThread;
-    private Logger logger = new Logger("log.txt");
-
-    public Server(int nSocketPort) {
-        try{
-            server = new ServerSocket(nSocketPort);
-            System.out.println("Lock'n  load, waiting for client");
-            logger.log(nSocketPort + " Lock'n  load, waiting for client");
-            clientList = new ConcurrentLinkedQueue<>();
-            acceptingThread = new AcceptingThread(this);
-        } catch (IOException e){
-            System.err.println(e);
-        }
-
-    }
-
-    public void accept(){
+    static int threadsCount = 10;
+    private ServerSocket socket;
+    private Logger logger = new Logger("server_log.txt");
+    static ExecutorService executeIt = Executors.newFixedThreadPool(threadsCount);
+    private ISocketReader sockReader;
+    private ISocketWriter sockWriter;
+    public Server(int socketPort,
+                  ISocketWriter sockWriter,
+                  ISocketReader sockReader){
         try {
-            ServerClient client = new ServerClient(server.accept());
-            clientList.add(client);
-            logger.log("incoming connection " + client.getClientInfo());
-            //logger.flush();
-        } catch (IOException e) {
-            System.err.println(e);
+            this.socket = new ServerSocket(socketPort);
+            this.sockWriter = sockWriter;
+            this.sockReader = sockReader;
+            String message = "Server created: " + socket.toString();
+            logger.log(message);
+            System.out.println(message);
+        }catch(IOException ioe){
+            String message = "Creation error: " + ioe.toString();
+            logger.log(message);
+            System.out.println(message);
         }
-    }
 
-    public void sendAll(String msg){
-        for(ServerClient client : clientList){
-            client.send(msg);
-        }
     }
-
-    public List<String> readAll(){
-        LinkedList<String> receivedMessages = new LinkedList<String>();
+    public void run(){
         try {
-            for (ServerClient client : clientList) {
-                String message = client.recv();
-                receivedMessages.add(message);
-                logger.log(client.getClientInfo() + ": " + message);
+            while (!socket.isClosed()) {
+                Socket client = socket.accept();
+                executeIt.execute(new ClientWorker(client, sockWriter, sockReader));
+                String message = "New Client connected: " + client.toString();
+                logger.log(message);
+                System.out.println(message);
             }
-        }catch (IOException ignored){
-            //logger.log(ioe.toString());
+        }catch(IOException ioe){
+            String message = "Connection error: " + ioe.toString();
+            logger.log(message);
+            System.out.println(message);
         }
-        return receivedMessages;
     }
-
-
 }

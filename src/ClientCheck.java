@@ -1,4 +1,4 @@
-import netParts.Client;
+import netParts.old.Client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class ClientCheck {
             if (inLine.equals("stop"))
                 break;
             client1.send(inLine);
-            //client2.send(inLine);
+            client2.send(inLine);
         }
         client1.closeConnection();
         client2.closeConnection();

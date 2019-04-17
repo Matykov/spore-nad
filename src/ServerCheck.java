@@ -1,16 +1,13 @@
 import netParts.Server;
+import netParts.SockRW;
 
 public class ServerCheck {
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        Server serv = new Server(8081);
+        SockRW sockRW = new SockRW();
+        Server serv = new Server(8081, sockRW, sockRW);
         //Server serv1 = new Server(8082);
-        while(true){
-            var recv = serv.readAll();
-            for(String str:recv){
-                System.out.println(str);
-            }
-        }
+        serv.run();
     }
 
 

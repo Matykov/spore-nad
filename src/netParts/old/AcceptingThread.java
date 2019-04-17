@@ -1,4 +1,6 @@
-package netParts;
+package netParts.old;
+
+import netParts.old.Server;
 
 import java.io.IOException;
 
