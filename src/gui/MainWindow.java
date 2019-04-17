@@ -10,12 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class MainWindow extends JPanel implements ActionListener
 {
-    Timer timer = new Timer(20, this);
+    Timer timer = new Timer(10, this);
 
     private JFrame frame;
     private Game game;
@@ -59,27 +60,36 @@ public class MainWindow extends JPanel implements ActionListener
         super.paint(g);
         drawFood(g);
         drawPlayer(g);
+
+        g.drawOval(50, 50, 1, 1 );
+        g.drawOval(100, 100, 1, 1 );
     }
 
     public void drawCreature(Graphics g)
     {
         Creature creature = game.getPlayer();
         g.setColor(new Color(0, 150, 200));
-        g.fillOval(creature.getPosition().x, creature.getPosition().y, creature.getFattiness(), creature.getFattiness());
+        g.fillOval(creature.getPosition().x - creature.getFattiness(),
+                creature.getPosition().y - creature.getFattiness(),
+                creature.getFattiness() * 2,
+                creature.getFattiness() * 2);
     }
 
     public void drawPlayer(Graphics g)
     {
         Creature creature = game.getPlayer();
         g.setColor(new Color(0, 150, 200));
-        g.fillOval(creature.getPosition().x, creature.getPosition().y, creature.getFattiness(), creature.getFattiness());
+        g.drawImage(new ImageIcon("/skins/player.png").getImage(), creature.getPosition().x - creature.getFattiness(),
+                creature.getPosition().y - creature.getFattiness(), null);
+//        g.fillOval(creature.getPosition().x - creature.getFattiness(),
+//                creature.getPosition().y - creature.getFattiness(),
+//                creature.getFattiness() * 2, creature.getFattiness()*2);
     }
 
     public void drawFood(Graphics g)
     {
         ArrayList<Food> food = game.getLevel().getMeals();
 
-        Random r = new Random();
         g.setColor(new Color(39, 200, 32));
 
         for (var group = 0; group < food.size(); group++)
@@ -87,7 +97,8 @@ public class MainWindow extends JPanel implements ActionListener
             var pieces = food.get(group).getPieces();
             for (Point p: pieces.keySet())
             {
-                g.fillOval(p.x, p.y, pieces.get(p) + 5, pieces.get(p) + 5);
+                g.fillOval(p.x - pieces.get(p), p.y - pieces.get(p), pieces.get(p) + 5, pieces.get(p) + 5);
+                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
             }
         }
 

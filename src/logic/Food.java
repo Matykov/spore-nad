@@ -12,6 +12,7 @@ public class Food
     private Point FoodPosition;
 
     public final int PiecesRarity = 25;
+    public final int MaxSize = 3;
 
     public Food(Point position, int count)
     {
@@ -19,7 +20,7 @@ public class Food
         Pieces = new HashMap<>();
         for (var i = 0; i < count; i++)
         {
-            var nutrition = random.nextInt(3) + 1;
+            var nutrition = random.nextInt(MaxSize) + 1;
             var piecePosition = new Point(-random.nextInt(PiecesRarity * 2) + position.x - PiecesRarity,
                     -random.nextInt(PiecesRarity * 2) + position.y - PiecesRarity);
 
@@ -45,8 +46,11 @@ public class Food
         return Count;
     }
 
-    public void destroyPiece(Point position)
+    public int destroyPiece(Point position)
     {
+        var fat = Pieces.get(position);
         Pieces.remove(position);
+
+        return fat;
     }
 }

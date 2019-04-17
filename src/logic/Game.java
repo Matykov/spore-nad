@@ -42,21 +42,26 @@ public class Game
 
             for (Food food: meals)
             {
-                if (creaturePos.distance(food.getPosition()) <= food.PiecesRarity + creature.getFattiness())
-                {
+//                if (creaturePos.distance(food.getPosition()) <= food.PiecesRarity + creature.getFattiness())
+//                {
                     for (Point piecePosition: food.getPieces().keySet())
                     {
-                        if (creaturePos.distance(piecePosition) < creature.getFattiness())
+                        if (dist(creaturePos, piecePosition) <= creature.getFattiness() - food.MaxSize)
                         {
-                            food.destroyPiece(piecePosition);
-                            System.out.println("destroyed " + piecePosition.toString());
+                            creature.putOnWeight(food.destroyPiece(piecePosition));
                             return;
                         }
                     }
-                }
+//                }
             }
         }
     }
+
+    private double dist(Point p1, Point p2)
+    {
+        return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+    }
+
 
     public void update()
     {
