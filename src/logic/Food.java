@@ -1,11 +1,12 @@
 package logic;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class Food
+public class Food implements Serializable
 {
     private int Count;
     private HashMap<Point, Integer> Pieces;

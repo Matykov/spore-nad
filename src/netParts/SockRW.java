@@ -1,27 +1,27 @@
 package netParts;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class SockRW implements ISocketWriter, ISocketReader {
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     @Override
-    public void read(String incomingMessage) {
-        System.out.println(incomingMessage);
+    public void read(InputStream stream) throws IOException {
+
     }
 
     @Override
-    public String write() {
-        try {
-            if (br.ready()) {
+    public void onConnectRead(InputStream stream) throws IOException {
 
-                return br.readLine();
+    }
 
+    @Override
+    public void write(OutputStream stream) throws IOException {
 
-            }
-        } catch (IOException ignored) {
-        }
-        return null;
+    }
+
+    @Override
+    public void onConnectWrite(OutputStream stream) throws IOException {
+
     }
 }

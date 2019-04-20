@@ -13,7 +13,7 @@ public class GUI
         frame.setSize(500, 400);
         frame.setResizable(true); //false чтобы нельзя было бы поменять размеры рамки, true -можно
         frame.add(new MainWindow(frame, game));
-        System.out.println(game.getPlayer().getPosition());
+//        System.out.println(game.getPlayer().getPosition());
         frame.setVisible(true);
 
         while(true)

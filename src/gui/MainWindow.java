@@ -3,6 +3,7 @@ package gui;
 import logic.Creature;
 import logic.Food;
 import logic.Game;
+import logic.NetPlayer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,14 +74,18 @@ public class MainWindow extends JPanel implements ActionListener
 
     public void drawPlayer(Graphics g)
     {
-        Creature creature = game.getPlayer();
-        g.setColor(new Color(0, 150, 200));
-        g.drawImage(new ImageIcon("src/skins/player.png").getImage(),
-                            creature.getPosition().x - creature.getFattiness(),
-                            creature.getPosition().y - creature.getFattiness(),
-                            creature.getFattiness() * 2,
-                            creature.getFattiness() * 2,
-                            null);
+        for(var creature:game.getLevel().getCreatures()) {
+            if (creature instanceof NetPlayer && ((NetPlayer) creature).isActive())
+            {
+                g.setColor(new Color(0, 150, 200));
+                g.drawImage(new ImageIcon("src/skins/player.png").getImage(),
+                        creature.getPosition().x - creature.getFattiness(),
+                        creature.getPosition().y - creature.getFattiness(),
+                        creature.getFattiness() * 2,
+                        creature.getFattiness() * 2,
+                        null);
+            }
+        }
     }
 
     public void drawFood(Graphics g)
@@ -95,7 +100,7 @@ public class MainWindow extends JPanel implements ActionListener
             for (Point p: pieces.keySet())
             {
                 g.fillOval(p.x - pieces.get(p), p.y - pieces.get(p), pieces.get(p) + 5, pieces.get(p) + 5);
-                g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
+                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
             }
         }
 

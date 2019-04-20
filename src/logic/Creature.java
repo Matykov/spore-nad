@@ -1,9 +1,10 @@
 package logic;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Random;
 
-public class Creature
+public class Creature implements Serializable
 {
     private Random random = new Random();
 

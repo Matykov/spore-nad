@@ -11,4 +11,17 @@ public class Levels
 
         return new Level((Player)creatures[0], creatures, points, 5);
     }
+
+    public static Level getTestNetLevel()
+    {
+        Creature[] creatures = {
+                new NetPlayer(new Point(60, 60), 100, 50, 25, 0),
+                new NetPlayer(new Point(120, 120), 100, 50, 25, 1),
+                new NetPlayer(new Point(120, 60), 100, 50, 25, 2),
+                new NetPlayer(new Point(60, 120), 100, 50, 25, 3)
+        };
+        Point[] points = { new Point(200, 200), new Point(200, 100) };
+
+        return new Level((Player)creatures[0], creatures, points, 5);
+    }
 }

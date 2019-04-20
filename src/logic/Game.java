@@ -1,17 +1,22 @@
 package logic;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Game
+public class Game implements Serializable
 {
-    private Player Player;
-    private Level Level;
+    protected Player Player;
+    protected Level Level;
     private int ProgressBar;
 
     public Game(Level level)
     {
         Level = level;
         Player = level.getPlayer();
+    }
+
+    protected Game(){
+
     }
 
     public Player getPlayer()

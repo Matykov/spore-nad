@@ -1,10 +1,11 @@
 package logic;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Level
+public class Level implements Serializable
 {
     private ArrayList<Creature> Creatures;
     private ArrayList<Food> Meals;
@@ -20,6 +21,31 @@ public class Level
         generateFood(foodPoses);
     }
 
+    public void addPlayer(Player player){
+        Creatures.add(player);
+    }
+
+    public void setPlayer(NetPlayer player){
+        player.activate();
+        Creatures.set(player.getId(), player);
+    }
+
+    public void refreshPlayers(){
+        for(var creature:Creatures){
+            if(creature instanceof NetPlayer)
+                ((NetPlayer) creature).checkLive();
+        }
+    }
+
+    public int onlinePlayers(){
+        int count = 0;
+        for(var creature:Creatures){
+            if (creature instanceof NetPlayer && ((NetPlayer) creature).isActive())
+                count++;
+        }
+        return count;
+    }
+
     public ArrayList<Creature> getCreatures()
     {
         return Creatures;
@@ -28,6 +54,9 @@ public class Level
     public Player getPlayer()
     {
         return Player;
+    }
+    public NetPlayer getPlayer(int i){
+        return (NetPlayer) Creatures.get(i);
     }
 
     public ArrayList<Food> getMeals()

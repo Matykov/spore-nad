@@ -8,22 +8,24 @@ import java.net.Socket;
 public class ClientWorker implements Runnable {
     static String closeConnectionMessage = "CloseConnection";
     private Socket clientSession;
-    private BufferedReader inStream;
-    private BufferedWriter outStream;
-    private ISocketReader sockReader;
-    private ISocketWriter sockWriter;
+    private BufferedReader bufferedReader;
+    private InputStream inputStream;
+    private  OutputStream outputStream;
+    private IServerWorker serverWorker;
+//    private ISocketReader sockReader;
+//    private ISocketWriter sockWriter;
     private Logger logger = new Logger("server_log.txt");
     public ClientWorker(Socket clientSession,
-                        ISocketWriter sockWriter,
-                        ISocketReader sockReader){
+                        IServerWorker serverWorker){
         try {
             this.clientSession = clientSession;
-            this.inStream = new BufferedReader(
-                    new InputStreamReader(clientSession.getInputStream()));
-            this.outStream = new BufferedWriter(
-                    new OutputStreamWriter(clientSession.getOutputStream()));
-            this.sockReader = sockReader;
-            this.sockWriter = sockWriter;
+            this.inputStream = clientSession.getInputStream();
+            this.bufferedReader = new BufferedReader(
+                    new InputStreamReader(this.inputStream));
+            this.outputStream = clientSession.getOutputStream();
+//            this.sockReader = sockReader;
+//            this.sockWriter = sockWriter;
+            this.serverWorker = serverWorker;
         }catch(IOException ioe) {
             String message = "Client thread err: " +
                     ioe.toString() +
@@ -36,24 +38,27 @@ public class ClientWorker implements Runnable {
     @Override
     public void run() {
         try{
+            if(!clientSession.isClosed()){
+                if(bufferedReader.ready())
+                    serverWorker.onConnectRead(inputStream);
+                serverWorker.onConnectWrite(outputStream);
+            }
             while(!clientSession.isClosed()){
-                if(inStream.ready()){
-                    String entry = inStream.readLine();
-                    if (entry.equalsIgnoreCase(closeConnectionMessage)){
-                        inStream.close();
-                        outStream.close();
-                        clientSession.close();
-                        String message = "Client exits: " + clientSession.toString();
-                        logger.log(message);
-                        System.out.println(message);
-                        return;
+                try {
+                    if (bufferedReader.ready()) {
+                        if (bufferedReader.ready())
+                            serverWorker.read(inputStream);
+                        serverWorker.write(outputStream);
                     }
-                    sockReader.read(entry);
-                    String sendMsg = sockWriter.write();
-                    if(sendMsg != null) {
-                        outStream.write(sendMsg);
-                        outStream.flush();
-                    }
+                }catch(IOException ioe){
+                    bufferedReader.close();
+                    outputStream.close();
+                    inputStream.close();
+                    clientSession.close();
+                    String message = "Close client connection: " + ioe.toString();
+                    System.out.println(message);
+                    logger.log(message);
+                    return;
                 }
                 try {
                     Thread.sleep(1);
