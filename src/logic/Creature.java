@@ -10,10 +10,12 @@ public class Creature implements Serializable
 
     private int Speed;
     private int Agility;
-    private Point Position;
     private int Fattiness;
-
     public int Damage;
+
+    private Point Position;
+    public Point MapLocation;
+    private double Direction;
 
     public Creature(Point position, int speed, int agility, int fattiness)
     {
@@ -21,6 +23,9 @@ public class Creature implements Serializable
         Speed = speed;
         Agility = agility;
         Fattiness = fattiness;
+        Direction = 0;
+
+        recountMapLocation();
     }
 
     public Creature()
@@ -54,17 +59,11 @@ public class Creature implements Serializable
         Agility = newAgility;
     }
 
-    public void move(Point newPosition)
+    public void move(int shift)
     {
-        Position = newPosition;
-    }
-    public void moveX(int shift)
-    {
-        Position.x += shift;
-    }
-    public void moveY(int shift)
-    {
-        Position.y += shift;
+        Position.x += (int)(-shift * Math.abs((Math.sin(Direction)))) * Math.signum(Math.cos(Direction + 3 * Math.PI / 2));
+        Position.y += (int)(-shift * Math.abs((Math.cos(Direction)))) * Math.signum(Math.sin(Direction + 3 * Math.PI / 2));
+        recountMapLocation();
     }
 
     public Food die()
@@ -96,6 +95,33 @@ public class Creature implements Serializable
     public void putOnWeight(int fat)
     {
         Fattiness += fat;
+    }
+
+    public void turn(double angle)
+    {
+        Direction += angle;
+
+        if (Math.abs(Direction) >= Math.PI * 2 )
+        {
+            Direction -= Math.signum(Direction) * Math.PI * 2;
+        }
+        recountMapLocation();
+    }
+
+    public double getDirection()
+    {
+        return Direction;
+    }
+
+    private void recountMapLocation()
+    {
+        double dist = Position.distance(0, 0);
+        double origAngle = Math.acos(Position.x / dist);
+
+        int x = (int)(dist * Math.cos(-origAngle - Direction + Math.PI / 2));
+        int y = (int)(dist * Math.sin(-origAngle - Direction + Math.PI / 2));
+
+        MapLocation = new Point(x - Fattiness, y - Fattiness);
     }
 
 }

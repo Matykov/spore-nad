@@ -3,14 +3,17 @@ package gui;
 import logic.Creature;
 import logic.Food;
 import logic.Game;
-import logic.NetPlayer;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainWindow extends JPanel implements ActionListener
@@ -33,19 +36,19 @@ public class MainWindow extends JPanel implements ActionListener
             {
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
-                    game.getPlayer().moveY(-5);
+                    game.getPlayer().move(-5);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
-                    game.getPlayer().moveY(5);
+                    game.getPlayer().move(5);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
-                    game.getPlayer().moveX(5);
+                    game.getPlayer().turn(Math.PI / 8);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
-                    game.getPlayer().moveX(-5);
+                    game.getPlayer().turn(-Math.PI / 8);
                 }
                 repaint();
             }
@@ -54,12 +57,13 @@ public class MainWindow extends JPanel implements ActionListener
     }
 
     @Override
-    public void paint(Graphics g)
+    public void paintComponent(Graphics g)
     {
-        super.paint(g);
+        super.paintComponent(g);
 
         drawPlayer(g);
         drawFood(g);
+
     }
 
     public void drawCreature(Graphics g)
@@ -72,19 +76,24 @@ public class MainWindow extends JPanel implements ActionListener
                 creature.getFattiness() * 2);
     }
 
-    public void drawPlayer(Graphics g)
+    private void drawPlayer(Graphics g)
     {
-        for(var creature:game.getLevel().getCreatures()) {
-            if (creature instanceof NetPlayer && ((NetPlayer) creature).isActive())
-            {
-                g.setColor(new Color(0, 150, 200));
-                g.drawImage(new ImageIcon("src/skins/player.png").getImage(),
-                        creature.getPosition().x - creature.getFattiness(),
-                        creature.getPosition().y - creature.getFattiness(),
-                        creature.getFattiness() * 2,
-                        creature.getFattiness() * 2,
-                        null);
-            }
+
+        Creature creature = game.getPlayer();
+        BufferedImage bi;
+        try
+        {
+            bi = ImageIO.read(new File("src/skins/player.png"));
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.rotate(creature.getDirection());
+            g2d.drawImage(bi, creature.MapLocation.x, creature.MapLocation.y , null);
+            g2d.rotate(-creature.getDirection());
+            g2d.setColor(new Color(201, 42, 21));
+            g2d.drawOval(creature.getPosition().x - creature.getFattiness(), creature.getPosition().y -creature.getFattiness(), creature.getFattiness() * 2, creature.getFattiness() * 2);
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Failed at opening player skin");
         }
     }
 

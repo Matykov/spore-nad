@@ -10,10 +10,9 @@ public class GUI
     {
         JFrame frame = new JFrame("spore-nad");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(600, 500);
         frame.setResizable(true); //false чтобы нельзя было бы поменять размеры рамки, true -можно
         frame.add(new MainWindow(frame, game));
-//        System.out.println(game.getPlayer().getPosition());
         frame.setVisible(true);
 
         while(true)
