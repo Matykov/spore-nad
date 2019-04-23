@@ -1,7 +1,6 @@
 package gui;
 
 import engine.*;
-import logic.ServerGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,14 +23,10 @@ public class MainWindow extends JPanel implements ActionListener
     protected Game game;
     private KeyAdapter keyAdapter;
 
-    protected Point MapShift;
+    private Point MapShift;
 
-    protected MainWindow(JFrame frame, ServerGame game)
+    protected MainWindow()
     {
-        timer.start();
-        game.update();
-        this.frame = frame;
-        this.game = game;
     }
 
     public MainWindow(JFrame frame, Game game)
@@ -60,10 +55,12 @@ public class MainWindow extends JPanel implements ActionListener
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
                     game.getPlayer().turn(Math.PI / 8);
+                    System.out.println(game.getPlayer().getDirection());
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     game.getPlayer().turn(-Math.PI / 8);
+                    System.out.println(game.getPlayer().getDirection());
                 }
                 repaint();
             }
@@ -76,29 +73,28 @@ public class MainWindow extends JPanel implements ActionListener
     {
         super.paintComponent(g);
 
-//        drawPlayer(g);
-//        drawFood(g);
-//        drawProgressBar(g);
         Graphics2D g2d = (Graphics2D)g;
         AffineTransform origXform = g2d.getTransform();
-        AffineTransform at = (AffineTransform) (origXform.clone());
-        at.rotate(game.getPlayer().getDirection(), frame.getWidth() / 2, frame.getHeight() /2);
-        at.translate(MapShift.x, MapShift.y);
-        g2d.setTransform(at);
+        AffineTransform mapAT = (AffineTransform) (origXform.clone());
+        mapAT.translate(MapShift.x, MapShift.y);
+        g2d.setTransform(mapAT);
         drawFood(g);
         //true position
-        g2d.drawOval(game.getPlayer().getPosition().x - game.getPlayer().getFattiness(), game.getPlayer().getPosition().y -game.getPlayer().getFattiness(), game.getPlayer().getFattiness() * 2, game.getPlayer().getFattiness() * 2);
-        g2d.setTransform(origXform);
-        g2d.setColor(new Color(0xC92A15));
-        //center position
-        g2d.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
-                frame.getHeight() /2- game.getPlayer().getFattiness(),
+        g2d.drawOval(game.getPlayer().getPosition().x - game.getPlayer().getFattiness(),
+                game.getPlayer().getPosition().y - game.getPlayer().getFattiness(),
                 game.getPlayer().getFattiness() * 2,
                 game.getPlayer().getFattiness() * 2);
-        drawProgressBar(g);
-
-
-
+        g2d.setTransform(origXform);
+        drawPlayer(g2d);
+        AffineTransform partsAT = (AffineTransform) (origXform.clone());
+        partsAT.rotate(game.getPlayer().getDirection(),
+                frame.getWidth() / 2,
+                frame.getHeight() / 2);
+        partsAT.translate(frame.getWidth() / 2, frame.getHeight() /2);
+        g2d.setTransform(partsAT);
+        drawEye(g2d);
+        g2d.setTransform(origXform);
+        drawProgressBar(g2d);
     }
 
     public void drawCreature(Graphics g)
@@ -113,26 +109,28 @@ public class MainWindow extends JPanel implements ActionListener
 
     private void drawPlayer(Graphics g)
     {
-
-        Creature creature = game.getPlayer();
-        BufferedImage bi;
-        try
-        {
-            bi = ImageIO.read(new File("src/skins/player.png"));
-            Graphics2D g2d = (Graphics2D)g;
-            g2d.rotate(creature.getDirection());
-            g2d.drawImage(bi, creature.MapLocation.x, creature.MapLocation.y , null);
-            g2d.rotate(-creature.getDirection());
-            g2d.setColor(new Color(201, 42, 21));
-            g2d.drawOval(creature.getPosition().x - creature.getFattiness(), creature.getPosition().y -creature.getFattiness(), creature.getFattiness() * 2, creature.getFattiness() * 2);
-        }
-        catch (IOException ex)
-        {
-            System.out.println("Failed at opening player skin");
-        }
+        g.setColor(new Color(40));
+        g.fillOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
+                frame.getHeight() / 2 - game.getPlayer().getFattiness(),
+                game.getPlayer().getFattiness() * 2,
+                game.getPlayer().getFattiness() * 2);
     }
 
-    public void drawFood(Graphics g)
+
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+    }
+
+    public void drawProgressBar(Graphics g)
+    {
+        g.setColor(new Color(0x136B21));
+        g.drawRect(frame.getWidth() / 4, 20, frame.getWidth() / 2, 30);
+        g.fillRect(frame.getWidth() / 4, 20, (int)(game.getPercentCompletion() * frame.getWidth() / 2), 30);
+    }
+
+    protected void drawFood(Graphics g)
     {
         ArrayList<Food> food = game.getLevel().getMeals();
 
@@ -150,17 +148,22 @@ public class MainWindow extends JPanel implements ActionListener
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e)
+    protected void drawEye(Graphics g)
     {
-    }
-
-
-    public void drawProgressBar(Graphics g)
-    {
-        g.setColor(new Color(0x136B21));
-        g.drawRect(frame.getWidth() / 4, 20, frame.getWidth() / 2, 30);
-        g.fillRect(frame.getWidth() / 4, 20, (int)(game.getPercentCompletion() * frame.getWidth() / 2), 30);
+        try
+        {
+            BufferedImage bi = ImageIO.read(new File("src/skins/eye.png"));
+            g.drawImage(bi,
+                    -bi.getWidth(),
+                    -game.getPlayer().getFattiness(),
+                    23,
+                    23,
+                    null);
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Failed at opening player skin");
+        }
     }
 
 }
