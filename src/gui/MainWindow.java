@@ -200,10 +200,11 @@ public class MainWindow extends JPanel implements ActionListener
         if (creature.IsPlayer)
             pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
         else
-            pos = new Point(creature.getPosition().x - creature.getFattiness(),
-                    creature.getPosition().y - creature.getFattiness());
+            pos = new Point(creature.getPosition().x,
+                    creature.getPosition().y);
         partsAT.rotate(creature.getDirection(), pos.x, pos.y);
         partsAT.translate(pos.x, pos.y);
+        g.drawOval(pos.x, pos.y, 7, 7);
         g.setTransform(partsAT);
         try
         {
