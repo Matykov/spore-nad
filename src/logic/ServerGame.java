@@ -57,6 +57,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable {
     @Override
     public void onConnectWrite(OutputStream stream) throws IOException {
         NetPlayer player = (NetPlayer) Level.getCreatures().get(onlinePlayers);
+        onlinePlayers++;
         ObjectOutputStream oos = new ObjectOutputStream(stream);
 //        logger.log("Sending Level: " + player.getId() + " position: " + player.getPosition());
         oos.writeObject(Level);
@@ -69,7 +70,6 @@ public class ServerGame extends Game implements IServerWorker, Serializable {
         while(true){
             update();
             Level.refreshPlayers();
-            onlinePlayers = Level.onlinePlayers();
         }
     }
 

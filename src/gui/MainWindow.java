@@ -2,6 +2,7 @@ package gui;
 
 import engine.*;
 import logic.ClientGame;
+import logic.NetPlayer;
 import netParts.old.Client;
 
 import javax.imageio.ImageIO;
@@ -150,10 +151,19 @@ public class MainWindow extends JPanel implements ActionListener
                 game.getPlayer().getFattiness() * 2,
                 game.getPlayer().getFattiness() * 2);
 
-        for (Creature creature: game.getBots())
-        {
-            drawCreature(g, creature);
-            drawEye(g, mapAT, creature);
+        if(game instanceof ClientGame){
+            for (Creature creature : game.getLevel().getCreatures()) {
+                if (((NetPlayer)creature).isActive()) {
+                    drawCreature(g, creature);
+                    drawEye(g, mapAT, creature);
+                }
+            }
+        }
+        else {
+            for (Creature creature : game.getBots()) {
+                drawCreature(g, creature);
+                drawEye(g, mapAT, creature);
+            }
         }
 
         g.setTransform(oldForm);
