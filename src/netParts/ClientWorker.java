@@ -10,7 +10,7 @@ public class ClientWorker implements Runnable {
     private Socket clientSession;
     private BufferedReader bufferedReader;
     private InputStream inputStream;
-    private  OutputStream outputStream;
+    private OutputStream outputStream;
     private IServerWorker serverWorker;
     private long sleepyTime;
 //    private ISocketReader sockReader;

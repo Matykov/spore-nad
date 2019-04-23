@@ -13,13 +13,15 @@ public class Level implements Serializable
     private ArrayList<Food> Meals;
     private Player Player;
     private int CompletedFattiness;
+    private ArrayList<Creature> Bots;
 
     public final int AverageFoodCount;
 
-    public Level(Player player, Creature[] creatures, Point[] foodPoses, int averageFoodCount, int completedFattiness)
+    public Level(Player player, Creature[] creatures, Creature[] bots, Point[] foodPoses, int averageFoodCount, int completedFattiness)
     {
         Player = player;
         Creatures = new ArrayList<>(Arrays.asList(creatures));
+        Bots = new ArrayList<>(Arrays.asList(bots));
         AverageFoodCount = averageFoodCount;
         generateFood(foodPoses);
         CompletedFattiness = completedFattiness;
@@ -78,5 +80,9 @@ public class Level implements Serializable
     public int getCompletedFattiness()
     {
         return CompletedFattiness;
+    }
+
+    public ArrayList<Creature> getBots() {
+        return Bots;
     }
 }

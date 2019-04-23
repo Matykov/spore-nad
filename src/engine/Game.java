@@ -2,18 +2,25 @@ package engine;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Game implements Serializable
 {
     protected Player Player;
     protected Level Level;
     private int ProgressBar;
+    private ArrayList<Creature> Creatures;
+    private ArrayList<Creature> Bots;
+
 
     public Game(Level level)
     {
         Level = level;
         Player = level.getPlayer();
         ProgressBar = 0;
+        Creatures = new ArrayList<>(level.getCreatures());
+        Bots = new ArrayList<>(level.getBots());
     }
 
     protected Game(){
@@ -35,14 +42,25 @@ public class Game implements Serializable
         return ProgressBar;
     }
 
+    private void moveBot(Creature bot)
+    {
+        Random random = new Random();
+
+
+        int changeAngle = 0;
+        int angle = random.nextInt(17);
+        double radAngle = angle * Math.PI / 8;
+
+    }
+
+
     public void tryToFeedCreatures()
     {
         //TODO decrease complexity with sectors
 
-        var creatures = Level.getCreatures();
         var meals = Level.getMeals();
 
-        for (Creature creature: creatures)
+        for (Creature creature: Creatures)
         {
             var creaturePos = creature.getPosition();
 
@@ -84,6 +102,8 @@ public class Game implements Serializable
             System.out.println("Level completed");
         }
     }
+
+
 
     public double getPercentCompletion()
     {

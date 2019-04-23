@@ -13,7 +13,7 @@ public class GUI
         JFrame frame = new JFrame("spore-nad");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
-        frame.setResizable(true); //false чтобы нельзя было бы поменять размеры рамки, true -можно
+        frame.setResizable(true);
         if (game instanceof ServerGame)
             frame.add(new ServerWindow(frame, (ServerGame)game));
         else
