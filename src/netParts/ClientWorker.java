@@ -12,17 +12,19 @@ public class ClientWorker implements Runnable {
     private InputStream inputStream;
     private  OutputStream outputStream;
     private IServerWorker serverWorker;
+    private long sleepyTime;
 //    private ISocketReader sockReader;
 //    private ISocketWriter sockWriter;
     private Logger logger = new Logger("server_log.txt");
     public ClientWorker(Socket clientSession,
-                        IServerWorker serverWorker){
+                        IServerWorker serverWorker, long sleepyTime){
         try {
             this.clientSession = clientSession;
             this.inputStream = clientSession.getInputStream();
             this.bufferedReader = new BufferedReader(
                     new InputStreamReader(this.inputStream));
             this.outputStream = clientSession.getOutputStream();
+            this.sleepyTime = sleepyTime;
 //            this.sockReader = sockReader;
 //            this.sockWriter = sockWriter;
             this.serverWorker = serverWorker;
@@ -48,6 +50,11 @@ public class ClientWorker implements Runnable {
                     if (bufferedReader.ready()) {
                         if (bufferedReader.ready())
                             serverWorker.read(inputStream);
+//                        try {
+//                            Thread.sleep(sleepyTime);
+//                        }catch(InterruptedException ignored){
+//                            System.out.println(ignored.toString());
+//                        }
                         serverWorker.write(outputStream);
                     }
                 }catch(IOException ioe){

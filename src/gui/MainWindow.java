@@ -1,6 +1,7 @@
 package gui;
 
 import engine.*;
+import logic.ServerGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,23 +15,30 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class MainWindow extends JPanel implements ActionListener
 {
     Timer timer = new Timer(10, this);
 
-    private JFrame frame;
-    private Game game;
+    protected JFrame frame;
+    protected Game game;
     private KeyAdapter keyAdapter;
 
-    private Point MapLocaton;
+    protected Point MapShift;
+
+    protected MainWindow(JFrame frame, ServerGame game)
+    {
+        timer.start();
+        game.update();
+        this.frame = frame;
+        this.game = game;
+    }
 
     public MainWindow(JFrame frame, Game game)
     {
         timer.start();
         game.update();
-        MapLocaton = new Point(frame.getWidth() / 2 - game.getPlayer().getPosition().x, frame.getHeight() / 2 - game.getPlayer().getPosition().x);
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getPosition().x, frame.getHeight() / 2 - game.getPlayer().getPosition().x);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -40,14 +48,14 @@ public class MainWindow extends JPanel implements ActionListener
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
                     var s = game.getPlayer().move(-5);
-                    MapLocaton.x -= s.x;
-                    MapLocaton.y -= s.y;
+                    MapShift.x -= s.x;
+                    MapShift.y -= s.y;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
                     var s = game.getPlayer().move(5);
-                    MapLocaton.x -= s.x;
-                    MapLocaton.y -= s.y;
+                    MapShift.x -= s.x;
+                    MapShift.y -= s.y;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
@@ -74,8 +82,8 @@ public class MainWindow extends JPanel implements ActionListener
         Graphics2D g2d = (Graphics2D)g;
         AffineTransform origXform = g2d.getTransform();
         AffineTransform at = (AffineTransform) (origXform.clone());
-        at.rotate(game.getPlayer().getDirection(), this.getWidth() / 2, this.getHeight() /2);
-        at.translate(MapLocaton.x, MapLocaton.y);
+        at.rotate(game.getPlayer().getDirection(), frame.getWidth() / 2, frame.getHeight() /2);
+        at.translate(MapShift.x, MapShift.y);
         g2d.setTransform(at);
         drawFood(g);
         //true position
@@ -83,7 +91,10 @@ public class MainWindow extends JPanel implements ActionListener
         g2d.setTransform(origXform);
         g2d.setColor(new Color(0xC92A15));
         //center position
-        g2d.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(), frame.getHeight() /2- game.getPlayer().getFattiness(), game.getPlayer().getFattiness() * 2, game.getPlayer().getFattiness() * 2);
+        g2d.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
+                frame.getHeight() /2- game.getPlayer().getFattiness(),
+                game.getPlayer().getFattiness() * 2,
+                game.getPlayer().getFattiness() * 2);
         drawProgressBar(g);
 
 

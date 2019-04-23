@@ -40,7 +40,8 @@ public class ClientGame extends Game {
             oos.flush();
             ObjectInputStream ois = new ObjectInputStream(inputStream);
             Level = (Level) ois.readObject();
-            //Player = Level.getPlayer(((NetPlayer) Player).getId());
+            //System.out.println("Creature: " +Player.getPosition().toString()+  " " + Player.getFattiness());
+            Player = Level.getPlayer(((NetPlayer) Player).getId());
         }catch(IOException ioe){
             client.closeConnection();
             System.out.println(ioe.toString());

@@ -13,7 +13,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable {
     private int onlinePlayers;
     public ServerGame(int port, engine.Level level){
         this.Level = level;
-        Server server = new Server(port, this);
+        Server server = new Server(port, this, 0);
         server.start();
     }
     @Override
@@ -23,6 +23,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable {
             NetPlayer player = (NetPlayer) ois.readObject();
             if(player!=null) {
                 Level.setPlayer(player);
+                //update();
             }
         }catch(ClassNotFoundException ignored){
             System.out.println(ignored.toString());
@@ -44,8 +45,6 @@ public class ServerGame extends Game implements IServerWorker, Serializable {
     @Override
     public void onConnectWrite(OutputStream stream) throws IOException {
         NetPlayer player = (NetPlayer) Level.getCreatures().get(onlinePlayers);
-        //Level.addPlayer(player);
-        //onlinePlayers++;
         ObjectOutputStream oos = new ObjectOutputStream(stream);
         oos.writeObject(Level);
         oos.flush();

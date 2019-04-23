@@ -14,13 +14,15 @@ public class Server extends Thread{
     private ServerSocket socket;
     private Logger logger = new Logger("server_log.txt");
     static ExecutorService executeIt = Executors.newFixedThreadPool(threadsCount);
+    private long sleepyTime;
 //    private ISocketReader sockReader;
 //    private ISocketWriter sockWriter;
     private IServerWorker serverWorker;
     public Server(int socketPort,
-                  IServerWorker serverWorker){
+                  IServerWorker serverWorker, long sleepyTime){
         try {
             this.socket = new ServerSocket(socketPort);
+            this.sleepyTime = sleepyTime;
 //            this.sockWriter = sockWriter;
 //            this.sockReader = sockReader;
             this.serverWorker = serverWorker;
@@ -39,7 +41,7 @@ public class Server extends Thread{
         try {
             while (!socket.isClosed()) {
                 Socket client = socket.accept();
-                executeIt.execute(new ClientWorker(client, serverWorker));
+                executeIt.execute(new ClientWorker(client, serverWorker, sleepyTime));
                 String message = "New Client connected: " + client.toString();
                 logger.log(message);
                 System.out.println(message);
