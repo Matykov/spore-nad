@@ -1,6 +1,8 @@
 package gui;
 
 import engine.*;
+import logic.ClientGame;
+import netParts.old.Client;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +29,47 @@ public class MainWindow extends JPanel implements ActionListener
 
     protected MainWindow()
     {
+    }
+
+    public MainWindow(JFrame frame, ClientGame game)
+    {
+        timer.start();
+        game.update();
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getPosition().x, frame.getHeight() / 2 - game.getPlayer().getPosition().x);
+        this.frame = frame;
+        this.game = game;
+        this.keyAdapter = new KeyAdapter()
+        {
+            public void keyPressed(KeyEvent e)
+            {
+                if (e.getKeyCode() == KeyEvent.VK_UP)
+                {
+                    var s = game.getPlayer().move(-5);
+                    MapShift.x -= s.x;
+                    MapShift.y -= s.y;
+                    game.update();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN)
+                {
+                    var s = game.getPlayer().move(5);
+                    MapShift.x -= s.x;
+                    MapShift.y -= s.y;
+                    game.update();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+                {
+                    game.getPlayer().turn(Math.PI / 8);
+                    game.update();
+                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT)
+                {
+                    game.getPlayer().turn(-Math.PI / 8);
+                    game.update();
+                }
+                repaint();
+            }
+        };
+        frame.addKeyListener(keyAdapter);
     }
 
     public MainWindow(JFrame frame, Game game)
@@ -77,7 +120,8 @@ public class MainWindow extends JPanel implements ActionListener
         drawMap(g2d, origXform);
         drawPlayer(g2d);
         drawEye(g2d, origXform, game.getPlayer());
-        drawProgressBar(g2d);
+        if (!(game instanceof ClientGame))
+            drawProgressBar(g2d);
 
         if (game.getPercentCompletion() >= 1)
         {

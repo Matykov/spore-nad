@@ -13,6 +13,7 @@ public class Client {
     public Client(String ipAddress, int port){
         try {
             this.socket = new Socket(ipAddress, port);
+            System.out.println(socket.toString());
             this.inputStream = socket.getInputStream();
             this.outputStream = socket.getOutputStream();
         }catch(IOException ioe){

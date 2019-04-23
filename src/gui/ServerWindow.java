@@ -12,7 +12,9 @@ import java.awt.geom.AffineTransform;
 public class ServerWindow extends MainWindow {
 
     protected ServerWindow(JFrame frame, ServerGame game) {
-        super(frame, game);
+        //super(frame, game);
+        this.frame = frame;
+        this.game = game;
     }
 
     @Override

@@ -10,9 +10,9 @@ public class Game implements Serializable
 {
     protected Player Player;
     protected Level Level;
-    private int ProgressBar;
-    private ArrayList<Creature> Creatures;
-    private ArrayList<Creature> Bots;
+    protected int ProgressBar;
+    protected ArrayList<Creature> Creatures;
+    protected ArrayList<Creature> Bots;
 
     private long tikck = 0;
 
