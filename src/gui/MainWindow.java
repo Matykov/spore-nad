@@ -55,12 +55,10 @@ public class MainWindow extends JPanel implements ActionListener
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
                     game.getPlayer().turn(Math.PI / 8);
-                    System.out.println(game.getPlayer().getDirection());
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     game.getPlayer().turn(-Math.PI / 8);
-                    System.out.println(game.getPlayer().getDirection());
                 }
                 repaint();
             }
@@ -78,13 +76,17 @@ public class MainWindow extends JPanel implements ActionListener
 
         drawMap(g2d, origXform);
         drawPlayer(g2d);
-        drawEye(g2d, origXform);
+        drawEye(g2d, origXform, game.getPlayer());
         drawProgressBar(g2d);
+
+        if (game.getPercentCompletion() >= 1)
+        {
+            drawLevelCompletion(g2d);
+        }
     }
 
-    public void drawCreature(Graphics g)
+    public void drawCreature(Graphics g, Creature creature)
     {
-        Creature creature = game.getPlayer();
         g.setColor(new Color(0, 150, 200));
         g.fillOval(creature.getPosition().x - creature.getFattiness(),
                 creature.getPosition().y - creature.getFattiness(),
@@ -98,11 +100,17 @@ public class MainWindow extends JPanel implements ActionListener
         mapAT.translate(MapShift.x, MapShift.y);
         g.setTransform(mapAT);
         drawFood(g);
-        //true position
+        //true player position
         g.drawOval(game.getPlayer().getPosition().x - game.getPlayer().getFattiness(),
                 game.getPlayer().getPosition().y - game.getPlayer().getFattiness(),
                 game.getPlayer().getFattiness() * 2,
                 game.getPlayer().getFattiness() * 2);
+
+        for (Creature creature: game.getBots())
+        {
+            drawCreature(g, creature);
+            drawEye(g, mapAT, creature);
+        }
 
         g.setTransform(oldForm);
     }
@@ -141,22 +149,26 @@ public class MainWindow extends JPanel implements ActionListener
 
     }
 
-    private void drawEye(Graphics2D g, AffineTransform oldForm)
+    private void drawEye(Graphics2D g, AffineTransform oldForm, Creature creature)
     {
         AffineTransform partsAT = (AffineTransform) (oldForm.clone());
-        partsAT.rotate(game.getPlayer().getDirection(),
-                frame.getWidth() / 2,
-                frame.getHeight() / 2);
-        partsAT.translate(frame.getWidth() / 2, frame.getHeight() /2);
+        Point pos;
+        if (creature.IsPlayer)
+            pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
+        else
+            pos = new Point(creature.getPosition().x - creature.getFattiness(),
+                    creature.getPosition().y - creature.getFattiness());
+        partsAT.rotate(creature.getDirection(), pos.x, pos.y);
+        partsAT.translate(pos.x, pos.y);
         g.setTransform(partsAT);
         try
         {
             BufferedImage bi = ImageIO.read(new File("src/skins/eye.png"));
             g.drawImage(bi,
                     -bi.getWidth(),
-                    -game.getPlayer().getFattiness(),
-                    23,
-                    23,
+                    -creature.getFattiness(),
+                    creature.getFattiness(),
+                    creature.getFattiness(),
                     null);
         }
         catch (IOException ex)
@@ -169,5 +181,11 @@ public class MainWindow extends JPanel implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
+    }
+
+    private void drawLevelCompletion(Graphics2D g)
+    {
+        g.setColor(new Color(0));
+        g.drawRect(0, 0, frame.getWidth(), frame.getHeight());
     }
 }

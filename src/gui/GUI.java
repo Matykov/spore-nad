@@ -14,10 +14,12 @@ public class GUI
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setResizable(true);
+
         if (game instanceof ServerGame)
             frame.add(new ServerWindow(frame, (ServerGame)game));
         else
             frame.add(new MainWindow(frame, game));
+
         frame.setVisible(true);
 
         while(true)

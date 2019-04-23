@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,6 +14,8 @@ public class Game implements Serializable
     private ArrayList<Creature> Creatures;
     private ArrayList<Creature> Bots;
 
+    private long tikck = 0;
+
 
     public Game(Level level)
     {
@@ -21,6 +24,7 @@ public class Game implements Serializable
         ProgressBar = 0;
         Creatures = new ArrayList<>(level.getCreatures());
         Bots = new ArrayList<>(level.getBots());
+        Creatures.addAll(Bots);
     }
 
     protected Game(){
@@ -42,14 +46,23 @@ public class Game implements Serializable
         return ProgressBar;
     }
 
-    private void moveBot(Creature bot)
+    private void moveBots()
     {
         Random random = new Random();
 
+        for (Creature bot: Bots)
+        {
+            int changeAnglePossibility = random.nextInt(8);
 
-        int changeAngle = 0;
-        int angle = random.nextInt(17);
-        double radAngle = angle * Math.PI / 8;
+            if (changeAnglePossibility == 0)
+            {
+                double angle = random.nextInt(17) * Math.PI / 8;
+                bot.turn(angle);
+            }
+
+            bot.move(5);
+            System.out.println(bot.getPosition());
+        }
 
     }
 
@@ -95,19 +108,27 @@ public class Game implements Serializable
 
     public void update()
     {
+        if (tikck == 80000)
+        {
+            moveBots();
+            tikck = 0;
+        }
         tryToFeedCreatures();
 
         if (getPercentCompletion() >= 1)
         {
             System.out.println("Level completed");
         }
+
+        tikck++;
     }
-
-
 
     public double getPercentCompletion()
     {
-        var d = (double)ProgressBar / Level.getCompletedFattiness();
-        return d;
+        return (double)ProgressBar / Level.getCompletedFattiness();
+    }
+
+    public Creature[] getBots() {
+        return Bots.toArray(new Creature[Bots.size()]);
     }
 }
