@@ -1,5 +1,7 @@
 package logic;
 
+import engine.Player;
+
 import java.awt.*;
 import java.io.Serializable;
 

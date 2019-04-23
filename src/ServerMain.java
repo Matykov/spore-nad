@@ -1,5 +1,5 @@
 import gui.GUI;
-import logic.Levels;
+import engine.Levels;
 import logic.ServerGame;
 
 public class ServerMain {

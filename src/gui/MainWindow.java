@@ -1,8 +1,6 @@
 package gui;
 
-import logic.Creature;
-import logic.Food;
-import logic.Game;
+import engine.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,10 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MainWindow extends JPanel implements ActionListener
 {
@@ -24,10 +24,13 @@ public class MainWindow extends JPanel implements ActionListener
     private Game game;
     private KeyAdapter keyAdapter;
 
+    private Point MapLocaton;
+
     public MainWindow(JFrame frame, Game game)
     {
         timer.start();
         game.update();
+        MapLocaton = new Point(frame.getWidth() / 2 - game.getPlayer().getPosition().x, frame.getHeight() / 2 - game.getPlayer().getPosition().x);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -36,11 +39,15 @@ public class MainWindow extends JPanel implements ActionListener
             {
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
-                    game.getPlayer().move(-5);
+                    var s = game.getPlayer().move(-5);
+                    MapLocaton.x -= s.x;
+                    MapLocaton.y -= s.y;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
-                    game.getPlayer().move(5);
+                    var s = game.getPlayer().move(5);
+                    MapLocaton.x -= s.x;
+                    MapLocaton.y -= s.y;
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
@@ -61,8 +68,25 @@ public class MainWindow extends JPanel implements ActionListener
     {
         super.paintComponent(g);
 
-        drawPlayer(g);
+//        drawPlayer(g);
+//        drawFood(g);
+//        drawProgressBar(g);
+        Graphics2D g2d = (Graphics2D)g;
+        AffineTransform origXform = g2d.getTransform();
+        AffineTransform at = (AffineTransform) (origXform.clone());
+        at.rotate(game.getPlayer().getDirection(), this.getWidth() / 2, this.getHeight() /2);
+        at.translate(MapLocaton.x, MapLocaton.y);
+        g2d.setTransform(at);
         drawFood(g);
+        //true position
+        g2d.drawOval(game.getPlayer().getPosition().x - game.getPlayer().getFattiness(), game.getPlayer().getPosition().y -game.getPlayer().getFattiness(), game.getPlayer().getFattiness() * 2, game.getPlayer().getFattiness() * 2);
+        g2d.setTransform(origXform);
+        g2d.setColor(new Color(0xC92A15));
+        //center position
+        g2d.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(), frame.getHeight() /2- game.getPlayer().getFattiness(), game.getPlayer().getFattiness() * 2, game.getPlayer().getFattiness() * 2);
+        drawProgressBar(g);
+
+
 
     }
 
@@ -119,4 +143,13 @@ public class MainWindow extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
     }
+
+
+    public void drawProgressBar(Graphics g)
+    {
+        g.setColor(new Color(0x136B21));
+        g.drawRect(frame.getWidth() / 4, 20, frame.getWidth() / 2, 30);
+        g.fillRect(frame.getWidth() / 4, 20, (int)(game.getPercentCompletion() * frame.getWidth() / 2), 30);
+    }
+
 }

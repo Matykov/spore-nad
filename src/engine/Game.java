@@ -1,4 +1,4 @@
-package logic;
+package engine;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -13,6 +13,7 @@ public class Game implements Serializable
     {
         Level = level;
         Player = level.getPlayer();
+        ProgressBar = 0;
     }
 
     protected Game(){
@@ -53,7 +54,13 @@ public class Game implements Serializable
                     {
                         if (dist(creaturePos, piecePosition) <= creature.getFattiness() - food.MaxSize)
                         {
-                            creature.putOnWeight(food.destroyPiece(piecePosition));
+                            int nutrition = food.destroyPiece(piecePosition);
+                            creature.putOnWeight(nutrition);
+
+                            if (creature.IsPlayer)
+                            {
+                                ProgressBar += nutrition;
+                            }
                             return;
                         }
                     }
@@ -71,5 +78,16 @@ public class Game implements Serializable
     public void update()
     {
         tryToFeedCreatures();
+
+        if (getPercentCompletion() >= 1)
+        {
+            System.out.println("Level completed");
+        }
+    }
+
+    public double getPercentCompletion()
+    {
+        var d = (double)ProgressBar / Level.getCompletedFattiness();
+        return d;
     }
 }

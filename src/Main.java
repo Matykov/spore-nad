@@ -1,5 +1,6 @@
+import engine.Game;
+import engine.Levels;
 import gui.*;
-import logic.*;
 
 public class Main
 {

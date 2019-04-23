@@ -1,4 +1,6 @@
-package logic;
+package engine;
+
+import logic.NetPlayer;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -10,15 +12,17 @@ public class Level implements Serializable
     private ArrayList<Creature> Creatures;
     private ArrayList<Food> Meals;
     private Player Player;
+    private int CompletedFattiness;
 
     public final int AverageFoodCount;
 
-    public Level(Player player, Creature[] creatures, Point[] foodPoses, int averageFoodCount)
+    public Level(Player player, Creature[] creatures, Point[] foodPoses, int averageFoodCount, int completedFattiness)
     {
         Player = player;
         Creatures = new ArrayList<>(Arrays.asList(creatures));
         AverageFoodCount = averageFoodCount;
         generateFood(foodPoses);
+        CompletedFattiness = completedFattiness;
     }
 
     public void addPlayer(Player player){
@@ -69,5 +73,10 @@ public class Level implements Serializable
         Meals = new ArrayList<>();
         for (var p = 0; p < positions.length; p++)
             Meals.add(new Food(positions[p], AverageFoodCount));
+    }
+
+    public int getCompletedFattiness()
+    {
+        return CompletedFattiness;
     }
 }

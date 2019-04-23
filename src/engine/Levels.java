@@ -1,4 +1,6 @@
-package logic;
+package engine;
+
+import logic.NetPlayer;
 
 import java.awt.*;
 
@@ -9,7 +11,7 @@ public class Levels
         Creature[] creatures = { new Player(new Point(200, 200), 100, 50, 25) };
         Point[] points = { new Point(200, 200), new Point(200, 100) };
 
-        return new Level((Player)creatures[0], creatures, points, 5);
+        return new Level((Player)creatures[0], creatures, points, 5, 19);
     }
 
     public static Level getTestNetLevel()
@@ -22,6 +24,6 @@ public class Levels
         };
         Point[] points = { new Point(200, 200), new Point(200, 100) };
 
-        return new Level((Player)creatures[0], creatures, points, 5);
+        return new Level((Player)creatures[0], creatures, points, 5, 40);
     }
 }

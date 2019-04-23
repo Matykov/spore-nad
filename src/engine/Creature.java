@@ -1,13 +1,11 @@
-package logic;
+package engine;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.Random;
 
 public class Creature implements Serializable
 {
-    private Random random = new Random();
-
+    public boolean IsPlayer;
     private int Speed;
     private int Agility;
     private int Fattiness;
@@ -17,8 +15,9 @@ public class Creature implements Serializable
     public Point MapLocation;
     private double Direction;
 
-    public Creature(Point position, int speed, int agility, int fattiness)
+    public Creature(boolean isPlayer, Point position, int speed, int agility, int fattiness)
     {
+        IsPlayer = isPlayer;
         Position = position;
         Speed = speed;
         Agility = agility;
@@ -59,12 +58,7 @@ public class Creature implements Serializable
         Agility = newAgility;
     }
 
-    public void move(int shift)
-    {
-        Position.x += (int)(-shift * Math.abs((Math.sin(Direction)))) * Math.signum(Math.cos(Direction + 3 * Math.PI / 2));
-        Position.y += (int)(-shift * Math.abs((Math.cos(Direction)))) * Math.signum(Math.sin(Direction + 3 * Math.PI / 2));
-        recountMapLocation();
-    }
+
 
     public Food die()
     {
@@ -101,11 +95,10 @@ public class Creature implements Serializable
     {
         Direction += angle;
 
-        if (Math.abs(Direction) >= Math.PI * 2 )
+        if (Math.abs(Direction) >= Math.PI * 2)
         {
             Direction -= Math.signum(Direction) * Math.PI * 2;
         }
-        recountMapLocation();
     }
 
     public double getDirection()
@@ -121,7 +114,18 @@ public class Creature implements Serializable
         int x = (int)(dist * Math.cos(-origAngle - Direction + Math.PI / 2));
         int y = (int)(dist * Math.sin(-origAngle - Direction + Math.PI / 2));
 
-        MapLocation = new Point(x - Fattiness, y - Fattiness);
+        MapLocation = new Point(y - Fattiness, x - Fattiness);
+    }
+
+    public Point move(int shift)
+    {
+        Point newShift = new Point((int)(-shift * Math.abs((Math.sin(Direction))) * Math.signum(Math.cos(Direction + 3 * Math.PI / 2))),
+                (int)(-shift * Math.abs((Math.cos(Direction))) * Math.signum(Math.sin(Direction + 3 * Math.PI / 2))));
+
+        Position.x += newShift.x;
+        Position.y += newShift.y;
+
+        return newShift;
     }
 
 }

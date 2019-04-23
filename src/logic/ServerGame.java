@@ -1,16 +1,17 @@
 package logic;
 
+import engine.Creature;
+import engine.Game;
 import netParts.IServerWorker;
 import netParts.Server;
 
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
 public class ServerGame extends Game implements IServerWorker, Serializable {
     private ArrayList<Creature> creatures;
     private int onlinePlayers;
-    public ServerGame(int port, Level level){
+    public ServerGame(int port, engine.Level level){
         this.Level = level;
         Server server = new Server(port, this);
         server.start();

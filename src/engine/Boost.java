@@ -1,4 +1,4 @@
-package logic;
+package engine;
 
 public enum Boost
 {

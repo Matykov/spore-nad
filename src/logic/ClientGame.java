@@ -1,5 +1,7 @@
 package logic;
 
+import engine.Game;
+import engine.Level;
 import netParts.old.Client;
 
 import java.io.*;
@@ -20,7 +22,7 @@ public class ClientGame extends Game {
 
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
-                this.Level = (Level) ois.readObject();
+                this.Level = (engine.Level) ois.readObject();
                 //ois = new ObjectInputStream(inputStream);
                 this.Player = (NetPlayer) ois.readObject();
             } catch (ClassNotFoundException ignored) {
