@@ -1,39 +1,44 @@
 package gui;
 
-import com.sun.tools.javac.Main;
-import engine.Creature;
-import engine.Level;
-import logic.ServerGame;
+import engine.*;
+import logic.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
-public class ServerWindow extends MainWindow {
+public class ServerWindow extends GameWindow {
 
-    protected ServerWindow(JFrame frame, ServerGame game) {
+    public ServerWindow(JFrame frame, ServerGame game) {
         //super(frame, game);
         this.frame = frame;
         this.game = game;
     }
 
     @Override
-    public void paintComponent(Graphics g)
+    public void drawGame(Graphics2D g)
     {
-//        var father = this.getParent();
-//        father.getParent().paintComponents(g);
         Graphics2D g2d = (Graphics2D)g;
         for (var creature: game.getLevel().getCreatures()){
             drawCreature(g, creature);
         }
         drawFood(g);
-        //drawProgressBar(g);
     }
-    public void drawCreature(Graphics g, Creature creature){
-        g.setColor(new Color(0, 150, 200));
-        g.fillOval(creature.getPosition().x - creature.getFattiness(),
-                creature.getPosition().y - creature.getFattiness(),
-                creature.getFattiness() * 2,
-                creature.getFattiness() * 2);
+
+    @Override
+    protected void drawMap(Graphics2D g, AffineTransform oldForm)
+    {
+        for (Creature creature : game.getBots())
+        {
+            drawCreature(g, creature);
+            drawEye(g, oldForm, creature);
+        }
     }
+
+    @Override
+    protected void drawPlayer(Graphics g)
+    {
+
+    }
+
 }

@@ -1,6 +1,5 @@
 package logic;
 
-import engine.Game;
 import engine.Level;
 import logger.Logger;
 import netParts.old.Client;

@@ -1,8 +1,6 @@
 package logic;
 
 import engine.Creature;
-import engine.Game;
-import logger.Logger;
 import netParts.IServerWorker;
 import netParts.Server;
 

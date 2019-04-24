@@ -1,4 +1,4 @@
-import engine.Game;
+import logic.Game;
 import engine.Levels;
 import gui.*;
 

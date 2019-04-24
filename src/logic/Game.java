@@ -1,8 +1,9 @@
-package engine;
+package logic;
+
+import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,6 +16,7 @@ public class Game implements Serializable
     protected ArrayList<Creature> Bots;
 
     private long tikck = 0;
+    private boolean isLevelCompleted = false;
 
 
     public Game(Level level)
@@ -61,7 +63,6 @@ public class Game implements Serializable
             }
 
             bot.move(5);
-            System.out.println(bot.getPosition());
         }
 
     }
@@ -118,6 +119,7 @@ public class Game implements Serializable
         if (getPercentCompletion() >= 1)
         {
             System.out.println("Level completed");
+            isLevelCompleted = true;
         }
 
         tikck++;
@@ -131,4 +133,10 @@ public class Game implements Serializable
     public Creature[] getBots() {
         return Bots.toArray(new Creature[Bots.size()]);
     }
+
+    public boolean isLevelCompleted()
+    {
+        return isLevelCompleted;
+    }
+
 }
