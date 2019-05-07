@@ -5,7 +5,7 @@ import engine.Player;
 import java.awt.*;
 import java.io.Serializable;
 
-public class NetPlayer extends Player implements Serializable {
+public class NetPlayer extends Player implements Serializable, IRunOver {
     private static int ttl = 60000;
     private int id;
     private boolean active = false;

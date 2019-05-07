@@ -24,7 +24,7 @@ public class GUI
 
         while(true)
         {
-            game.update();
+            //game.update();
             frame.repaint();
         }
     }

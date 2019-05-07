@@ -9,11 +9,11 @@ import java.util.Random;
 
 public class Game implements Serializable
 {
-    protected Player Player;
-    protected Level Level;
-    protected int ProgressBar;
-    protected ArrayList<Creature> Creatures;
-    protected ArrayList<Creature> Bots;
+    protected Player player;
+    protected Level level;
+    protected int progressBar;
+    protected ArrayList<Creature> creatures;
+    protected ArrayList<Creature> bots;
 
     private long tikck = 0;
     private boolean isLevelCompleted = false;
@@ -21,12 +21,12 @@ public class Game implements Serializable
 
     public Game(Level level)
     {
-        Level = level;
-        Player = level.getPlayer();
-        ProgressBar = 0;
-        Creatures = new ArrayList<>(level.getCreatures());
-        Bots = new ArrayList<>(level.getBots());
-        Creatures.addAll(Bots);
+        this.level = level;
+        player = level.getPlayer();
+        progressBar = 0;
+        creatures = new ArrayList<>(level.getCreatures());
+        bots = new ArrayList<>(level.getBots());
+        creatures.addAll(bots);
     }
 
     protected Game(){
@@ -35,24 +35,24 @@ public class Game implements Serializable
 
     public Player getPlayer()
     {
-        return Player;
+        return player;
     }
 
     public Level getLevel()
     {
-        return Level;
+        return level;
     }
 
     public int getProgressBar()
     {
-        return ProgressBar;
+        return progressBar;
     }
 
     private void moveBots()
     {
         Random random = new Random();
 
-        for (Creature bot: Bots)
+        for (Creature bot: bots)
         {
             int changeAnglePossibility = random.nextInt(8);
 
@@ -72,9 +72,9 @@ public class Game implements Serializable
     {
         //TODO decrease complexity with sectors
 
-        var meals = Level.getMeals();
+        var meals = level.getMeals();
 
-        for (Creature creature: Creatures)
+        for (Creature creature: creatures)
         {
             var creaturePos = creature.getPosition();
 
@@ -91,7 +91,7 @@ public class Game implements Serializable
 
                             if (creature.IsPlayer)
                             {
-                                ProgressBar += nutrition;
+                                progressBar += nutrition;
                             }
                             return;
                         }
@@ -118,7 +118,7 @@ public class Game implements Serializable
 
         if (getPercentCompletion() >= 1)
         {
-            System.out.println("Level completed");
+            System.out.println("level completed");
             isLevelCompleted = true;
         }
 
@@ -127,11 +127,11 @@ public class Game implements Serializable
 
     public double getPercentCompletion()
     {
-        return (double)ProgressBar / Level.getCompletedFattiness();
+        return (double) progressBar / level.getCompletedFattiness();
     }
 
     public Creature[] getBots() {
-        return Bots.toArray(new Creature[Bots.size()]);
+        return bots.toArray(new Creature[bots.size()]);
     }
 
     public boolean isLevelCompleted()

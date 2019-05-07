@@ -13,8 +13,6 @@ public class ClientWorker implements Runnable {
     private OutputStream outputStream;
     private IServerWorker serverWorker;
     private long sleepyTime;
-//    private ISocketReader sockReader;
-//    private ISocketWriter sockWriter;
     private Logger logger = new Logger("server_log.txt");
     public ClientWorker(Socket clientSession,
                         IServerWorker serverWorker, long sleepyTime){
@@ -55,7 +53,8 @@ public class ClientWorker implements Runnable {
 //                        }catch(InterruptedException ignored){
 //                            System.out.println(ignored.toString());
 //                        }
-                        serverWorker.write(outputStream);
+                        if(serverWorker.isReady())
+                            serverWorker.write(outputStream);
                     }
                 }catch(IOException ioe){
                     bufferedReader.close();
