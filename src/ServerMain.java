@@ -1,7 +1,6 @@
 import engine.Levels;
 import gui.GUI;
 import logic.ServerGame;
-import netParts.Async.Server.AsyncServer;
 
 public class ServerMain {
     public static void main(String[] args)

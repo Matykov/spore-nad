@@ -14,8 +14,8 @@ public class PlayerMessage implements IMessage {
     public void run(IRunOver runOver) {
         if(runOver instanceof ServerGame){
             ServerGame game = (ServerGame)runOver;
-            game.getLevel().setPlayer(player);
-            game.renewCreatures();
+            game.setPlayer(player);
+            //game.renewCreatures();
         }
 
     }

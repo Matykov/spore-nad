@@ -4,12 +4,13 @@ import engine.Level;
 import logic.ClientGame;
 import logic.IMessage;
 import logic.IRunOver;
+import logic.SectorNet;
 
 public class LevelMessage implements IMessage {
-    private Level level;
-    public LevelMessage(Level level)
+    private SectorNet sectors;
+    public LevelMessage(SectorNet sectors)
     {
-        this.level = level;
+        this.sectors = sectors;
     }
 
     @Override
@@ -18,7 +19,7 @@ public class LevelMessage implements IMessage {
         if(runOver instanceof ClientGame)
         {
             ClientGame game = (ClientGame) runOver;
-            game.setSectorNet(level);
+            game.setSectorNet(sectors);
         }
     }
 }

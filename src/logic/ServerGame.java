@@ -28,6 +28,20 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
         server.start();
 
     }
+    public void setPlayer(NetPlayer player)
+    {
+        for(int i=0; i < SectorNet.size; i++){
+            for(int j=0; j<SectorNet.size; j++){
+                for(var inPlayer:curSectors.sectors[i][j].creatures)
+                {
+                    if(((NetPlayer)inPlayer).getId() == player.getId()){
+                        inPlayer = player;
+                        return;
+                    }
+                }
+            }
+        }
+    }
 //    public void renewCreatures(){
 //        for(int i=0; i < SectorNet.size; i++){
 //            for(int j=0; j<SectorNet.size; j++){
@@ -60,7 +74,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     public void write(OutputStream stream) throws IOException {
             ObjectOutputStream oos = new ObjectOutputStream(stream);
-            oos.writeObject(new LevelMessage(level));
+            oos.writeObject(new LevelMessage(curSectors));
             oos.flush();
             readyToWrite = false;
     }
