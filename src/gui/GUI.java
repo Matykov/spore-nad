@@ -18,7 +18,7 @@ public class GUI
         if (game instanceof ServerGame)
             frame.add(new ServerWindow(frame, (ServerGame)game));
         else
-            frame.add(new ClientWindow(frame, game));
+            frame.add(new ClientWindow(frame, (ClientGame)game));
 
         frame.setVisible(true);
 

@@ -1,9 +1,8 @@
 package logic;
 
-import engine.Player;
-
 import java.awt.*;
 import java.io.Serializable;
+import engine.*;
 
 public class NetPlayer extends Player implements Serializable, IRunOver {
     private static int ttl = 60000;

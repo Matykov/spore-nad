@@ -1,88 +1,74 @@
 package engine;
 
 import logic.NetPlayer;
+import logic.Sector;
 
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Level implements Serializable
 {
-    private ArrayList<Creature> Creatures;
-    private ArrayList<Food> Meals;
-    private Player Player;
-    private int CompletedFattiness;
-    private ArrayList<Creature> Bots;
+    private Player player;
+    public final int completedFattiness;
 
-    public final int AverageFoodCount;
+    public final int avgPiecesCount = 7;
+    private final int avgSectorFoodCount = 2;
+    private final int avgSectorBotCount = 1;
 
-    public Level(Player player, Creature[] creatures, Creature[] bots, Point[] foodPoses, int averageFoodCount, int completedFattiness)
+    public Level(Player player, int completedFattiness)
     {
-        Player = player;
-        Creatures = new ArrayList<>(Arrays.asList(creatures));
-        Bots = new ArrayList<>(Arrays.asList(bots));
-        AverageFoodCount = averageFoodCount;
-        generateFood(foodPoses);
-        CompletedFattiness = completedFattiness;
+        this.player = player;
+        this.completedFattiness = completedFattiness;
     }
 
-    public void addPlayer(Player player){
-        Creatures.add(player);
-    }
-
-    public void setPlayer(NetPlayer player){
-        player.activate();
-        Creatures.set(player.getId(), player);
-    }
-
-    public void refreshPlayers(){
-        for(var creature:Creatures){
-            if(creature instanceof NetPlayer)
-                ((NetPlayer) creature).checkLive();
-        }
-    }
-
-    public int onlinePlayers(){
-        int count = 0;
-        for(var creature:Creatures){
-            if (creature instanceof NetPlayer && ((NetPlayer) creature).isActive())
-                count++;
-        }
-        return count;
-    }
-
-    public ArrayList<Creature> getCreatures()
+    public Sector generateSector()
     {
-        return Creatures;
+        var s = new Sector();
+
+        Random r = new Random();
+        var curFoodCount = generateCurValue(r, avgSectorFoodCount);
+        var curSectorBotCount = generateCurValue(r, avgSectorBotCount);
+
+
+        //generate sector food
+        for (var i = 0; i < curFoodCount; i++)
+        {
+            var position = new Point(r.nextInt(s.size.x), r.nextInt(s.size.y));
+            var count = generateCurValue(r, avgPiecesCount);
+
+            s.food.add(new Food(position, count));
+        }
+
+        //generate sector bots
+        for (var i = 0; i < curSectorBotCount; i++)
+        {
+            var position = new Point(r.nextInt(s.size.x), r.nextInt(s.size.y));
+            var speed = generateCurValue(r, player.getSpeed());
+            var agility = generateCurValue(r, player.getAgility());
+            var fattiness = generateCurValue(r, player.getFattiness());
+
+            s.bots.add(new Creature(position, speed, agility, fattiness));
+        }
+
+        return s;
+    }
+
+    private int generateCurValue(Random r, int num)
+    {
+        var inaccuracy = num / 3 > 1? num / 3 : 1;
+        return r.nextInt(2 * inaccuracy) + num - inaccuracy;
     }
 
     public Player getPlayer()
     {
-        return Player;
-    }
-    public NetPlayer getPlayer(int i){
-        return (NetPlayer) Creatures.get(i);
-    }
-
-    public ArrayList<Food> getMeals()
-    {
-        return Meals;
-    }
-
-    private void generateFood(Point[] positions)
-    {
-        Meals = new ArrayList<>();
-        for (var p = 0; p < positions.length; p++)
-            Meals.add(new Food(positions[p], AverageFoodCount));
+        return player;
     }
 
     public int getCompletedFattiness()
     {
-        return CompletedFattiness;
-    }
-
-    public ArrayList<Creature> getBots() {
-        return Bots;
+        return completedFattiness;
     }
 }

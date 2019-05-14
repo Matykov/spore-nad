@@ -12,6 +12,8 @@ public class Food implements Serializable
     private HashMap<Point, Integer> Pieces;
     private Point FoodPosition;
 
+    public boolean isEmpty = false;
+
     public final int PiecesRarity = 25;
     public final int MaxSize = 3;
 
@@ -51,6 +53,9 @@ public class Food implements Serializable
     {
         var fat = Pieces.get(position);
         Pieces.remove(position);
+
+        if (Pieces.isEmpty())
+            isEmpty = true;
 
         return fat;
     }

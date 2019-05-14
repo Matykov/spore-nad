@@ -18,7 +18,7 @@ public class LevelMessage implements IMessage {
         if(runOver instanceof ClientGame)
         {
             ClientGame game = (ClientGame) runOver;
-            game.setLevel(level);
+            game.setSectorNet(level);
         }
     }
 }

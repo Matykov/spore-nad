@@ -17,8 +17,8 @@ public class ClientGame extends Game implements IRunOver{
 
     public ClientGame(String host, int port){
         try {
-            this.bots = new ArrayList<>();
-            this.creatures = new ArrayList<>();
+            //this.bots = new ArrayList<>();
+            //this.creatures = new ArrayList<>();
             this.client = new Client(host, port);
             this.inputStream = client.getInputStream();
             this.outputStream = client.getOutputStream();
@@ -36,14 +36,23 @@ public class ClientGame extends Game implements IRunOver{
             this.client.closeConnection();
         }
     }
-    public void registerSelf(Level level, NetPlayer player){
-        this.level = level;
+    public void registerSelf(SectorNet sectors, NetPlayer player){
+        this.curSectors = sectors;
         this.player = player;
     }
-    public void setLevel(Level level)
+    public void setSectorNet(SectorNet sectors)
     {
-        this.level = level;
-        this.player = level.getPlayer(((NetPlayer)player).getId());
+        this.curSectors = sectors;
+        for(int i=0; i<SectorNet.size; i++){
+            for(int j=0; j<SectorNet.size; j++){
+                for(var player:curSectors.sectors[i][j].getCreatures()){
+                    if(((NetPlayer)player).getId() == ((NetPlayer)player).getId()) {
+                        this.player = (NetPlayer) player;
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     @Override

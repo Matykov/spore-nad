@@ -72,7 +72,7 @@
 //            try {
 //                ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(level.array()));
 //                Level inputLevel = (Level)ois.readObject();
-//                game.setLevel(inputLevel);
+//                game.setSectorNet(inputLevel);
 //
 //            }catch(IOException ioe){
 //                System.out.println(ioe.toString());

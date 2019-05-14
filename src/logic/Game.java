@@ -4,7 +4,6 @@ import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Game implements Serializable
@@ -12,10 +11,9 @@ public class Game implements Serializable
     protected Player player;
     protected Level level;
     protected int progressBar;
-    protected ArrayList<Creature> creatures;
-    protected ArrayList<Creature> bots;
+    protected SectorNet curSectors;
 
-    private long tikck = 0;
+    private long tick = 0;
     private boolean isLevelCompleted = false;
 
 
@@ -24,9 +22,8 @@ public class Game implements Serializable
         this.level = level;
         player = level.getPlayer();
         progressBar = 0;
-        creatures = new ArrayList<>(level.getCreatures());
-        bots = new ArrayList<>(level.getBots());
-        creatures.addAll(bots);
+
+        curSectors = new SectorNet(level);
     }
 
     protected Game(){
@@ -38,65 +35,90 @@ public class Game implements Serializable
         return player;
     }
 
-    public Level getLevel()
-    {
+    public Level getLevel() {
         return level;
     }
 
-    public int getProgressBar()
+    public void observePlayer()
     {
-        return progressBar;
+        var playerPosX = player.getPosition().x + player.getFattiness();
+        var playerPosY = player.getPosition().y + player.getFattiness();
+
+        if (playerPosX < 0)
+            curSectors.moveFocusLeft(player);
+        else if (playerPosX > curSectors.sectorSize.x)
+            curSectors.moveFocusRight(player);
+        if (playerPosY < 0)
+            curSectors.moveFocusUp(player);
+        else if (playerPosY > curSectors.sectorSize.y)
+            curSectors.moveFocusDown(player);
     }
-
-    private void moveBots()
-    {
-        Random random = new Random();
-
-        for (Creature bot: bots)
-        {
-            int changeAnglePossibility = random.nextInt(8);
-
-            if (changeAnglePossibility == 0)
-            {
-                double angle = random.nextInt(17) * Math.PI / 8;
-                bot.turn(angle);
-            }
-
-            bot.move(5);
-        }
-
-    }
-
 
     public void tryToFeedCreatures()
     {
-        //TODO decrease complexity with sectors
+        Random random = new Random();
 
-        var meals = level.getMeals();
-
-        for (Creature creature: creatures)
+        for (var j = 0; j < 3; j++)
         {
-            var creaturePos = creature.getPosition();
-
-            for (Food food: meals)
+            for (var i = 0; i < 3; i++)
             {
-//                if (creaturePos.distance(food.getPosition()) <= food.PiecesRarity + creature.getFattiness())
-//                {
-                    for (Point piecePosition: food.getPieces().keySet())
-                    {
-                        if (dist(creaturePos, piecePosition) <= creature.getFattiness() - food.MaxSize)
-                        {
-                            int nutrition = food.destroyPiece(piecePosition);
-                            creature.putOnWeight(nutrition);
+                var curSec = curSectors.sectors[j][i];
 
-                            if (creature.IsPlayer)
+                for (Creature creature: curSec.getCreatures())
+                {
+
+                    var creaturePos = creature.getPosition();
+                    //food eating
+                    for (Food food : curSec.food)
+                    {
+                        for (Point piecePosition : food.getPieces().keySet())
+                        {
+                            if (dist(creaturePos, piecePosition) <= creature.getFattiness() - food.MaxSize)
+                            {
+                                int nutrition = food.destroyPiece(piecePosition);
+                                creature.putOnWeight(nutrition);
+
+                                curSec.removeFood();
+
+                                if (creature instanceof Player)
+                                {
+                                    progressBar += nutrition;
+                                }
+                            }
+                        }
+                    }
+
+                    //creature eating
+                    for (Creature preyCreature: curSec.getCreatures())
+                    {
+                        if (creature.getFattiness() > preyCreature.getFattiness() &&
+                                dist(creaturePos, preyCreature.getPosition()) <= creature.getFattiness() - preyCreature.getFattiness())
+                        {
+                            var nutrition = creature.eat(preyCreature);
+                            curSec.removeCreature(preyCreature);
+
+                            if (creature instanceof Player)
                             {
                                 progressBar += nutrition;
                             }
-                            return;
                         }
                     }
-//                }
+
+                    if (creature instanceof Bot && tick == 8000)
+                    {
+                        var bot = (Bot)creature;
+                        int changeAnglePossibility = random.nextInt(8);
+
+                        if (changeAnglePossibility == 0)
+                        {
+                            double angle = random.nextInt(17) * Math.PI / 8;
+                            bot.turn(angle);
+                        }
+
+                        bot.move(5);
+                        tick = 0;
+                    }
+                }
             }
         }
     }
@@ -106,15 +128,10 @@ public class Game implements Serializable
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }
 
-
     public void update()
     {
-        if (tikck == 80000)
-        {
-            moveBots();
-            tikck = 0;
-        }
         tryToFeedCreatures();
+        observePlayer();
 
         if (getPercentCompletion() >= 1)
         {
@@ -122,16 +139,12 @@ public class Game implements Serializable
             isLevelCompleted = true;
         }
 
-        tikck++;
+        tick++;
     }
 
     public double getPercentCompletion()
     {
         return (double) progressBar / level.getCompletedFattiness();
-    }
-
-    public Creature[] getBots() {
-        return bots.toArray(new Creature[bots.size()]);
     }
 
     public boolean isLevelCompleted()

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public class Creature implements Serializable
 {
-    public boolean IsPlayer;
+    public boolean IsDead = false;
     private int Speed;
     private int Agility;
     private int Fattiness;
@@ -15,9 +15,8 @@ public class Creature implements Serializable
     public Point MapLocation;
     private double Direction;
 
-    public Creature(boolean isPlayer, Point position, int speed, int agility, int fattiness)
+    public Creature(Point position, int speed, int agility, int fattiness)
     {
-        IsPlayer = isPlayer;
         Position = position;
         Speed = speed;
         Agility = agility;
@@ -60,9 +59,9 @@ public class Creature implements Serializable
 
 
 
-    public Food die()
+    public void die()
     {
-        return new Food(Position, Fattiness);
+        IsDead = true;
     }
 
     public void eat(Food food, Point position)
@@ -71,6 +70,17 @@ public class Creature implements Serializable
         {
             putOnWeight(food.getPieces().get(position));
         }
+    }
+
+    public int eat(Creature prey)
+    {
+        if (prey.getFattiness() < Fattiness)
+        {
+            putOnWeight(prey.getFattiness() - 3);
+            prey.die();
+            return prey.getFattiness() - 3;
+        }
+        return 0;
     }
 
     public void getDamage(Creature enemy)
