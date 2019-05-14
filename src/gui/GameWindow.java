@@ -2,6 +2,7 @@ package gui;
 
 import engine.*;
 import logic.Game;
+import logic.Sector;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,9 +55,9 @@ public abstract class GameWindow extends JPanel
         g.fillRect(frame.getWidth() / 4, 20, (int)(fullness * frame.getWidth() / 2), 30);
     }
 
-    protected void drawFood(Graphics g)
+    protected void drawFood(Graphics g, Sector sector)
     {
-        ArrayList<Food> food = game.getLevel().getMeals();
+        ArrayList<Food> food = sector.food;
 
         g.setColor(new Color(39, 200, 32));
 

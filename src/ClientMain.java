@@ -6,7 +6,7 @@ public class ClientMain {
     {
         var game = new ClientGame("10.96.3.4", 8081);
 
-        GUI.run(game);
+        new GUI().run(game);
     }
 
 }
