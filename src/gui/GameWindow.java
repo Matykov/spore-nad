@@ -32,7 +32,7 @@ public abstract class GameWindow extends JPanel
 
         drawGame((Graphics2D)g);
     }
-    protected abstract void drawMap(Graphics2D g, AffineTransform oldForm);
+    protected abstract void drawSector(Graphics2D g, AffineTransform oldForm, Sector sector);
     protected abstract void drawPlayer(Graphics g);
     protected abstract void drawGame(Graphics2D g);
 

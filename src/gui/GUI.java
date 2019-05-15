@@ -1,6 +1,7 @@
 package gui;
 
 import logic.Game;
+import logic.ServerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,22 +10,18 @@ import java.awt.*;
 public class GUI
 {
     public JFrame frame;
+    private Game game;
 
     public void run(Game game)
     {
         frame = new JFrame("spore-nad");
+        this.game = game;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setResizable(true);
 
         invokeMainMenu();
 
-//
-//        if (game instanceof ServerGame)
-//            frame.add(new ServerWindow(frame, (ServerGame)game));
-//        else
-//            frame.add(new ClientWindow(frame, (ClientGame)game));
-//
         frame.setPreferredSize(new Dimension(600, 500));
         frame.pack();
         frame.setVisible(true);
@@ -39,6 +36,11 @@ public class GUI
     public void invokeSPMode()
     {
         System.out.println("Single Player");
+
+        if (game instanceof ServerGame)
+            frame.add(new ServerWindow(frame, (ServerGame)game));
+        else
+            frame.add(new ClientWindow(frame, (ClientGame)game));
     }
 
     public void invokeMPMode()
@@ -50,23 +52,23 @@ public class GUI
         frame.pack();
     }
 
-    public void invokeClosing()
+    private void invokeClosing()
     {
         frame.dispose();
         System.exit(0);
     }
 
-    public void invokeEditor()
+    private void invokeEditor()
     {
         System.out.println("Editor");
     }
 
-    public void invokeNetGame(String text)
+    private void invokeNetGame(String text)
     {
         System.out.println(text);
     }
 
-    public void invokeMainMenu()
+    private void invokeMainMenu()
     {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new Menu(this));

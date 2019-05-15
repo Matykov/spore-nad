@@ -4,6 +4,8 @@ import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SectorNet implements Serializable
 {
@@ -106,5 +108,16 @@ public class SectorNet implements Serializable
         }
 
         sectors[size / 2][size / 2].player = player;
+    }
+
+    public Sector[] getSectors()
+    {
+        var l = new ArrayList<Sector>();
+        for (var j = 0;  j < size; j++)
+        {
+            l.addAll(Arrays.asList(sectors[j]));
+        }
+
+        return (Sector[]) l.toArray();
     }
 }

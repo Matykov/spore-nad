@@ -1,5 +1,6 @@
 package logic;
 
+import engine.Player;
 import logger.Logger;
 import netParts.*;
 
@@ -11,17 +12,15 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     private Server server;
     private boolean readyToWrite = false;
     private Logger logger = new Logger("Server_Client.log");
-    private ArrayList<NetPlayer> players;
+    private ArrayList<NetPlayer> players = new ArrayList<>();
 
     public ServerGame(int port, engine.Level level){
         this.level = level;
         this.server = new Server(port, this, 0);
-        for(int i=0; i < SectorNet.size; i++){
-            for(int j=0; j<SectorNet.size; j++){
-                for(var player:curSectors.sectors[i][j].creatures)
-                {
-                    this.players.add((NetPlayer)player);
-                }
+
+        for(var sector: curSectors.getSectors()) {
+            for (var player: sector.creatures) {
+                this.players.add((NetPlayer) player);
             }
         }
 
@@ -31,8 +30,8 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     public void setPlayer(NetPlayer player)
     {
         for(int i=0; i < SectorNet.size; i++){
-            for(int j=0; j<SectorNet.size; j++){
-                for(var inPlayer:curSectors.sectors[i][j].creatures)
+            for(int j=0; j < SectorNet.size; j++){
+                for(var inPlayer: curSectors.sectors[i][j].creatures)
                 {
                     if(((NetPlayer)inPlayer).getId() == player.getId()){
                         inPlayer = player;
@@ -109,5 +108,10 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     public void update(){
         //level.refreshPlayers();
         super.update();
+    }
+
+    public ArrayList<NetPlayer> getPlayers()
+    {
+        return players;
     }
 }

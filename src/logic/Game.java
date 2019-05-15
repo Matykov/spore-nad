@@ -152,4 +152,9 @@ public class Game implements Serializable
         return isLevelCompleted;
     }
 
+    public SectorNet getSectorNet()
+    {
+        return curSectors;
+    }
+
 }
