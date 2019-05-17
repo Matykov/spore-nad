@@ -13,7 +13,7 @@ public class ClientWindow extends GameWindow
 {
     public ClientWindow(JFrame frame, Game game)
     {
-        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getPosition().x, frame.getHeight() / 2 - game.getPlayer().getPosition().x);
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getAbsolutePosition().x, frame.getHeight() / 2 - game.getPlayer().getAbsolutePosition().y);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()

@@ -18,6 +18,10 @@ public class Level implements Serializable
     private final int avgSectorFoodCount = 2;
     private final int avgSectorBotCount = 1;
 
+    protected Level()
+    {
+        this.completedFattiness = 1000;
+    }
     public Level(Player player, int completedFattiness)
     {
         this.player = player;

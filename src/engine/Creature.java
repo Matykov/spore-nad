@@ -11,13 +11,14 @@ public class Creature implements Serializable
     private int Fattiness;
     public int Damage;
 
-    private Point Position;
+    private Point absolutePosition;
+    private Point sectorPosition;
     public Point MapLocation;
     private double Direction;
 
     public Creature(Point position, int speed, int agility, int fattiness)
     {
-        Position = position;
+        absolutePosition = position;
         Speed = speed;
         Agility = agility;
         Fattiness = fattiness;
@@ -28,7 +29,7 @@ public class Creature implements Serializable
 
     public Creature()
     {
-        Position = new Point(50, 50);
+        absolutePosition = new Point(50, 50);
         Speed = 1;
         Agility = 1;
         Fattiness = 50;
@@ -41,8 +42,8 @@ public class Creature implements Serializable
     public int getAgility() {
         return Agility;
     }
-    public Point getPosition() {
-        return Position;
+    public Point getAbsolutePosition() {
+        return absolutePosition;
     }
     public int getFattiness() {
         return Fattiness;
@@ -118,8 +119,8 @@ public class Creature implements Serializable
 
     private void recountMapLocation()
     {
-        double dist = Position.distance(0, 0);
-        double origAngle = Math.acos(Position.x / dist);
+        double dist = absolutePosition.distance(0, 0);
+        double origAngle = Math.acos(absolutePosition.x / dist);
 
         int x = (int)(dist * Math.cos(-origAngle - Direction + Math.PI / 2));
         int y = (int)(dist * Math.sin(-origAngle - Direction + Math.PI / 2));
@@ -132,8 +133,8 @@ public class Creature implements Serializable
         Point newShift = new Point((int)(-shift * Math.abs((Math.sin(Direction))) * Math.signum(Math.cos(Direction + 3 * Math.PI / 2))),
                 (int)(-shift * Math.abs((Math.cos(Direction))) * Math.signum(Math.sin(Direction + 3 * Math.PI / 2))));
 
-        Position.x += newShift.x;
-        Position.y += newShift.y;
+        absolutePosition.x += newShift.x;
+        absolutePosition.y += newShift.y;
 
         return newShift;
     }

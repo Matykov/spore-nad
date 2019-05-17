@@ -41,8 +41,8 @@ public class Game implements Serializable
 
     public void observePlayer()
     {
-        var playerPosX = player.getPosition().x + player.getFattiness();
-        var playerPosY = player.getPosition().y + player.getFattiness();
+        var playerPosX = player.getAbsolutePosition().x;
+        var playerPosY = player.getAbsolutePosition().y;
 
         if (playerPosX < 0)
             curSectors.moveFocusLeft(player);
@@ -67,7 +67,7 @@ public class Game implements Serializable
                 for (Creature creature: curSec.getCreatures())
                 {
 
-                    var creaturePos = creature.getPosition();
+                    var creaturePos = creature.getAbsolutePosition();
                     //food eating
                     for (Food food : curSec.food)
                     {
@@ -92,7 +92,7 @@ public class Game implements Serializable
                     for (Creature preyCreature: curSec.getCreatures())
                     {
                         if (creature.getFattiness() > preyCreature.getFattiness() &&
-                                dist(creaturePos, preyCreature.getPosition()) <= creature.getFattiness() - preyCreature.getFattiness())
+                                dist(creaturePos, preyCreature.getAbsolutePosition()) <= creature.getFattiness() - preyCreature.getFattiness())
                         {
                             var nutrition = creature.eat(preyCreature);
                             curSec.removeCreature(preyCreature);

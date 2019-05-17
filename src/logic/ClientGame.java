@@ -1,12 +1,10 @@
 package logic;
 
-import engine.Level;
 import logger.Logger;
 import netParts.PlayerMessage;
 import netParts.old.Client;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class ClientGame extends Game implements IRunOver{
     private Client client;
@@ -59,13 +57,13 @@ public class ClientGame extends Game implements IRunOver{
     public void update(){
         try {
                 ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-                logger.log("Sending player: " + ((NetPlayer) player).getId() + " position: " + player.getPosition());
+                logger.log("Sending player: " + ((NetPlayer) player).getId() + " position: " + player.getAbsolutePosition());
                 oos.writeObject(new PlayerMessage((NetPlayer) player));
                 oos.flush();
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
-                logger.log("player income: " + ((NetPlayer) player).getId() + " position: " + player.getPosition());
+                logger.log("player income: " + ((NetPlayer) player).getId() + " position: " + player.getAbsolutePosition());
 
             }catch(IOException ioe){
                 client.closeConnection();

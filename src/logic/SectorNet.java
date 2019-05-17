@@ -11,27 +11,32 @@ import java.util.Arrays;
 public class SectorNet implements Serializable
 {
     public static final int size = 3;
+    public final Point sectorSize;
 
     public Sector[][] sectors;
     private Level level;
-    public final Point sectorSize;
+
+    protected SectorNet() {
+        sectorSize = Sector.size;
+    }
 
 
     public SectorNet(Level level)
     {
         sectors = new Sector[size][size];
         this.level = level;
+        sectorSize = Sector.size;
 
-        for (int j = 0; j < size; j++)
+        for (int j = -size / 2; j < size / 2; j++)
         {
-            for (int i = 0; i < size; i++)
+            for (int i = -size / 2; i < size / 2; i++)
             {
                 sectors[j][i] = level.generateSector();
+                sectors[j][i].location = new Point(i * sectorSize.x, j * sectorSize.y);
             }
         }
 
         sectors[size / 2][size / 2].player = level.getPlayer();
-        sectorSize = Sector.size;
     }
 
 
@@ -39,15 +44,16 @@ public class SectorNet implements Serializable
     {
         sectors[size / 2][size / 2].player = null;
 
-        for (int j = 0; j < size; j++)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                if (i == 0)
-                    sectors[j][i] = level.generateSector();
-                else
-                    sectors[j][i] = sectors[j][i-1];
-
+        for (var y = 0; y < size; y++) {
+            for (var x = size - 1; x > -1; x--) {
+                if (x == 0) {
+                    var newPos = new Point(sectors[y][0].location.x - Sector.size.x, sectors[y][0].location.y);
+                    sectors[y][x] = level.generateSector();
+                    sectors[y][x].location = newPos;
+                }
+                else {
+                    sectors[y][x] = sectors[y][x - 1];
+                }
             }
         }
 
@@ -58,14 +64,18 @@ public class SectorNet implements Serializable
     {
         sectors[size / 2][size / 2].player = null;
 
-        for (int j = 0; j < 3; j++)
+        for (int y = 0; y < size; y++)
         {
-            for (int i = 0; i < 3; i++)
+            for (int x = 0; x < size; x++)
             {
-                if (i == 2)
-                    sectors[j][i] = level.generateSector();
-                else
-                    sectors[j][i] = sectors[j][i + 1];
+                if (x == size - 1) {
+                    var newPos = new Point(sectors[y][x].location.x + Sector.size.x, sectors[y][x].location.y);
+                    sectors[y][x] = level.generateSector();
+                    sectors[y][x].location = newPos;
+                }
+                else {
+                    sectors[y][x] = sectors[y][x + 1];
+                }
 
             }
         }
@@ -77,14 +87,18 @@ public class SectorNet implements Serializable
     {
         sectors[size / 2][size / 2].player = null;
 
-        for (int j = 0; j < 3; j++)
+        for (int y = size - 1; y > -1; y++)
         {
-            for (int i = 0; i < 3; i++)
+            for (int x = 0; x < size; x++)
             {
-                if (j == 2)
-                    sectors[j][i] = level.generateSector();
-                else
-                    sectors[j][i] = sectors[j+1][i];
+                if (y == 0) {
+                    var newPos = new Point(sectors[y][x].location.x, sectors[y][x].location.y  - Sector.size.y);
+                    sectors[y][x] = level.generateSector();
+                    sectors[y][x].location = newPos;
+                }
+                else {
+                    sectors[y][x] = sectors[y - 1][x];
+                }
 
             }
         }
@@ -96,14 +110,18 @@ public class SectorNet implements Serializable
     {
         sectors[size / 2][size / 2].player = null;
 
-        for (int j = 0; j < 3; j++)
+        for (int y = 0; y < size; y++)
         {
-            for (int i = 0; i < 3; i++)
+            for (int x = 0; x < size; x++)
             {
-                if (j == 0)
-                    sectors[j][i] = level.generateSector();
-                else
-                    sectors[j][i] = sectors[j-1][i];
+                if (y == size - 1) {
+                    var newPos = new Point(sectors[y][x].location.x, sectors[y][x].location.y  + Sector.size.y);
+                    sectors[y][x] = level.generateSector();
+                    sectors[y][x].location = newPos;
+                }
+                else {
+                    sectors[y][x] = sectors[y + 1][x];
+                }
 
             }
         }

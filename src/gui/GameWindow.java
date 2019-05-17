@@ -36,11 +36,21 @@ public abstract class GameWindow extends JPanel
     protected abstract void drawPlayer(Graphics g);
     protected abstract void drawGame(Graphics2D g);
 
-    protected void drawCreature(Graphics g, Creature creature)
+    protected int translateX(Sector sector, int sectorPosX)
+    {
+        return sectorPosX + sector.location.x;
+    }
+
+    protected int translateY(Sector sector, int sectorPosY)
+    {
+        return sectorPosY + sector.location.y;
+    }
+
+    protected void drawCreature(Graphics g, Creature creature, Sector sector)
     {
         g.setColor(new Color(0, 150, 200));
-        g.fillOval(creature.getPosition().x - creature.getFattiness(),
-                creature.getPosition().y - creature.getFattiness(),
+        g.fillOval(translateX(sector, creature.getAbsolutePosition().x - creature.getFattiness()),
+                translateY(sector, creature.getAbsolutePosition().y - creature.getFattiness()),
                 creature.getFattiness() * 2,
                 creature.getFattiness() * 2);
     }
@@ -66,14 +76,14 @@ public abstract class GameWindow extends JPanel
             var pieces = food.get(group).getPieces();
             for (Point p: pieces.keySet())
             {
-                g.fillOval(p.x - pieces.get(p), p.y - pieces.get(p), pieces.get(p) + 5, pieces.get(p) + 5);
-                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getPosition().x, game.getPlayer().getPosition().y);
+                g.fillOval(translateX(sector, p.x - pieces.get(p)), translateY(sector, p.y - pieces.get(p)), pieces.get(p) + 5, pieces.get(p) + 5);
+                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getAbsolutePosition().x, game.getPlayer().getAbsolutePosition().y);
             }
         }
 
     }
 
-    protected void drawEye(Graphics2D g, AffineTransform oldForm, Creature creature)
+    protected void drawEye(Graphics2D g, AffineTransform oldForm, Creature creature, Sector sector)
     {
         AffineTransform partsAT = (AffineTransform) (oldForm.clone());
         Point pos;
@@ -84,7 +94,7 @@ public abstract class GameWindow extends JPanel
             angle = creature.getDirection();
         }
         else {
-            pos = new Point(creature.getPosition().x, creature.getPosition().y);
+            pos = new Point(creature.getAbsolutePosition().x, creature.getAbsolutePosition().y);
             angle = creature.getDirection() + Math.PI;
         }
         partsAT.rotate(angle, pos.x, pos.y);

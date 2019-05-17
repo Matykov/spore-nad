@@ -19,11 +19,10 @@
 //    public void drawGame(Graphics2D g)
 //    {
 //        Graphics2D g2d = (Graphics2D)g;
-//        for (var creature: ((ServerGame)game).getPlayers()){
+//        for (var creature: ((ServerGame)game).getCreatures()){
 //            drawCreature(g, creature);
 //        }
 //        drawFood(g);
-//
 //    }
 //
 //    @Override
