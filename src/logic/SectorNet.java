@@ -4,6 +4,7 @@ import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -118,6 +119,6 @@ public class SectorNet implements Serializable
             l.addAll(Arrays.asList(sectors[j]));
         }
 
-        return (Sector[]) l.toArray();
+        return l.toArray(new Sector[l.size()]);
     }
 }

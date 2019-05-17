@@ -1,7 +1,6 @@
 package gui;
 
 import logic.Game;
-import logic.ServerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,11 +35,10 @@ public class GUI
     public void invokeSPMode()
     {
         System.out.println("Single Player");
-
-        if (game instanceof ServerGame)
-            frame.add(new ServerWindow(frame, (ServerGame)game));
-        else
-            frame.add(new ClientWindow(frame, (ClientGame)game));
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(new ClientWindow(frame, game));
+        frame.repaint();
+        frame.pack();
     }
 
     public void invokeMPMode()
@@ -52,23 +50,23 @@ public class GUI
         frame.pack();
     }
 
-    private void invokeClosing()
+    public void invokeClosing()
     {
         frame.dispose();
         System.exit(0);
     }
 
-    private void invokeEditor()
+    public void invokeEditor()
     {
         System.out.println("Editor");
     }
 
-    private void invokeNetGame(String text)
+    public void invokeNetGame(String text)
     {
         System.out.println(text);
     }
 
-    private void invokeMainMenu()
+    public void invokeMainMenu()
     {
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new Menu(this));
