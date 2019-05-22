@@ -39,87 +39,128 @@ public class Game implements Serializable
         return level;
     }
 
-    public void observePlayer()
+//    public void observePlayer()
+//    {
+//
+//    }
+
+    public void observeCreatures()
     {
-        var playerPosX = player.getAbsolutePosition().x;
-        var playerPosY = player.getAbsolutePosition().y;
-
-        if (playerPosX < 0)
-            curSectors.moveFocusLeft(player);
-        else if (playerPosX > curSectors.sectorSize.x)
-            curSectors.moveFocusRight(player);
-        if (playerPosY < 0)
-            curSectors.moveFocusUp(player);
-        else if (playerPosY > curSectors.sectorSize.y)
-            curSectors.moveFocusDown(player);
-    }
-
-    public void tryToFeedCreatures()
-    {
-        Random random = new Random();
-
-        for (var j = 0; j < 3; j++)
+        for (var j = 0; j < SectorNet.size; j++)
         {
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < SectorNet.size; i++)
             {
                 var curSec = curSectors.sectors[j][i];
 
                 for (Creature creature: curSec.getCreatures())
                 {
 
-                    var creaturePos = creature.getAbsolutePosition();
+                    creature.absPositon = new Point(creature.getSectorPosition().x + curSec.location.x,
+                            creature.getSectorPosition().y + curSec.location.y);
+
                     //food eating
-                    for (Food food : curSec.food)
-                    {
-                        for (Point piecePosition : food.getPieces().keySet())
-                        {
-                            if (dist(creaturePos, piecePosition) <= creature.getFattiness() - food.MaxSize)
-                            {
-                                int nutrition = food.destroyPiece(piecePosition);
-                                creature.putOnWeight(nutrition);
-
-                                curSec.removeFood();
-
-                                if (creature instanceof Player)
-                                {
-                                    progressBar += nutrition;
-                                }
-                            }
-                        }
-                    }
+                    eatFood(curSec, creature);
 
                     //creature eating
-                    for (Creature preyCreature: curSec.getCreatures())
-                    {
-                        if (creature.getFattiness() > preyCreature.getFattiness() &&
-                                dist(creaturePos, preyCreature.getAbsolutePosition()) <= creature.getFattiness() - preyCreature.getFattiness())
-                        {
-                            var nutrition = creature.eat(preyCreature);
-                            curSec.removeCreature(preyCreature);
+                    eatCreatures(curSec, creature);
 
-                            if (creature instanceof Player)
-                            {
-                                progressBar += nutrition;
-                            }
-                        }
-                    }
-
+                    //move bot
                     if (creature instanceof Bot && tick == 8000)
                     {
-                        var bot = (Bot)creature;
-                        int changeAnglePossibility = random.nextInt(8);
+                        moveBot(curSec, (Bot)creature);
+                    }
 
-                        if (changeAnglePossibility == 0)
-                        {
-                            double angle = random.nextInt(17) * Math.PI / 8;
-                            bot.turn(angle);
-                        }
+                    //observe sector position
+                    observeSectorPosition(curSec, creature);
 
-                        bot.move(5);
-                        tick = 0;
+                }
+            }
+        }
+    }
+
+    private void eatCreatures(Sector curSec, Creature creature)
+    {
+        for (Creature preyCreature: curSec.getCreatures())
+        {
+            if (creature.getFattiness() > preyCreature.getFattiness() &&
+                    dist(creature.getSectorPosition(), preyCreature.getSectorPosition()) <=
+                            creature.getFattiness() - preyCreature.getFattiness())
+            {
+                var nutrition = creature.eat(preyCreature);
+                curSec.removeCreature(preyCreature);
+
+                if (creature instanceof Player)
+                {
+                    progressBar += nutrition;
+                }
+            }
+        }
+    }
+
+    private void eatFood(Sector curSec, Creature creature)
+    {
+        for (Food food : curSec.food)
+        {
+            for (Point piecePosition : food.getPieces().keySet())
+            {
+                if (dist(creature.getSectorPosition(), piecePosition) <= creature.getFattiness() - food.MaxSize)
+                {
+                    int nutrition = food.destroyPiece(piecePosition);
+                    creature.putOnWeight(nutrition);
+
+                    curSec.removeFood();
+
+                    if (creature instanceof Player)
+                    {
+                        progressBar += nutrition;
                     }
                 }
             }
+        }
+    }
+
+    private void moveBot(Sector curSec, Bot bot)
+    {
+        Random random = new Random();
+
+        int changeAnglePossibility = random.nextInt(8);
+
+        if (changeAnglePossibility == 0)
+        {
+            double angle = random.nextInt(17) * Math.PI / 8;
+            bot.turn(angle);
+        }
+
+        bot.move(5);
+        tick = 0;
+    }
+
+    private void observeSectorPosition(Sector curSec, Creature creature)
+    {
+        var creaturePosX = creature.getSectorPosition().x;
+        var creaturePosY = creature.getSectorPosition().y;
+
+        var isPlayer = curSec.player == creature;
+
+        if (creaturePosX < 0)
+        {
+            if (isPlayer)
+                curSectors.moveFocusLeft(player);
+        }
+        else if (creaturePosX > curSectors.sectorSize.x)
+        {
+            if (isPlayer)
+                curSectors.moveFocusRight(player);
+        }
+        if (creaturePosY < 0)
+        {
+            if (isPlayer)
+                curSectors.moveFocusUp(player);
+        }
+        else if (creaturePosY > curSectors.sectorSize.y)
+        {
+            if (isPlayer)
+                curSectors.moveFocusDown(player);
         }
     }
 
@@ -130,8 +171,7 @@ public class Game implements Serializable
 
     public void update()
     {
-        tryToFeedCreatures();
-        observePlayer();
+        observeCreatures();
 
         if (getPercentCompletion() >= 1)
         {

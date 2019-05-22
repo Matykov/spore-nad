@@ -62,7 +62,7 @@ public class Level implements Serializable
 
     private int generateCurValue(Random r, int num)
     {
-        var inaccuracy = num / 3 > 1? num / 3 : 1;
+        var inaccuracy = num / 3 > 1 ? num / 3 : 1;
         return r.nextInt(2 * inaccuracy) + num - inaccuracy;
     }
 

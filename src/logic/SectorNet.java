@@ -4,7 +4,6 @@ import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,12 +26,12 @@ public class SectorNet implements Serializable
         this.level = level;
         sectorSize = Sector.size;
 
-        for (int j = -size / 2; j <= size / 2; j++)
+        for (int j = 0; j < size; j++)
         {
-            for (int i = -size / 2; i <= size / 2; i++)
+            for (int i=0; i < size; i++)
             {
-                sectors[j + size/2][i + size/2] = level.generateSector();
-                sectors[j + size/2][i + size/2].location = new Point(i * sectorSize.x, j * sectorSize.y);
+                sectors[j][i] = level.generateSector();
+                sectors[j][i].location = new Point((i - size / 2) * sectorSize.x, (j - size / 2) * sectorSize.y);
             }
         }
 

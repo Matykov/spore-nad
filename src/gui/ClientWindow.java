@@ -13,7 +13,8 @@ public class ClientWindow extends GameWindow
 {
     public ClientWindow(JFrame frame, Game game)
     {
-        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getAbsolutePosition().x, frame.getHeight() / 2 - game.getPlayer().getAbsolutePosition().y);
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getSectorPosition().x,
+                frame.getHeight() / 2 - game.getPlayer().getSectorPosition().y);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -56,12 +57,15 @@ public class ClientWindow extends GameWindow
         AffineTransform origXform = g.getTransform();
         var sectors = game.getSectorNet().getSectors();
         for (var sector: sectors)
+        {
             drawSector(g, origXform, sector);
-        drawPlayer(g);
-        //drawEye(g, origXform, game.getPlayer());
+        }
 
         if (!(game instanceof ClientGame))
             drawProgressBar(g);
+
+        drawPlayer(g);
+        drawEye(g, origXform, game.getPlayer(), null);
 
         if (game.isLevelCompleted())
         {
@@ -81,8 +85,8 @@ public class ClientWindow extends GameWindow
 
 
         for (Creature creature : sector.creatures) {
-            //drawCreature(g, creature);
-            //drawEye(g, mapAT, creature);
+            drawCreature(g, creature, sector);
+            drawEye(g, mapAT, creature, sector);
         }
 
         g.setTransform(oldForm);

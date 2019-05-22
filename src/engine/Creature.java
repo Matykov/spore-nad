@@ -11,25 +11,25 @@ public class Creature implements Serializable
     private int Fattiness;
     public int Damage;
 
-    private Point absolutePosition;
+
+    public Point absPositon;
     private Point sectorPosition;
-    public Point MapLocation;
     private double Direction;
 
     public Creature(Point position, int speed, int agility, int fattiness)
     {
-        absolutePosition = position;
+        sectorPosition = position;
         Speed = speed;
         Agility = agility;
         Fattiness = fattiness;
         Direction = 0;
 
-        recountMapLocation();
+        //recountMapLocation();
     }
 
     public Creature()
     {
-        absolutePosition = new Point(50, 50);
+        sectorPosition = new Point(50, 50);
         Speed = 1;
         Agility = 1;
         Fattiness = 50;
@@ -42,8 +42,8 @@ public class Creature implements Serializable
     public int getAgility() {
         return Agility;
     }
-    public Point getAbsolutePosition() {
-        return absolutePosition;
+    public Point getSectorPosition() {
+        return sectorPosition;
     }
     public int getFattiness() {
         return Fattiness;
@@ -117,24 +117,26 @@ public class Creature implements Serializable
         return Direction;
     }
 
-    private void recountMapLocation()
-    {
-        double dist = absolutePosition.distance(0, 0);
-        double origAngle = Math.acos(absolutePosition.x / dist);
-
-        int x = (int)(dist * Math.cos(-origAngle - Direction + Math.PI / 2));
-        int y = (int)(dist * Math.sin(-origAngle - Direction + Math.PI / 2));
-
-        MapLocation = new Point(y - Fattiness, x - Fattiness);
-    }
+//    private void recountMapLocation()
+//    {
+//
+//
+//        double dist = sectorPosition.distance(0, 0);
+//        double origAngle = Math.acos(sectorPosition.x / dist);
+//
+//        int x = (int)(dist * Math.cos(-origAngle - Direction + Math.PI / 2));
+//        int y = (int)(dist * Math.sin(-origAngle - Direction + Math.PI / 2));
+//
+//        MapLocation = new Point(y - Fattiness, x - Fattiness);
+//    }
 
     public Point move(int shift)
     {
         Point newShift = new Point((int)(-shift * Math.abs((Math.sin(Direction))) * Math.signum(Math.cos(Direction + 3 * Math.PI / 2))),
                 (int)(-shift * Math.abs((Math.cos(Direction))) * Math.signum(Math.sin(Direction + 3 * Math.PI / 2))));
 
-        absolutePosition.x += newShift.x;
-        absolutePosition.y += newShift.y;
+        sectorPosition.x += newShift.x;
+        sectorPosition.y += newShift.y;
 
         return newShift;
     }
