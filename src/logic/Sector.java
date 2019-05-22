@@ -19,7 +19,7 @@ public class Sector
     {
         creatures = new ArrayList<>();
         bots = new ArrayList<>();
-        food = new ArrayList<>();
+        food = new ArrayList<Food>();
     }
 
     public ArrayList<Creature> getCreatures()

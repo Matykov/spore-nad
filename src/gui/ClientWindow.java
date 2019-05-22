@@ -54,11 +54,11 @@ public class ClientWindow extends GameWindow
     protected void drawGame(Graphics2D g)
     {
         AffineTransform origXform = g.getTransform();
-
-        for (var sector: game.getSectorNet().getSectors())
+        var sectors = game.getSectorNet().getSectors();
+        for (var sector: sectors)
             drawSector(g, origXform, sector);
         drawPlayer(g);
-        drawEye(g, origXform, game.getPlayer());
+        //drawEye(g, origXform, game.getPlayer());
 
         if (!(game instanceof ClientGame))
             drawProgressBar(g);
@@ -81,8 +81,8 @@ public class ClientWindow extends GameWindow
 
 
         for (Creature creature : sector.creatures) {
-            drawCreature(g, creature);
-            drawEye(g, mapAT, creature);
+            //drawCreature(g, creature);
+            //drawEye(g, mapAT, creature);
         }
 
         g.setTransform(oldForm);

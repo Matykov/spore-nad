@@ -27,12 +27,12 @@ public class SectorNet implements Serializable
         this.level = level;
         sectorSize = Sector.size;
 
-        for (int j = -size / 2; j < size / 2; j++)
+        for (int j = -size / 2; j <= size / 2; j++)
         {
-            for (int i = -size / 2; i < size / 2; i++)
+            for (int i = -size / 2; i <= size / 2; i++)
             {
-                sectors[j][i] = level.generateSector();
-                sectors[j][i].location = new Point(i * sectorSize.x, j * sectorSize.y);
+                sectors[j + size/2][i + size/2] = level.generateSector();
+                sectors[j + size/2][i + size/2].location = new Point(i * sectorSize.x, j * sectorSize.y);
             }
         }
 
