@@ -57,13 +57,13 @@ public class ClientGame extends Game implements IRunOver{
     public void update(){
         try {
                 ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-                logger.log("Sending player: " + ((NetPlayer) player).getId() + " position: " + player.getAbsolutePosition());
+                logger.log("Sending player: " + ((NetPlayer) player).getId() + " position: " + player.absPosition);
                 oos.writeObject(new PlayerMessage((NetPlayer) player));
                 oos.flush();
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
-                logger.log("player income: " + ((NetPlayer) player).getId() + " position: " + player.getAbsolutePosition());
+                logger.log("player income: " + ((NetPlayer) player).getId() + " position: " + player.absPosition);
 
             }catch(IOException ioe){
                 client.closeConnection();

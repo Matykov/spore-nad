@@ -55,8 +55,8 @@ public class Game implements Serializable
                 for (Creature creature: curSec.getCreatures())
                 {
 
-                    creature.absPositon = new Point(creature.getSectorPosition().x + curSec.location.x,
-                            creature.getSectorPosition().y + curSec.location.y);
+                    creature.absPosition = new Point(creature.sectorPosition.x + curSec.location.x,
+                            creature.sectorPosition.y + curSec.location.y);
 
                     //food eating
                     eatFood(curSec, creature);
@@ -71,7 +71,7 @@ public class Game implements Serializable
                     }
 
                     //observe sector position
-                    observeSectorPosition(curSec, creature);
+                    observeSectorPosition(i, j, creature);
 
                 }
             }
@@ -83,7 +83,7 @@ public class Game implements Serializable
         for (Creature preyCreature: curSec.getCreatures())
         {
             if (creature.getFattiness() > preyCreature.getFattiness() &&
-                    dist(creature.getSectorPosition(), preyCreature.getSectorPosition()) <=
+                    dist(creature.sectorPosition, preyCreature.sectorPosition) <=
                             creature.getFattiness() - preyCreature.getFattiness())
             {
                 var nutrition = creature.eat(preyCreature);
@@ -103,7 +103,7 @@ public class Game implements Serializable
         {
             for (Point piecePosition : food.getPieces().keySet())
             {
-                if (dist(creature.getSectorPosition(), piecePosition) <= creature.getFattiness() - food.MaxSize)
+                if (dist(creature.sectorPosition, piecePosition) <= creature.getFattiness() - food.MaxSize)
                 {
                     int nutrition = food.destroyPiece(piecePosition);
                     creature.putOnWeight(nutrition);
@@ -135,33 +135,69 @@ public class Game implements Serializable
         tick = 0;
     }
 
-    private void observeSectorPosition(Sector curSec, Creature creature)
+    private void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
-        var creaturePosX = creature.getSectorPosition().x;
-        var creaturePosY = creature.getSectorPosition().y;
+        var creaturePosX = creature.sectorPosition.x;
+        var creaturePosY = creature.sectorPosition.y;
 
+        var curSec = curSectors.sectors[curYNet][curXNet];
         var isPlayer = curSec.player == creature;
 
         if (creaturePosX < 0)
         {
-            if (isPlayer)
+            if (isPlayer) {
                 curSectors.moveFocusLeft(player);
+            }
+            else {
+                curSec.removeCreature(creature);
+                var newX = curXNet - 1 >= 0 ? curXNet - 1 : SectorNet.size - 1;
+                curSectors.sectors[curYNet][newX].creatures.add(creature);
+            }
+
+            creature.sectorPosition.x = Sector.size.x;
         }
         else if (creaturePosX > curSectors.sectorSize.x)
         {
-            if (isPlayer)
+            if (isPlayer) {
                 curSectors.moveFocusRight(player);
+            }
+            else
+            {
+                curSec.removeCreature(creature);
+                var newX = curXNet + 1 < SectorNet.size ? curXNet + 1 : 0;
+                curSectors.sectors[curYNet][newX].creatures.add(creature);
+            }
+
+            creature.sectorPosition.x = 0;
         }
         if (creaturePosY < 0)
         {
-            if (isPlayer)
+            if (isPlayer) {
                 curSectors.moveFocusUp(player);
+            }
+            else
+            {
+                curSec.removeCreature(creature);
+                var newY = curYNet - 1 >= 0 ? curYNet - 1 : SectorNet.size - 1;
+                curSectors.sectors[newY][curXNet].creatures.add(creature);
+            }
+
+            creature.sectorPosition.y = Sector.size.y;
         }
         else if (creaturePosY > curSectors.sectorSize.y)
         {
-            if (isPlayer)
+            if (isPlayer) {
                 curSectors.moveFocusDown(player);
+            }
+            else
+            {
+                curSec.removeCreature(creature);
+                var newY = curYNet + 1 < SectorNet.size ? curYNet + 1 : 0;
+                curSectors.sectors[newY][curXNet].creatures.add(creature);
+            }
+            creature.sectorPosition.y = 0;
         }
+
     }
 
     private double dist(Point p1, Point p2)

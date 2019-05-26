@@ -12,8 +12,8 @@ public class Creature implements Serializable
     public int Damage;
 
 
-    public Point absPositon;
-    private Point sectorPosition;
+    public Point absPosition;
+    public Point sectorPosition;
     private double Direction;
 
     public Creature(Point position, int speed, int agility, int fattiness)
@@ -41,9 +41,6 @@ public class Creature implements Serializable
     }
     public int getAgility() {
         return Agility;
-    }
-    public Point getSectorPosition() {
-        return sectorPosition;
     }
     public int getFattiness() {
         return Fattiness;

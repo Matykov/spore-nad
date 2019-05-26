@@ -13,8 +13,8 @@ public class ClientWindow extends GameWindow
 {
     public ClientWindow(JFrame frame, Game game)
     {
-        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().getSectorPosition().x,
-                frame.getHeight() / 2 - game.getPlayer().getSectorPosition().y);
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
+                frame.getHeight() / 2 - game.getPlayer().sectorPosition.y);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -27,6 +27,7 @@ public class ClientWindow extends GameWindow
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
                     game.update();
+                    System.out.println(game.getPlayer().sectorPosition);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
@@ -48,7 +49,7 @@ public class ClientWindow extends GameWindow
                 repaint();
             }
         };
-        frame.addKeyListener(keyAdapter);
+        this.frame.addKeyListener(keyAdapter);
     }
 
     @Override

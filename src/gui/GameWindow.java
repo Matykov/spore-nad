@@ -49,8 +49,8 @@ public abstract class GameWindow extends JPanel
     protected void drawCreature(Graphics g, Creature creature, Sector sector)
     {
         g.setColor(new Color(0, 150, 200));
-        g.fillOval(translateX(sector, creature.getSectorPosition().x - creature.getFattiness()),
-                translateY(sector, creature.getSectorPosition().y - creature.getFattiness()),
+        g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
+                translateY(sector, creature.sectorPosition.y - creature.getFattiness()),
                 creature.getFattiness() * 2,
                 creature.getFattiness() * 2);
     }
@@ -94,8 +94,8 @@ public abstract class GameWindow extends JPanel
             angle = creature.getDirection();
         }
         else {
-            pos = new Point(translateX(sector, creature.getSectorPosition().x),
-                    translateY(sector, creature.getSectorPosition().y));
+            pos = new Point(translateX(sector, creature.sectorPosition.x),
+                    translateY(sector, creature.sectorPosition.y));
             angle = creature.getDirection() + Math.PI;
         }
         partsAT.rotate(angle, pos.x, pos.y);

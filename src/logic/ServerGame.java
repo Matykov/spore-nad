@@ -113,10 +113,4 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
         //level.refreshPlayers();
         super.update();
     }
-
-    @Override
-    public void observePlayer()
-    {
-
-    }
 }
