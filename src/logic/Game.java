@@ -4,6 +4,7 @@ import engine.*;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Game implements Serializable
@@ -99,17 +100,18 @@ public class Game implements Serializable
 
     private void eatFood(Sector curSec, Creature creature)
     {
+        var removedFood = new ArrayList<Food>();
         for (Food food : curSec.food)
         {
-            for (Point piecePosition : food.getPieces().keySet())
+            var keys = food.getPieces().keySet();
+            for (Point piecePosition : keys)
             {
                 if (dist(creature.sectorPosition, piecePosition) <= creature.getFattiness() - food.MaxSize)
                 {
                     int nutrition = food.destroyPiece(piecePosition);
                     creature.putOnWeight(nutrition);
-
-                    curSec.removeFood();
-
+                    if(food.isEmpty)
+                        removedFood.add(food);
                     if (creature instanceof Player)
                     {
                         progressBar += nutrition;
@@ -117,6 +119,7 @@ public class Game implements Serializable
                 }
             }
         }
+        curSec.removeFood(removedFood);
     }
 
     private void moveBot(Sector curSec, Bot bot)

@@ -21,7 +21,8 @@ public class GUI
         frame.setSize(600, 500);
         frame.setResizable(true);
 
-        invokeMainMenu();
+        invokeSPMode();
+        //invokeMainMenu();
 
         frame.setPreferredSize(new Dimension(600, 500));
         frame.pack();
@@ -37,7 +38,7 @@ public class GUI
     public void invokeSPMode()
     {
         System.out.println("Single Player");
-        frame.getContentPane().remove(this.menu);
+        //frame.getContentPane().remove(this.menu);
         //frame.getContentPane().removeAll();
         frame.getContentPane().add(new ClientWindow(frame, game));
         System.out.println(frame.getKeyListeners()[0].toString());

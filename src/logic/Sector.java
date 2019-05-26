@@ -36,12 +36,14 @@ public class Sector
         creatures.remove(creature);
     }
 
-    public void removeFood()
+    public void removeFood(ArrayList<Food> removedFood)
     {
-        for (Food f: food)
-        {
-            if (f.isEmpty)
-                food.remove(f);
-        }
+//        var removedFood = new ArrayList<Food>();
+//        for (Food f: food)
+//        {
+//            if (f.isEmpty)
+//                removedFood.add(f);
+//        }
+        food.removeAll(removedFood);
     }
 }

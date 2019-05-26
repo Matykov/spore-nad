@@ -26,8 +26,9 @@ public class ClientWindow extends GameWindow
                     var s = game.getPlayer().move(-5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
+                    var start = System.nanoTime();
                     game.update();
-                    System.out.println(game.getPlayer().sectorPosition);
+                    System.out.println((System.nanoTime() - start)*0.000001);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {

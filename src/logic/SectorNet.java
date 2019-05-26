@@ -86,7 +86,7 @@ public class SectorNet implements Serializable
     {
         sectors[size / 2][size / 2].player = null;
 
-        for (int y = size - 1; y > -1; y++)
+        for (int y = size - 1; y > -1; y--)
         {
             for (int x = 0; x < size; x++)
             {

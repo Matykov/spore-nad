@@ -36,7 +36,7 @@ public class Food implements Serializable
 
     public HashMap<Point, Integer> getPieces()
     {
-        return Pieces;
+        return (HashMap<Point, Integer>)Pieces.clone();
     }
 
     public Point getPosition()
