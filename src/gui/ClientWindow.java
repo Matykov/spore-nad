@@ -12,13 +12,25 @@ import java.util.ArrayList;
 
 public class ClientWindow extends GameWindow
 {
+    //String color;
     public ClientWindow(JFrame frame, Game game)
     {
-        if(!(game instanceof ServerGame))
-            MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
+//        BufferedReader reader;
+//        try {
+//            FileReader file = new FileReader("C:\\Users\\BigBird\\Desktop\\colors.txt");
+//            reader = new BufferedReader(file);
+//
+//            color =  reader.readLine();
+//            System.out.println(color);
+//            //file.flush();
+//        }catch(IOException ioe) {
+//            System.err.println(ioe.toString());
+//            //gui.invokeMainMenu();
+//        }
+
+
+        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
                 frame.getHeight() / 2 - game.getPlayer().sectorPosition.y);
-        else
-            MapShift = new Point(0,0);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -68,16 +80,11 @@ public class ClientWindow extends GameWindow
 
         if (!(game instanceof ClientGame) &&!(game instanceof ServerGame))
             drawProgressBar(g);
-        if(!(game instanceof ServerGame)) {
-            drawPlayer(g);
 
-            drawEye(g, origXform, game.getPlayer(), null);
-        }
-
-        if (game.isLevelCompleted())
-        {
-            drawLevelCompletion(g);
-        }
+        drawPlayer(g);
+        drawFlagella(g, origXform, game.getPlayer(), null);
+        drawEye(g, origXform, game.getPlayer(), null);
+        drawSpike(g, origXform, game.getPlayer(), null);
 
     }
 
@@ -94,7 +101,7 @@ public class ClientWindow extends GameWindow
         var creatures = new ArrayList<Creature>(sector.creatures);
         for (Creature creature : creatures) {
             drawCreature(g, creature, sector);
-            drawEye(g, mapAT, creature, sector);
+            //drawEye(g, mapAT, creature, sector);
         }
 
         g.setTransform(oldForm);
@@ -103,11 +110,20 @@ public class ClientWindow extends GameWindow
     @Override
     protected void drawPlayer(Graphics g)
     {
-        g.setColor(new Color(0x000084));
+
+        g.setColor(game.getPlayer().bodyColor);
         g.fillOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
                 frame.getHeight() / 2 - game.getPlayer().getFattiness(),
                 game.getPlayer().getFattiness() * 2,
                 game.getPlayer().getFattiness() * 2);
+
+        g.setColor(Color.black);
+        g.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
+                frame.getHeight() / 2 - game.getPlayer().getFattiness(),
+                game.getPlayer().getFattiness() * 2,
+                game.getPlayer().getFattiness() * 2);
+
+
     }
 
     private void drawLevelCompletion(Graphics2D g)

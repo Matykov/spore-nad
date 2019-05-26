@@ -14,7 +14,7 @@ public class Game implements Serializable
     protected int progressBar;
     protected SectorNet curSectors;
 
-    private long tick = 0;
+    public static long tick = 0;
     private boolean isLevelCompleted = false;
 
 

@@ -114,6 +114,7 @@ public abstract class GameWindow extends JPanel
         try
         {
             BufferedImage bi = ImageIO.read(new File("src/skins/eye.png"));
+
             g.drawImage(bi,
                     -bi.getWidth(),
                     -creature.getFattiness(),
@@ -124,6 +125,109 @@ public abstract class GameWindow extends JPanel
         catch (IOException ex)
         {
             System.out.println("Failed at opening player skin");
+        }
+        g.setTransform(oldForm);
+    }
+
+    protected void drawFlagella(Graphics2D g, AffineTransform oldForm, Creature creature, Sector sector)
+    {
+        AffineTransform partsAT = (AffineTransform) (oldForm.clone());
+        Point pos;
+        Double angle;
+        if (creature instanceof Player)
+        {
+            pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
+            angle = creature.getDirection();
+        }
+        else {
+            pos = new Point(translateX(sector, creature.sectorPosition.x),
+                    translateY(sector, creature.sectorPosition.y));
+            angle = creature.getDirection() + Math.PI;
+        }
+        partsAT.rotate(angle, pos.x, pos.y);
+        partsAT.translate(pos.x, pos.y);
+        g.drawOval(pos.x, pos.y, 7, 7);
+        g.setTransform(partsAT);
+        try
+        {
+            long tick = Game.tick;
+            if (tick % 2 == 0) {
+                BufferedImage bi = ImageIO.read(new File("src/skins/flagella1.png"));
+                g.drawImage(bi,
+                        -bi.getWidth() + 10,
+                        -creature.getFattiness() + 50,
+                        creature.getFattiness(),
+                        creature.getFattiness(),
+                        null);
+            }
+            else
+            {
+                BufferedImage bi = ImageIO.read(new File("src/skins/flagella2.png"));
+                g.drawImage(bi,
+                        -bi.getWidth() + 10,
+                        -creature.getFattiness() + 50,
+                        creature.getFattiness(),
+                        creature.getFattiness(),
+                        null);
+            }
+
+
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Failed at opening player skin");
+        }
+        g.setTransform(oldForm);
+    }
+
+    protected void drawSpike(Graphics2D g, AffineTransform oldForm, Creature creature, Sector sector)
+    {
+        AffineTransform partsAT = (AffineTransform) (oldForm.clone());
+        Point pos;
+        Double angle;
+        if (creature instanceof Player)
+        {
+            pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
+            angle = creature.getDirection();
+        }
+        else {
+            pos = new Point(translateX(sector, creature.sectorPosition.x),
+                    translateY(sector, creature.sectorPosition.y));
+            angle = creature.getDirection() + Math.PI;
+        }
+        partsAT.rotate(angle, pos.x, pos.y);
+        partsAT.translate(pos.x, pos.y);
+        g.drawOval(pos.x, pos.y, 7, 7);
+        g.setTransform(partsAT);
+        try
+        {
+            BufferedImage bi = ImageIO.read(new File("src/skins/spikeRight.png"));
+            g.drawImage(bi,
+                    -bi.getWidth() + 50,
+                    -creature.getFattiness(),
+                    creature.getFattiness(),
+                    creature.getFattiness(),
+                    null);
+
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Failed at opening spike skin");
+        }
+        try
+        {
+            BufferedImage bi = ImageIO.read(new File("src/skins/spikeLeft.png"));
+            g.drawImage(bi,
+                    -bi.getWidth() - 15,
+                    -creature.getFattiness(),
+                    creature.getFattiness(),
+                    creature.getFattiness(),
+                    null);
+
+        }
+        catch (IOException ex)
+        {
+            System.out.println("Failed at opening spike skin");
         }
         g.setTransform(oldForm);
     }

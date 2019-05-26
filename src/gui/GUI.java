@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class GUI
 {
+
     public JFrame frame;
     private Game game;
     public Menu menu;
@@ -23,8 +24,8 @@ public class GUI
         frame.pack();
         frame.setVisible(true);
 
-        invokeSPMode();
-        //invokeMainMenu();
+        //invokeSPMode();
+        invokeMainMenu();
     }
 
     public void invokeSPMode()
@@ -32,6 +33,8 @@ public class GUI
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
         frame.add(new ClientWindow(frame, game));
+        game.getPlayer().getNewColor();
+        //frame.requestFocus();
         //frame.requestFocus();
         frame.pack();
     }
@@ -52,9 +55,18 @@ public class GUI
     }
 
     public void invokeEditor()
+
     {
         System.out.println("Editor");
+        //frame.getContentPane().remove(this.menu);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(new Editor(this));
+        //System.out.println(frame.getKeyListeners()[0].toString());
+        frame.requestFocus();
+        frame.repaint();
+        frame.pack();
     }
+
 
     public void invokeNetGame(String text)
     {
@@ -68,6 +80,7 @@ public class GUI
         frame.getContentPane().add(this.menu);
         frame.repaint();
         frame.pack();
+
     }
 
     public void repaint()
