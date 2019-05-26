@@ -8,7 +8,7 @@ public class Levels
 {
     public static Level getTestLevel()
     {
-        return new Level(new Player(new Point(200, 200), 100, 50, 25), 19);
+        return new Level(new Player(new Point(200, 200), 100, 50, 25), 100);
     }
 
 

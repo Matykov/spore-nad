@@ -54,7 +54,8 @@ public class Level implements Serializable
             var agility = generateCurValue(r, player.getAgility());
             var fattiness = generateCurValue(r, player.getFattiness());
 
-            s.bots.add(new Creature(position, speed, agility, fattiness));
+            s.creatures.add(new Bot(position, speed, agility, fattiness));
+            System.out.println("added bot " + position.toString());
         }
 
         return s;

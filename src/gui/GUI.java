@@ -4,7 +4,6 @@ import logic.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 
 public class GUI
@@ -30,18 +29,16 @@ public class GUI
 //
 //        while(true)
 //        {
-//            //game.update();
+//            game.update();
 //            frame.repaint();
 //        }
     }
 
     public void invokeSPMode()
     {
-        System.out.println("Single Player");
         //frame.getContentPane().remove(this.menu);
-        //frame.getContentPane().removeAll();
+        frame.getContentPane().removeAll();
         frame.getContentPane().add(new ClientWindow(frame, game));
-        System.out.println(frame.getKeyListeners()[0].toString());
         frame.requestFocus();
         frame.repaint();
         frame.pack();
@@ -49,7 +46,6 @@ public class GUI
 
     public void invokeMPMode()
     {
-        System.out.println("Multi Player");
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new MultiPlayerMode(this));
         frame.repaint();

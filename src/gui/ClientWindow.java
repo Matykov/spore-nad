@@ -26,9 +26,7 @@ public class ClientWindow extends GameWindow
                     var s = game.getPlayer().move(-5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    var start = System.nanoTime();
                     game.update();
-                    System.out.println((System.nanoTime() - start)*0.000001);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
@@ -79,10 +77,11 @@ public class ClientWindow extends GameWindow
     @Override
     protected void drawSector(Graphics2D g, AffineTransform oldForm, Sector sector)
     {
+
         AffineTransform mapAT = (AffineTransform) (oldForm.clone());
         mapAT.translate(MapShift.x, MapShift.y);
         g.setTransform(mapAT);
-        drawBackground(g);
+        drawBackground(g, sector);
         drawFood(g, sector);
 
 

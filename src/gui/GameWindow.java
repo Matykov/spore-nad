@@ -21,6 +21,8 @@ public abstract class GameWindow extends JPanel
     protected KeyAdapter keyAdapter;
     protected Point MapShift;
 
+    protected double viewCoefficient = 1;
+
     protected GameWindow()
     {
     }
@@ -29,6 +31,12 @@ public abstract class GameWindow extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
+
+        if (game.getPlayer().getFattiness() >= frame.getWidth() / 4
+                || game.getPlayer().getFattiness() >= frame.getHeight() / 4)
+        {
+            viewCoefficient -= 0.1;
+        }
 
         drawGame((Graphics2D)g);
     }
@@ -119,23 +127,16 @@ public abstract class GameWindow extends JPanel
         g.setTransform(oldForm);
     }
 
-    protected void drawBackground(Graphics2D g)
+    protected void drawBackground(Graphics2D g, Sector sector)
     {
         BufferedImage bi;
         try{
-            bi = ImageIO.read(new File("src/skins/background.jpg"));
-
-            for (int m = -2; m < 3; m++)
-            {
-                for (int n = -2; n < 3; n++)
-                {
-                    g.drawImage(bi, m * bi.getWidth(), n * bi.getHeight(), null);
-                }
-            }
+            bi = ImageIO.read(new File("src/skins/background.png"));
+            g.drawImage(bi,sector.location.x, sector.location.y, null);
         }
         catch (IOException ex)
         {
-            System.out.println("Failed at opening player skin");
+            System.out.println("Failed at opening background skin");
         }
     }
 }

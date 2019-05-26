@@ -57,6 +57,7 @@ public class SectorNet implements Serializable
         }
 
         sectors[size / 2][size / 2].player = player;
+        System.out.println("moveFocusLeft");
     }
 
     public void moveFocusRight(Player player)
@@ -80,6 +81,7 @@ public class SectorNet implements Serializable
         }
 
         sectors[size / 2][size / 2].player = player;
+        System.out.println("moveFocusRight");
     }
 
     public void moveFocusUp(Player player)
@@ -103,6 +105,7 @@ public class SectorNet implements Serializable
         }
 
         sectors[size / 2][size / 2].player = player;
+        System.out.println("moveFocusUp");
     }
 
     public void moveFocusDown(Player player)
@@ -126,6 +129,7 @@ public class SectorNet implements Serializable
         }
 
         sectors[size / 2][size / 2].player = player;
+        System.out.println("moveFocusDown");
     }
 
     public Sector[] getSectors()
