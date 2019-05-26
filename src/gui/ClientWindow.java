@@ -8,13 +8,17 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 
 public class ClientWindow extends GameWindow
 {
     public ClientWindow(JFrame frame, Game game)
     {
-        MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
+        if(!(game instanceof ServerGame))
+            MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
                 frame.getHeight() / 2 - game.getPlayer().sectorPosition.y);
+        else
+            MapShift = new Point(0,0);
         this.frame = frame;
         this.game = game;
         this.keyAdapter = new KeyAdapter()
@@ -26,46 +30,49 @@ public class ClientWindow extends GameWindow
                     var s = game.getPlayer().move(-5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    game.update();
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
                     var s = game.getPlayer().move(5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    game.update();
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
                     game.getPlayer().turn(Math.PI / 8);
-                    game.update();
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     game.getPlayer().turn(-Math.PI / 8);
-                    game.update();
+                    //game.update();
                 }
                 repaint();
             }
         };
-        this.frame.addKeyListener(keyAdapter);
+        if(!(game instanceof ServerGame))
+            this.frame.addKeyListener(keyAdapter);
     }
 
     @Override
     protected void drawGame(Graphics2D g)
     {
         AffineTransform origXform = g.getTransform();
-        var sectors = game.getSectorNet().getSectors();
+        var sectors = new ArrayList<>(game.getSectorNet().getSectors());
         for (var sector: sectors)
         {
             drawSector(g, origXform, sector);
         }
 
-        if (!(game instanceof ClientGame))
+        if (!(game instanceof ClientGame) &&!(game instanceof ServerGame))
             drawProgressBar(g);
+        if(!(game instanceof ServerGame)) {
+            drawPlayer(g);
 
-        drawPlayer(g);
-        drawEye(g, origXform, game.getPlayer(), null);
+            drawEye(g, origXform, game.getPlayer(), null);
+        }
 
         if (game.isLevelCompleted())
         {
@@ -84,8 +91,8 @@ public class ClientWindow extends GameWindow
         drawBackground(g, sector);
         drawFood(g, sector);
 
-
-        for (Creature creature : sector.creatures) {
+        var creatures = new ArrayList<Creature>(sector.creatures);
+        for (Creature creature : creatures) {
             drawCreature(g, creature, sector);
             drawEye(g, mapAT, creature, sector);
         }

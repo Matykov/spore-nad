@@ -12,6 +12,7 @@ public class NetPlayer extends Player implements Serializable, IRunOver {
     public NetPlayer(Point position, int speed, int agility, int fattiness, int id) {
         super(position, speed, agility, fattiness);
         this.id = id;
+        this.absPosition = new Point();
     }
     public int getId(){
         return id;

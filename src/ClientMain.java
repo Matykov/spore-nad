@@ -4,7 +4,7 @@ import logic.ClientGame;
 public class ClientMain {
     public static void main(String[] args)
     {
-        var game = new ClientGame("10.96.3.4", 8081);
+        var game = new ClientGame("127.0.0.1", 8081);
 
         new GUI().run(game);
     }

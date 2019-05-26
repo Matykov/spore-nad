@@ -3,6 +3,7 @@ package gui;
 import engine.*;
 import logic.Game;
 import logic.Sector;
+import logic.ServerGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class GameWindow extends JPanel
 {
@@ -31,12 +33,11 @@ public abstract class GameWindow extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
-        if (game.getPlayer().getFattiness() >= frame.getWidth() / 4
-                || game.getPlayer().getFattiness() >= frame.getHeight() / 4)
-        {
-            viewCoefficient -= 0.1;
-        }
+        if (!(game instanceof ServerGame))
+            if (game.getPlayer().getFattiness() >= frame.getWidth() / 4
+                || game.getPlayer().getFattiness() >= frame.getHeight() / 4) {
+                viewCoefficient -= 0.1;
+            }
 
         drawGame((Graphics2D)g);
     }
@@ -75,7 +76,7 @@ public abstract class GameWindow extends JPanel
 
     protected void drawFood(Graphics g, Sector sector)
     {
-        ArrayList<Food> food = sector.food;
+        LinkedList<Food> food = sector.food;
 
         g.setColor(new Color(39, 200, 32));
 
@@ -131,7 +132,7 @@ public abstract class GameWindow extends JPanel
     {
         BufferedImage bi;
         try{
-            bi = ImageIO.read(new File("src/skins/background.png"));
+            bi = ImageIO.read(new File("src/skins/Sector.png"));
             g.drawImage(bi,sector.location.x, sector.location.y, null);
         }
         catch (IOException ex)

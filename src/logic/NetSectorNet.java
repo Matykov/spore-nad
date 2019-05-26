@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class NetSectorNet extends SectorNet {
     private NetPlayer[] players;
-    private static int netSize = 12;
+    public static int netSize = 13;
     public static final int avgPiecesCount = 7;
     private static final int avgSectorFoodCount = 2;
     private static final int avgSectorBotCount = 0;
@@ -20,6 +20,7 @@ public class NetSectorNet extends SectorNet {
             for (int j = 0; j < netSize; j++)
             {
                 sectors[i][j] = generateSector();
+                sectors[i][j].location = new Point((i - size / 2) * sectorSize.x, (j - size / 2) * sectorSize.y);
             }
         }
         players = new NetPlayer[nPlayerCount];

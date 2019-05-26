@@ -1,12 +1,10 @@
 package engine;
 
-import logic.NetPlayer;
+
 import logic.Sector;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Level implements Serializable

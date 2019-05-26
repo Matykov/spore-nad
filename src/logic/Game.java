@@ -27,8 +27,9 @@ public class Game implements Serializable
         curSectors = new SectorNet(level);
     }
 
-    protected Game(){
-
+    protected Game()
+    {
+        this.curSectors = new NetSectorNet(4);
     }
 
     public Player getPlayer()
@@ -48,7 +49,6 @@ public class Game implements Serializable
             for (var i = 0; i < SectorNet.size; i++)
             {
                 var curSec = curSectors.sectors[j][i];
-
                 for (Creature creature: curSec.getCreatures())
                 {
 
@@ -64,14 +64,13 @@ public class Game implements Serializable
                     //move bot
                     if (creature instanceof Bot) {
                         if (tick == 10) {
-                            moveBot(curSec, (Bot) creature);
+                            moveBot((Bot) creature);
                             tick = 0;
                         }
                     }
 
                     //observe sector position
                     observeSectorPosition(i, j, creature);
-
                     tick++;
                 }
             }
@@ -87,8 +86,6 @@ public class Game implements Serializable
                             creature.getFattiness() - preyCreature.getFattiness())
             {
                 var nutrition = creature.eat(preyCreature);
-                curSec.removeCreature(preyCreature);
-
                 if (creature instanceof Player)
                 {
                     progressBar += nutrition;
@@ -121,7 +118,7 @@ public class Game implements Serializable
         curSec.removeFood(removedFood);
     }
 
-    private void moveBot(Sector curSec, Bot bot)
+    private void moveBot(Bot bot)
     {
         Random random = new Random();
 
@@ -155,9 +152,10 @@ public class Game implements Serializable
                 curSectors.moveFocusLeft(player);
             }
             else {
-                curSec.removeCreature(creature);
+                //curSec.removeCreature(creature);
+                //creature.die();
                 var newX = curXNet - 1 >= 0 ? curXNet - 1 : SectorNet.size - 1;
-                curSectors.sectors[curYNet][newX].creatures.add(creature);
+                //curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
             creature.sectorPosition.x = Sector.size.x;
@@ -169,9 +167,10 @@ public class Game implements Serializable
             }
             else
             {
-                curSec.removeCreature(creature);
+                //curSec.removeCreature(creature);
+                //creature.die();
                 var newX = curXNet + 1 < SectorNet.size ? curXNet + 1 : 0;
-                curSectors.sectors[curYNet][newX].creatures.add(creature);
+                //curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
             creature.sectorPosition.x = 0;
@@ -183,9 +182,10 @@ public class Game implements Serializable
             }
             else
             {
-                curSec.removeCreature(creature);
+                //curSec.removeCreature(creature);
+                //creature.die();
                 var newY = curYNet - 1 >= 0 ? curYNet - 1 : SectorNet.size - 1;
-                curSectors.sectors[newY][curXNet].creatures.add(creature);
+                //curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
 
             creature.sectorPosition.y = Sector.size.y;
@@ -197,9 +197,10 @@ public class Game implements Serializable
             }
             else
             {
-                curSec.removeCreature(creature);
+                //curSec.removeCreature(creature);
+                //creature.die();
                 var newY = curYNet + 1 < SectorNet.size ? curYNet + 1 : 0;
-                curSectors.sectors[newY][curXNet].creatures.add(creature);
+                //curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
             creature.sectorPosition.y = 0;
         }
@@ -214,10 +215,9 @@ public class Game implements Serializable
     public void update()
     {
         observeCreatures();
-
         if (getPercentCompletion() >= 1)
         {
-            System.out.println("level completed");
+            //System.out.println("level completed");
             isLevelCompleted = true;
         }
     }

@@ -10,8 +10,6 @@ import java.util.concurrent.Semaphore;
 public class Logger {
     private FileWriter file;
     private Queue<String> writeQueue;
-    //private Semaphore writingMutex = new Semaphore(1);
-    //private Semaphore pushMutex = new Semaphore(1);
     public Logger(String filePath){
         try {
             this.file = new FileWriter(filePath, true);

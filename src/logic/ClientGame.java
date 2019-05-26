@@ -41,8 +41,8 @@ public class ClientGame extends Game implements IRunOver{
     public void setSectorNet(SectorNet sectors)
     {
         this.curSectors = sectors;
-        for(int i=0; i<SectorNet.size; i++){
-            for(int j=0; j<SectorNet.size; j++){
+        for(int i=0; i<NetSectorNet.netSize; i++){
+            for(int j=0; j<NetSectorNet.netSize; j++){
                 for(var player:curSectors.sectors[i][j].getCreatures()){
                     if(((NetPlayer)player).getId() == ((NetPlayer)player).getId()) {
                         this.player = (NetPlayer) player;

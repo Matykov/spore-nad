@@ -32,7 +32,7 @@ public class GUI
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
         frame.add(new ClientWindow(frame, game));
-        frame.requestFocus();
+        //frame.requestFocus();
         frame.pack();
     }
 
@@ -68,5 +68,10 @@ public class GUI
         frame.getContentPane().add(this.menu);
         frame.repaint();
         frame.pack();
+    }
+
+    public void repaint()
+    {
+        frame.repaint();
     }
 }

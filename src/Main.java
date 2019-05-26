@@ -9,9 +9,12 @@ public class Main
     {
         var game = new Game(Levels.getTestLevel());
 
-        new GUI().run(game);
-        while (true)
+        var gui = new GUI();
+        gui.run(game);
+        while (true) {
             game.update();
+            gui.repaint();
+        }
     }
 
 

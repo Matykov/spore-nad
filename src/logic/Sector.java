@@ -3,13 +3,15 @@ package logic;
 import engine.*;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-public class Sector
+public class Sector implements Serializable
 {
-    public ArrayList<Creature> creatures;
-    public ArrayList<Creature> bots;
-    public ArrayList<Food> food;
+    public LinkedList<Creature> creatures;
+//    public ArrayList<Creature> bots;
+    public LinkedList<Food> food;
     public Player player;
 
     public static final Point size = new Point(300, 300);
@@ -17,20 +19,25 @@ public class Sector
 
     public Sector()
     {
-        creatures = new ArrayList<>();
-        bots = new ArrayList<>();
-        food = new ArrayList<Food>();
+        creatures = new LinkedList<>();
+//        bots = new ArrayList<>();
+        food = new LinkedList<Food>();
     }
 
-    public ArrayList<Creature> getCreatures()
+    public LinkedList<Creature> getCreatures()
     {
         if (player == null)
             return creatures;
-        var l = ((ArrayList<Creature>)creatures.clone());
-        l.add(player);
+        var l = ((LinkedList)creatures.clone());
+        if (player != null)
+            l.add(player);
         return l;
     }
 
+    public void removeCreature(ArrayList<Creature> creatures)
+    {
+        creatures.removeAll(creatures);
+    }
     public void removeCreature(Creature creature)
     {
         creatures.remove(creature);

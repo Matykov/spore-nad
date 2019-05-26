@@ -132,7 +132,7 @@ public class SectorNet implements Serializable
         System.out.println("moveFocusDown");
     }
 
-    public Sector[] getSectors()
+    public ArrayList<Sector> getSectors()
     {
         var l = new ArrayList<Sector>();
         for (var j = 0;  j < size; j++)
@@ -140,6 +140,6 @@ public class SectorNet implements Serializable
             l.addAll(Arrays.asList(sectors[j]));
         }
 
-        return l.toArray(new Sector[l.size()]);
+        return l;
     }
 }
