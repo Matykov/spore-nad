@@ -40,10 +40,6 @@ public class Game implements Serializable
         return level;
     }
 
-//    public void observePlayer()
-//    {
-//
-//    }
 
     public void observeCreatures()
     {
@@ -66,14 +62,17 @@ public class Game implements Serializable
                     eatCreatures(curSec, creature);
 
                     //move bot
-                    if (creature instanceof Bot && tick == 8000)
-                    {
-                        moveBot(curSec, (Bot)creature);
+                    if (creature instanceof Bot) {
+                        if (tick == 10) {
+                            moveBot(curSec, (Bot) creature);
+                            tick = 0;
+                        }
                     }
 
                     //observe sector position
                     observeSectorPosition(i, j, creature);
 
+                    tick++;
                 }
             }
         }
@@ -135,7 +134,11 @@ public class Game implements Serializable
         }
 
         bot.move(5);
-        tick = 0;
+    }
+
+    public void tick()
+    {
+        tick++;
     }
 
     private void observeSectorPosition(int curXNet, int curYNet, Creature creature)
@@ -217,8 +220,6 @@ public class Game implements Serializable
             System.out.println("level completed");
             isLevelCompleted = true;
         }
-
-        tick++;
     }
 
     public double getPercentCompletion()

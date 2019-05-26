@@ -19,28 +19,20 @@ public class GUI
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 500);
         frame.setResizable(true);
-
-        invokeSPMode();
-        //invokeMainMenu();
-
         frame.setPreferredSize(new Dimension(600, 500));
         frame.pack();
         frame.setVisible(true);
-//
-//        while(true)
-//        {
-//            game.update();
-//            frame.repaint();
-//        }
+
+        invokeSPMode();
+        //invokeMainMenu();
     }
 
     public void invokeSPMode()
     {
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(new ClientWindow(frame, game));
+        frame.add(new ClientWindow(frame, game));
         frame.requestFocus();
-        frame.repaint();
         frame.pack();
     }
 
