@@ -16,14 +16,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     public ServerGame(int port){
         this.server = new Server(port, this, 0);
         this.curSectors = new NetSectorNet(4);
-        for(int i=0; i < SectorNet.size; i++){
-            for(int j=0; j<SectorNet.size; j++){
-                for(var player:curSectors.sectors[i][j].creatures)
-                {
-                    this.players.add((NetPlayer)player);
-                }
-            }
-        }
+        this.players = ((NetSectorNet)curSectors).getPlayers();
 
         server.start();
 
@@ -31,30 +24,13 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     public ArrayList<NetPlayer> getCreatures(){
         return players;
     }
+
     public void setPlayer(NetPlayer player)
     {
-        for(int i=0; i<NetSectorNet.netSize; i++){
-            for(int j=0; j<NetSectorNet.netSize; j++){
-                for(var inPlayer:curSectors.sectors[i][j].creatures)
-                {
-                    if(((NetPlayer)inPlayer).getId() == player.getId()){
-                        inPlayer = player;
-                        return;
-                    }
-                }
-            }
-        }
+        player.activate();
+        players.set(player.getId(), player);
     }
-//    public void renewCreatures(){
-//        for(int i=0; i < SectorNet.size; i++){
-//            for(int j=0; j<SectorNet.size; j++){
-//                for(var player:curSectors.sectors[i][j].creatures)
-//                {
-//                    this.players.add((NetPlayer)player);
-//                }
-//            }
-//        }
-//    }
+
     @Override
     public void read(InputStream stream) throws IOException {
         ObjectInputStream ois = new ObjectInputStream(stream);
@@ -62,7 +38,11 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
             IMessage message = (IMessage) ois.readObject();
             if(message!=null) {
                 message.run(this);
-                readyToWrite = true;
+                for (var player : players){
+                    if(player.isActive())
+                        System.out.printf("player id: %d in x: %d y: %d\n", player.getId(), player.absPosition.x, player.absPosition.y);
+                }
+                //readyToWrite = true;
             }
         }catch(ClassNotFoundException ignored){
             System.out.println(ignored.toString());
@@ -79,21 +59,34 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
             ObjectOutputStream oos = new ObjectOutputStream(stream);
             oos.writeObject(new LevelMessage((NetSectorNet) curSectors));
             oos.flush();
-            readyToWrite = false;
+            //readyToWrite = false;
     }
 
     @Override
     public void onConnectWrite(OutputStream stream) throws IOException {
-        NetPlayer player = (NetPlayer) players.get(onlinePlayers);
+
+        NetPlayer player = players.get(onlinePlayers);
+        System.out.printf("Registrating new player: id: %d x: %d y: %d\n", player.getId(),
+                player.absPosition.x, player.absPosition.y);
+        player.activate();
         onlinePlayers++;
         ObjectOutputStream oos = new ObjectOutputStream(stream);
-        oos.writeObject(new RegistrationMessage(curSectors, player));
+        oos.writeObject(new RegistrationMessage((NetSectorNet) curSectors, player));
         oos.flush();
     }
+
     public void run(){
         while(true){
+            var start = System.nanoTime();
             update();
-            //level.refreshPlayers();
+            var time = (System.nanoTime() - start)/1000000;
+            //System.out.println(time);
+            try {
+                Thread.sleep(50 - time);
+            }
+            catch (InterruptedException ie){
+                System.out.println("Interrupted");
+            }
             readyToWrite = true;
         }
     }

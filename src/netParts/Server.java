@@ -23,8 +23,6 @@ public class Server extends Thread{
         try {
             this.socket = new ServerSocket(socketPort);
             this.sleepyTime = sleepyTime;
-//            this.sockWriter = sockWriter;
-//            this.sockReader = sockReader;
             this.serverWorker = serverWorker;
             String message = "Server created: " + socket.toString();
             logger.log(message);

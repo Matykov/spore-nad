@@ -12,6 +12,7 @@ public class ClientGame extends Game implements IRunOver{
     private OutputStream outputStream;
     private Logger logger = new Logger("Client_Server.log");
     private boolean playerUpdated;
+    private int playerId;
 
     public ClientGame(String host, int port){
         try {
@@ -27,6 +28,7 @@ public class ClientGame extends Game implements IRunOver{
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
+                System.out.printf("I'v got id: %d \n", this.playerId);
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
             }
@@ -34,23 +36,18 @@ public class ClientGame extends Game implements IRunOver{
             this.client.closeConnection();
         }
     }
-    public void registerSelf(SectorNet sectors, NetPlayer player){
-        this.curSectors = sectors;
-        this.player = player;
+    public void registerSelf(NetSectorNet sectors, NetPlayer player, int playerId){
+        this.playerId = playerId;
+        setSectorNet(sectors);
     }
-    public void setSectorNet(SectorNet sectors)
+//    public void setPlayer(NetPlayer player)
+//    {
+//        this.player = player;
+//    }
+    public void setSectorNet(NetSectorNet sectors)
     {
         this.curSectors = sectors;
-        for(int i=0; i<NetSectorNet.netSize; i++){
-            for(int j=0; j<NetSectorNet.netSize; j++){
-                for(var player:curSectors.sectors[i][j].getCreatures()){
-                    if(((NetPlayer)player).getId() == ((NetPlayer)player).getId()) {
-                        this.player = (NetPlayer) player;
-                        return;
-                    }
-                }
-            }
-        }
+        this.player = sectors.getPlayers().get(this.playerId);
     }
 
     @Override

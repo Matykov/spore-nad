@@ -24,8 +24,8 @@ public class GUI
         frame.pack();
         frame.setVisible(true);
 
-        //invokeSPMode();
-        invokeMainMenu();
+        invokeSPMode();
+        //invokeMainMenu();
     }
 
     public void invokeSPMode()
@@ -33,7 +33,7 @@ public class GUI
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
         frame.add(new ClientWindow(frame, game));
-        game.getPlayer().getNewColor();
+        //game.getPlayer().getNewColor();
         //frame.requestFocus();
         //frame.requestFocus();
         frame.pack();
