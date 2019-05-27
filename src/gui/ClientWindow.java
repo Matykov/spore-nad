@@ -42,24 +42,24 @@ public class ClientWindow extends GameWindow
                     var s = game.getPlayer().move(-5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    //game.update();
+                    game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
                     var s = game.getPlayer().move(5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    //game.update();
+                    game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
                     game.getPlayer().turn(Math.PI / 8);
-                    //game.update();
+                    game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
                     game.getPlayer().turn(-Math.PI / 8);
-                    //game.update();
+                    game.update();
                 }
                 repaint();
             }
@@ -82,9 +82,9 @@ public class ClientWindow extends GameWindow
             drawProgressBar(g);
 
         drawPlayer(g);
-        drawFlagella(g, origXform, game.getPlayer(), null);
+        //drawFlagella(g, origXform, game.getPlayer(), null);
         drawEye(g, origXform, game.getPlayer(), null);
-        drawSpike(g, origXform, game.getPlayer(), null);
+        //drawSpike(g, origXform, game.getPlayer(), null);
 
     }
 

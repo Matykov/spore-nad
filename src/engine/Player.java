@@ -10,7 +10,7 @@ public class Player extends Creature
     {
         super(position, speed, agility, fattiness);
             //g.setColor(new Color(0x842D4E));
-        getNewColor();
+        //getNewColor();
 
     }
     public void getNewColor(){
