@@ -46,6 +46,9 @@ public class Creature implements Serializable
     public int getAgility() {
         return Agility;
     }
+    public Point getSectorPosition() {
+        return sectorPosition;
+    }
     public int getFattiness() {
         return Fattiness;
     }
