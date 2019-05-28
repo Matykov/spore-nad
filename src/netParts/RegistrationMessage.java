@@ -1,7 +1,10 @@
 package netParts;
 
 import engine.NetPlayer;
-import logic.*;
+import logic.ClientGame;
+import logic.IMessage;
+import logic.IRunOver;
+import logic.NetSectorNet;
 
 public class RegistrationMessage implements IMessage {
     private NetSectorNet sectors;

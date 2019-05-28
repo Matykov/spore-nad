@@ -34,8 +34,8 @@ public abstract class GameWindow extends JPanel
     {
         super.paintComponent(g);
         if (!(game instanceof ServerGame))
-            if (game.getPlayer().getFattiness() >= frame.getWidth() / 4
-                || game.getPlayer().getFattiness() >= frame.getHeight() / 4) {
+            if (viewCoefficient * game.getPlayer().getFattiness() * 2 >= frame.getWidth() / 6
+                || viewCoefficient * game.getPlayer().getFattiness() * 2 >= frame.getHeight() / 6) {
                 viewCoefficient -= 0.1;
             }
 
@@ -85,7 +85,10 @@ public abstract class GameWindow extends JPanel
             var pieces = food.get(group).getPieces();
             for (Point p: pieces.keySet())
             {
-                g.fillOval(translateX(sector, p.x - pieces.get(p)), translateY(sector, p.y - pieces.get(p)), pieces.get(p) + 5, pieces.get(p) + 5);
+                g.fillOval(translateX(sector, p.x - pieces.get(p)),
+                        translateY(sector, p.y - pieces.get(p)),
+                        (int)(viewCoefficient * pieces.get(p) + 5),
+                        (int)(viewCoefficient * pieces.get(p) + 5));
                 //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getAbsolutePosition().x, game.getPlayer().getAbsolutePosition().y);
             }
         }
@@ -118,8 +121,8 @@ public abstract class GameWindow extends JPanel
             g.drawImage(bi,
                     -bi.getWidth(),
                     -creature.getFattiness(),
-                    creature.getFattiness(),
-                    creature.getFattiness(),
+                    (int)(viewCoefficient * creature.getFattiness()),
+                    (int)(viewCoefficient * creature.getFattiness()),
                     null);
         }
         catch (IOException ex)
@@ -156,8 +159,8 @@ public abstract class GameWindow extends JPanel
                 g.drawImage(bi,
                         -bi.getWidth() + 10,
                         -creature.getFattiness() + 50,
-                        creature.getFattiness(),
-                        creature.getFattiness(),
+                        (int)(viewCoefficient * creature.getFattiness()),
+                        (int)(viewCoefficient * creature.getFattiness()),
                         null);
             }
             else
@@ -166,8 +169,8 @@ public abstract class GameWindow extends JPanel
                 g.drawImage(bi,
                         -bi.getWidth() + 10,
                         -creature.getFattiness() + 50,
-                        creature.getFattiness(),
-                        creature.getFattiness(),
+                        (int)(viewCoefficient * creature.getFattiness()),
+                        (int)(viewCoefficient * creature.getFattiness()),
                         null);
             }
 
@@ -205,8 +208,8 @@ public abstract class GameWindow extends JPanel
             g.drawImage(bi,
                     -bi.getWidth() + 50,
                     -creature.getFattiness(),
-                    creature.getFattiness(),
-                    creature.getFattiness(),
+                    (int)(viewCoefficient * creature.getFattiness()),
+                    (int)(viewCoefficient * creature.getFattiness()),
                     null);
 
         }
@@ -244,4 +247,6 @@ public abstract class GameWindow extends JPanel
             System.out.println("Failed at opening background skin");
         }
     }
+
+
 }

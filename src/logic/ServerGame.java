@@ -3,7 +3,6 @@ package logic;
 import engine.Creature;
 import engine.Food;
 import engine.NetPlayer;
-import engine.Player;
 import logger.Logger;
 import netParts.*;
 

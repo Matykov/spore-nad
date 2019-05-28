@@ -2,10 +2,7 @@ package engine;
 
 import java.awt.*;
 import java.io.Serializable;
-import engine.*;
 import logic.IRunOver;
-import logic.NetSectorNet;
-import logic.Sector;
 
 public class NetPlayer extends Player implements Serializable, IRunOver {
     private static int ttl = 60000;

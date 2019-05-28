@@ -4,7 +4,6 @@ import engine.Creature;
 import engine.Food;
 import engine.NetPlayer;
 import logic.*;
-import netParts.old.Client;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -16,7 +15,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 
 public class ClientClientWindow extends ClientWindow {

@@ -2,7 +2,7 @@ package logic;
 
 import engine.Food;
 import engine.NetPlayer;
-import logger.Logger;
+import logger.*;
 import netParts.PlayerMessage;
 import netParts.old.Client;
 
@@ -31,9 +31,12 @@ public class ClientGame extends Game implements IRunOver{
             this.playerUpdated = false;
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
+
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
                 System.out.printf("I'v got id: %d \n", this.playerId);
+
+
                 this.dummyPlayer = (NetPlayer) this.player;
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());

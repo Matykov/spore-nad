@@ -63,7 +63,7 @@ public class Game implements Serializable
 
                     //move bot
                     if (creature instanceof Bot) {
-                        if (tick == 10) {
+                        if (tick == 500) {
                             moveBot((Bot) creature);
                             tick = 0;
                         }

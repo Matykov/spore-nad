@@ -65,7 +65,7 @@ public class GUI
         System.out.println("Editor");
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(new Editor(this));
+        frame.getContentPane().add(new Editor(this, game));
         //System.out.println(frame.getKeyListeners()[0].toString());
         frame.requestFocus();
         frame.repaint();

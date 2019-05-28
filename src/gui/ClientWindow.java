@@ -1,7 +1,11 @@
 package gui;
 
-import engine.*;
-import logic.*;
+import engine.Creature;
+import engine.NetPlayer;
+import logic.ClientGame;
+import logic.Game;
+import logic.Sector;
+import logic.ServerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -105,7 +109,7 @@ public class ClientWindow extends GameWindow
 
         var creatures = new ArrayList<Creature>(sector.creatures);
         for (Creature creature : creatures) {
-            if(((NetPlayer)creature).isActive())
+            if(((NetPlayer)(creature)).isActive())
                 drawCreature(g, creature, sector);
             //drawEye(g, mapAT, creature, sector);
         }
