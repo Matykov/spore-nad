@@ -4,11 +4,13 @@ import logic.ClientGame;
 public class ClientMain {
     public static void main(String[] args)
     {
-        var game = new ClientGame("127.0.0.1", 8081);
+        var game = new ClientGame("10.96.0.1", 8081);
 
-        new GUI().run(game);
+        var gui = new GUI();
+        gui.run(game);
         while(true){
             game.update();
+            gui.repaint();
             try {
                 Thread.sleep(30);
             }catch(InterruptedException ie){
