@@ -13,6 +13,11 @@ import java.util.ArrayList;
 public class ClientWindow extends GameWindow
 {
     //String color;
+    protected ClientWindow()
+    {
+
+    }
+
     public ClientWindow(JFrame frame, Game game)
     {
 //        BufferedReader reader;
@@ -39,27 +44,27 @@ public class ClientWindow extends GameWindow
             {
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
-                    var s = game.getPlayer().move(-5);
+                    var s = ((ClientGame)game).getPlayer().move(-5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    game.update();
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
-                    var s = game.getPlayer().move(5);
+                    var s = ((ClientGame)game).getPlayer().move(5);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    game.update();
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
-                    game.getPlayer().turn(Math.PI / 8);
-                    game.update();
+                    ((ClientGame)game).getPlayer().turn(Math.PI / 8);
+                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
-                    game.getPlayer().turn(-Math.PI / 8);
-                    game.update();
+                    ((ClientGame)game).getPlayer().turn(-Math.PI / 8);
+                    //game.update();
                 }
                 repaint();
             }
@@ -100,7 +105,8 @@ public class ClientWindow extends GameWindow
 
         var creatures = new ArrayList<Creature>(sector.creatures);
         for (Creature creature : creatures) {
-            drawCreature(g, creature, sector);
+            if(((NetPlayer)creature).isActive())
+                drawCreature(g, creature, sector);
             //drawEye(g, mapAT, creature, sector);
         }
 

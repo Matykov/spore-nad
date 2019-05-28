@@ -2,7 +2,7 @@ package netParts;
 
 import logic.IMessage;
 import logic.IRunOver;
-import logic.NetPlayer;
+import engine.NetPlayer;
 import logic.ServerGame;
 
 public class PlayerMessage implements IMessage {

@@ -1,7 +1,7 @@
 package logic;
 
 import engine.Food;
-import engine.Player;
+import engine.NetPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ public class NetSectorNet extends SectorNet {
     public static final int avgPiecesCount = 7;
     private static final int avgSectorFoodCount = 2;
     private static final int avgSectorBotCount = 0;
+    private ArrayList<Food> foods = new ArrayList<Food>();
 
     public NetSectorNet(int nPlayerCount) {
         sectors = new Sector[netSize][netSize];
@@ -20,8 +21,8 @@ public class NetSectorNet extends SectorNet {
         {
             for (int j = 0; j < netSize; j++)
             {
-                sectors[i][j] = generateSector();
-                sectors[i][j].location = new Point((i - size / 2) * sectorSize.x, (j - size / 2) * sectorSize.y);
+                sectors[i][j] = generateSector(i ,j);
+                sectors[i][j].location = new Point(i, j);
             }
         }
         players = new ArrayList<>();
@@ -31,7 +32,8 @@ public class NetSectorNet extends SectorNet {
             int y = nPlayerCount - i;
             var playerPoint = new Point((Sector.size.x/2)*x, (Sector.size.y/2)*y);
             var player = new NetPlayer(playerPoint,  100, 50, 25, i);
-            sectors[x][y].creatures.add(player);
+            //sectors[x][y].creatures.add(player);
+            player.parentSector = player.getSector(this);
             players.add(player);
         }
     }
@@ -46,7 +48,9 @@ public class NetSectorNet extends SectorNet {
         return r.nextInt(2 * inaccuracy) + num - inaccuracy;
     }
 
-    private Sector generateSector()
+    public ArrayList<Food> getFoods(){return foods;}
+
+    private Sector generateSector(int i, int j)
     {
         var s = new Sector();
 
@@ -54,11 +58,13 @@ public class NetSectorNet extends SectorNet {
         var curFoodCount = generateCurValue(r, avgSectorFoodCount);
 
         //generate sector food
-        for (var i = 0; i < curFoodCount; i++) {
-            var position = new Point(r.nextInt(s.size.x), r.nextInt(s.size.y));
+        for (var ii = 0; ii < curFoodCount; ii++) {
+            var position = new Point(Sector.size.x * i + r.nextInt(Sector.size.x),
+                    Sector.size.y * j + r.nextInt(Sector.size.y));
             var count = generateCurValue(r, avgPiecesCount);
-
-            s.food.add(new Food(position, count));
+            var food = new Food(position, count);
+            food.parentSector = s;
+            foods.add(food);
         }
         return s;
     }

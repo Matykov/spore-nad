@@ -1,5 +1,8 @@
 package engine;
 
+import logic.NetSectorNet;
+import logic.Sector;
+
 import java.awt.*;
 import java.io.Serializable;
 
@@ -8,8 +11,9 @@ public class Creature implements Serializable
     public boolean IsDead = false;
     private int Speed;
     private int Agility;
-    private int Fattiness;
+    protected int Fattiness;
     public int Damage;
+    public Sector parentSector;
 
 
     public Point absPosition;
@@ -136,6 +140,19 @@ public class Creature implements Serializable
         sectorPosition.y += newShift.y;
 
         return newShift;
+    }
+    public Sector getSector(NetSectorNet net)
+    {
+        if (sectorPosition.x >= Sector.size.x * NetSectorNet.netSize)
+            sectorPosition.x = 0;
+        if (sectorPosition.x <= 0)
+            sectorPosition.x = Sector.size.x * NetSectorNet.netSize;
+        if (sectorPosition.y >= Sector.size.y * NetSectorNet.netSize)
+            sectorPosition.y = 0;
+        if (sectorPosition.y <= 0)
+            sectorPosition.y = Sector.size.y * NetSectorNet.netSize;
+
+        return net.sectors[sectorPosition.x / Sector.size.x][sectorPosition.y / Sector.size.y];
     }
 
 }

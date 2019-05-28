@@ -1,8 +1,10 @@
 package engine;
+import logic.ServerGame;
+
 import java.io.*;
 import java.awt.*;
 
-public class Player extends Creature
+public class Player extends Creature implements Serializable
 {
 
     public Player(Point position, int speed, int agility, int fattiness)

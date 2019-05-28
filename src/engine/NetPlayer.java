@@ -1,8 +1,11 @@
-package logic;
+package engine;
 
 import java.awt.*;
 import java.io.Serializable;
 import engine.*;
+import logic.IRunOver;
+import logic.NetSectorNet;
+import logic.Sector;
 
 public class NetPlayer extends Player implements Serializable, IRunOver {
     private static int ttl = 60000;
@@ -13,6 +16,10 @@ public class NetPlayer extends Player implements Serializable, IRunOver {
         super(position, speed, agility, fattiness);
         this.id = id;
         this.absPosition = new Point();
+    }
+    public void setFattines(int nFattines)
+    {
+        Fattiness = nFattines;
     }
     public int getId(){
         return id;

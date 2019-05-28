@@ -1,6 +1,8 @@
 package gui;
 
+import logic.ClientGame;
 import logic.Game;
+import logic.ServerGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +34,10 @@ public class GUI
     {
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
-        frame.add(new ClientWindow(frame, game));
+        if(!(game instanceof ServerGame))
+            frame.add(new ClientClientWindow(frame, (ClientGame) game));
+        else
+            frame.add(new ServerWindow(frame, (ServerGame)game));
         //game.getPlayer().getNewColor();
         //frame.requestFocus();
         //frame.requestFocus();

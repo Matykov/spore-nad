@@ -77,7 +77,7 @@ public class Game implements Serializable
         }
     }
 
-    private void eatCreatures(Sector curSec, Creature creature)
+    protected void eatCreatures(Sector curSec, Creature creature)
     {
         for (Creature preyCreature: curSec.getCreatures())
         {
@@ -94,18 +94,25 @@ public class Game implements Serializable
         }
     }
 
-    private void eatFood(Sector curSec, Creature creature)
+    protected void eatFood(Sector curSec, Creature creature)
     {
         var removedFood = new ArrayList<Food>();
+        System.out.printf("EatFood for player: %d x:%d y%d\n", ((NetPlayer)creature).getId(),
+                creature.sectorPosition.x, creature.sectorPosition.y);
         for (Food food : curSec.food)
         {
             var keys = food.getPieces().keySet();
             for (Point piecePosition : keys)
             {
+                System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
+                System.out.printf("creature pos : %d %d\n", ((NetPlayer)creature).sectorPosition.x, ((NetPlayer)creature).sectorPosition.y);
+                System.out.printf("piece pos : %d %d\n", piecePosition.x, piecePosition.y);
                 if (dist(creature.sectorPosition, piecePosition) <= creature.getFattiness() - food.MaxSize)
                 {
                     int nutrition = food.destroyPiece(piecePosition);
+                    System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
                     creature.putOnWeight(nutrition);
+                    System.out.printf("Creture: %d weight after putOn: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
                     if(food.isEmpty)
                         removedFood.add(food);
                     if (creature instanceof Player)
@@ -138,7 +145,7 @@ public class Game implements Serializable
         tick++;
     }
 
-    private void observeSectorPosition(int curXNet, int curYNet, Creature creature)
+    protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
         var creaturePosX = creature.sectorPosition.x;
         var creaturePosY = creature.sectorPosition.y;
@@ -207,7 +214,7 @@ public class Game implements Serializable
 
     }
 
-    private double dist(Point p1, Point p2)
+    protected double dist(Point p1, Point p2)
     {
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }

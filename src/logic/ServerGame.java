@@ -1,8 +1,13 @@
 package logic;
 
+import engine.Creature;
+import engine.Food;
+import engine.NetPlayer;
+import engine.Player;
 import logger.Logger;
 import netParts.*;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -40,9 +45,10 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
                 message.run(this);
                 for (var player : players){
                     if(player.isActive())
-                        System.out.printf("player id: %d in x: %d y: %d\n", player.getId(), player.absPosition.x, player.absPosition.y);
+                        System.out.printf("player id: %d in x: %d y: %d\n", player.getId(),
+                                player.sectorPosition.x, player.sectorPosition.y);
                 }
-                //readyToWrite = true;
+                readyToWrite = true;
             }
         }catch(ClassNotFoundException ignored){
             System.out.println(ignored.toString());
@@ -66,8 +72,8 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     public void onConnectWrite(OutputStream stream) throws IOException {
 
         NetPlayer player = players.get(onlinePlayers);
-        System.out.printf("Registrating new player: id: %d x: %d y: %d\n", player.getId(),
-                player.absPosition.x, player.absPosition.y);
+        //System.out.printf("Registrating new player: id: %d x: %d y: %d\n", player.getId(),
+        //        player.sectorPosition.x, player.sectorPosition.y);
         player.activate();
         onlinePlayers++;
         ObjectOutputStream oos = new ObjectOutputStream(stream);
@@ -77,12 +83,12 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
 
     public void run(){
         while(true){
-            var start = System.nanoTime();
+            //var start = System.nanoTime();
             update();
-            var time = (System.nanoTime() - start)/1000000;
+            //var time = (System.nanoTime() - start)/1000000;
             //System.out.println(time);
             try {
-                Thread.sleep(50 - time);
+                Thread.sleep(30);
             }
             catch (InterruptedException ie){
                 System.out.println("Interrupted");
@@ -99,6 +105,92 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     public boolean isReady() {
         return readyToWrite;
+    }
+
+    @Override
+    protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
+    {
+        var creaturePosX = creature.sectorPosition.x;
+        var creaturePosY = creature.sectorPosition.y;
+
+        if (creaturePosX < 0)
+        {
+            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorNet.netSize - 1;
+            ((NetPlayer)creature).sectorPosition.x = Sector.size.x;
+        }
+        else if (creaturePosX > curSectors.sectorSize.x) {
+            var newX = curXNet + 1 < NetSectorNet.netSize ? curXNet + 1 : 0;
+            ((NetPlayer)creature).sectorPosition.x = 0;
+        }
+        if (creaturePosY < 0) {
+            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorNet.netSize - 1;
+            ((NetPlayer)creature).sectorPosition.y = Sector.size.y;
+        }
+        else if (creaturePosY > curSectors.sectorSize.y) {
+            var newY = curYNet + 1 < NetSectorNet.netSize ? curYNet + 1 : 0;
+            ((NetPlayer)creature).sectorPosition.y = 0;
+        }
+
+    }
+
+    @Override
+    public void observeCreatures()
+    {
+        for (var player : players)
+        {
+            if(player.isActive())
+            {
+                var sector = player.getSector((NetSectorNet) curSectors);
+                eatFood(sector, player);
+                eatCreatures(sector, player);
+                tick++;
+            }
+        }
+    }
+
+    @Override
+    protected void eatFood(Sector curSec, Creature creature)
+    {
+        var removedFood = new ArrayList<Food>();
+        var playerSector = ((NetPlayer)creature).getSector((NetSectorNet)curSectors);
+        for (Food food : ((NetSectorNet)curSectors).getFoods())
+        {
+            if(playerSector.equals(food.getSector((NetSectorNet)curSectors))) {
+                var keys = food.getPieces().keySet();
+                for (Point piecePosition : keys) {
+                    //System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
+                    //System.out.printf("creature pos : %d %d\n", ((NetPlayer)creature).sectorPosition.x, ((NetPlayer)creature).sectorPosition.y);
+                    //System.out.printf("piece pos : %d %d\n", piecePosition.x, piecePosition.y);
+                    if (dist(creature.sectorPosition, piecePosition) <= creature.getFattiness() - food.MaxSize) {
+                        int nutrition = food.destroyPiece(piecePosition);
+                        //System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
+                        creature.putOnWeight(nutrition);
+                        //System.out.printf("Creture: %d weight after putOn: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
+                        if (food.isEmpty)
+                            removedFood.add(food);
+//                        if (creature instanceof Player) {
+//                            progressBar += nutrition;
+//                        }
+                    }
+                }
+            }
+        }
+        curSec.removeFood(removedFood);
+    }
+
+    @Override
+    protected void eatCreatures(Sector curSec, Creature creature)
+    {
+        for(var preyCreature : players)
+        {
+            if(preyCreature.isActive()) {
+                if (creature.getFattiness() > preyCreature.getFattiness() &&
+                        dist(creature.sectorPosition, preyCreature.sectorPosition) <=
+                                creature.getFattiness() - preyCreature.getFattiness()) {
+                    creature.eat(preyCreature);
+                }
+            }
+        }
     }
 
     @Override
