@@ -4,12 +4,12 @@ import engine.NetPlayer;
 import logic.ClientGame;
 import logic.IMessage;
 import logic.IRunOver;
-import logic.NetSectorNet;
+import logic.NetSectorMap;
 
 public class RegistrationMessage implements IMessage {
-    private NetSectorNet sectors;
+    private NetSectorMap sectors;
     private int playerId;
-    public RegistrationMessage(NetSectorNet sectors, NetPlayer player){
+    public RegistrationMessage(NetSectorMap sectors, NetPlayer player){
         this.sectors = sectors;
         this.playerId = player.getId();
     }

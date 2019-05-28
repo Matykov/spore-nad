@@ -19,8 +19,8 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
 
     public ServerGame(int port){
         this.server = new Server(port, this, 0);
-        this.curSectors = new NetSectorNet(4);
-        this.players = ((NetSectorNet)curSectors).getPlayers();
+        this.curSectors = new NetSectorMap(4);
+        this.players = ((NetSectorMap)curSectors).getPlayers();
 
         server.start();
 
@@ -62,7 +62,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     public void write(OutputStream stream) throws IOException {
             ObjectOutputStream oos = new ObjectOutputStream(stream);
-            oos.writeObject(new LevelMessage((NetSectorNet) curSectors));
+            oos.writeObject(new LevelMessage((NetSectorMap) curSectors));
             oos.flush();
             //readyToWrite = false;
     }
@@ -76,7 +76,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
         player.activate();
         onlinePlayers++;
         ObjectOutputStream oos = new ObjectOutputStream(stream);
-        oos.writeObject(new RegistrationMessage((NetSectorNet) curSectors, player));
+        oos.writeObject(new RegistrationMessage((NetSectorMap) curSectors, player));
         oos.flush();
     }
 
@@ -114,19 +114,19 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
 
         if (creaturePosX < 0)
         {
-            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorNet.netSize - 1;
-            ((NetPlayer)creature).sectorPosition.x = Sector.size.x;
+            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorMap.netSize - 1;
+            ((NetPlayer)creature).sectorPosition.x = curSectors.sectorSize.width;
         }
-        else if (creaturePosX > curSectors.sectorSize.x) {
-            var newX = curXNet + 1 < NetSectorNet.netSize ? curXNet + 1 : 0;
+        else if (creaturePosX > curSectors.sectorSize.width) {
+            var newX = curXNet + 1 < NetSectorMap.netSize ? curXNet + 1 : 0;
             ((NetPlayer)creature).sectorPosition.x = 0;
         }
         if (creaturePosY < 0) {
-            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorNet.netSize - 1;
-            ((NetPlayer)creature).sectorPosition.y = Sector.size.y;
+            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorMap.netSize - 1;
+            ((NetPlayer)creature).sectorPosition.y = curSectors.sectorSize.height;
         }
-        else if (creaturePosY > curSectors.sectorSize.y) {
-            var newY = curYNet + 1 < NetSectorNet.netSize ? curYNet + 1 : 0;
+        else if (creaturePosY > curSectors.sectorSize.height) {
+            var newY = curYNet + 1 < NetSectorMap.netSize ? curYNet + 1 : 0;
             ((NetPlayer)creature).sectorPosition.y = 0;
         }
 
@@ -139,7 +139,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
         {
             if(player.isActive())
             {
-                var sector = player.getSector((NetSectorNet) curSectors);
+                var sector = player.getSector((NetSectorMap) curSectors);
                 eatFood(sector, player);
                 eatCreatures(sector, player);
                 tick++;
@@ -151,10 +151,10 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     protected void eatFood(Sector curSec, Creature creature)
     {
         var removedFood = new ArrayList<Food>();
-        var playerSector = ((NetPlayer)creature).getSector((NetSectorNet)curSectors);
-        for (Food food : ((NetSectorNet)curSectors).getFoods())
+        var playerSector = ((NetPlayer)creature).getSector((NetSectorMap)curSectors);
+        for (Food food : ((NetSectorMap)curSectors).getFoods())
         {
-            if(playerSector.equals(food.getSector((NetSectorNet)curSectors))) {
+            if(playerSector.equals(food.getSector((NetSectorMap)curSectors))) {
                 var keys = food.getPieces().keySet();
                 for (Point piecePosition : keys) {
                     //System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());

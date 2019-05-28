@@ -18,8 +18,8 @@ public class ClientGame extends Game implements IRunOver{
     private boolean playerUpdated;
     private NetPlayer dummyPlayer;
 
-    public NetSectorNet getSectorNet(){
-        return (NetSectorNet)curSectors;
+    public NetSectorMap getSectorNet(){
+        return (NetSectorMap)curSectors;
     }
 
     public ClientGame(String host, int port){
@@ -31,7 +31,7 @@ public class ClientGame extends Game implements IRunOver{
             this.playerUpdated = false;
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
-
+                System.out.println(ois.toString());
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
                 System.out.printf("I'v got id: %d \n", this.playerId);
@@ -45,7 +45,7 @@ public class ClientGame extends Game implements IRunOver{
             this.client.closeConnection();
         }
     }
-    public void registerSelf(NetSectorNet sectors, int playerId){
+    public void registerSelf(NetSectorMap sectors, int playerId){
         this.playerId = playerId;
         setSectorNet(sectors);
     }
@@ -59,14 +59,14 @@ public class ClientGame extends Game implements IRunOver{
     }
 
     public ArrayList<NetPlayer> getPlayers(){
-        return ((NetSectorNet)curSectors).getPlayers();
+        return ((NetSectorMap)curSectors).getPlayers();
     }
 
     public ArrayList<Food> getFoods(){
-        return ((NetSectorNet)curSectors).getFoods();
+        return ((NetSectorMap)curSectors).getFoods();
     }
 
-    public void setSectorNet(NetSectorNet sectors)
+    public void setSectorNet(NetSectorMap sectors)
     {
         this.curSectors = sectors;
         this.player = sectors.getPlayers().get(this.playerId);

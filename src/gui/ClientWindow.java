@@ -48,32 +48,31 @@ public class ClientWindow extends GameWindow
             {
                 if (e.getKeyCode() == KeyEvent.VK_UP)
                 {
-                    var s = ((ClientGame)game).getPlayer().move(-5);
+                    var s = game.getPlayer().move(-5);
+                    MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().absPosition.x,
+                            frame.getHeight() / 2 - game.getPlayer().absPosition.y);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN)
                 {
-                    var s = ((ClientGame)game).getPlayer().move(5);
+                    var s = game.getPlayer().move(5);
+                    MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().absPosition.x,
+                            frame.getHeight() / 2 - game.getPlayer().absPosition.y);
                     MapShift.x -= s.x;
                     MapShift.y -= s.y;
-                    //game.update();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT)
                 {
-                    ((ClientGame)game).getPlayer().turn(Math.PI / 8);
-                    //game.update();
+                    game.getPlayer().turn(Math.PI / 8);
                 }
                 if (e.getKeyCode() == KeyEvent.VK_LEFT)
                 {
-                    ((ClientGame)game).getPlayer().turn(-Math.PI / 8);
-                    //game.update();
+                    game.getPlayer().turn(-Math.PI / 8);
                 }
                 repaint();
             }
         };
-        if(!(game instanceof ServerGame))
             this.frame.addKeyListener(keyAdapter);
     }
 
@@ -105,13 +104,16 @@ public class ClientWindow extends GameWindow
         mapAT.translate(MapShift.x, MapShift.y);
         g.setTransform(mapAT);
         drawBackground(g, sector);
+        g.drawRect(sector.location.x, sector.location.y, game.getSectorNet().sectorSize.width,
+                game.getSectorNet().sectorSize.height);
         drawFood(g, sector);
+        g.fillOval(game.getPlayer().absPosition.x, game.getPlayer().absPosition.y,
+                game.getPlayer().getFattiness()*2, game.getPlayer().getFattiness()*2);
 
         var creatures = new ArrayList<Creature>(sector.creatures);
         for (Creature creature : creatures) {
-            if(((NetPlayer)(creature)).isActive())
-                drawCreature(g, creature, sector);
-            //drawEye(g, mapAT, creature, sector);
+            drawCreature(g, creature, sector);
+            drawEye(g, mapAT, creature, sector);
         }
 
         g.setTransform(oldForm);
@@ -120,18 +122,18 @@ public class ClientWindow extends GameWindow
     @Override
     protected void drawPlayer(Graphics g)
     {
-
+        int viewFattiness = (int)(game.getPlayer().getFattiness() * game.scale);
         g.setColor(game.getPlayer().bodyColor);
-        g.fillOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
-                frame.getHeight() / 2 - game.getPlayer().getFattiness(),
-                game.getPlayer().getFattiness() * 2,
-                game.getPlayer().getFattiness() * 2);
+        g.fillOval(frame.getWidth()  / 2 - viewFattiness,
+                frame.getHeight() / 2 - viewFattiness,
+                viewFattiness * 2,
+                viewFattiness * 2);
 
         g.setColor(Color.black);
-        g.drawOval(frame.getWidth() / 2 - game.getPlayer().getFattiness(),
-                frame.getHeight() / 2 - game.getPlayer().getFattiness(),
-                game.getPlayer().getFattiness() * 2,
-                game.getPlayer().getFattiness() * 2);
+        g.drawOval(frame.getWidth() / 2 - viewFattiness,
+                frame.getHeight() / 2 - viewFattiness,
+                viewFattiness * 2,
+                viewFattiness * 2);
 
 
     }

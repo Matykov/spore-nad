@@ -1,6 +1,6 @@
 package engine;
 
-import logic.NetSectorNet;
+import logic.NetSectorMap;
 import logic.Sector;
 
 import java.awt.*;
@@ -144,18 +144,18 @@ public class Creature implements Serializable
 
         return newShift;
     }
-    public Sector getSector(NetSectorNet net)
+    public Sector getSector(NetSectorMap net)
     {
-        if (sectorPosition.x >= Sector.size.x * NetSectorNet.netSize)
+        if (sectorPosition.x >= net.sectorSize.width * NetSectorMap.netSize)
             sectorPosition.x = 0;
         if (sectorPosition.x <= 0)
-            sectorPosition.x = Sector.size.x * NetSectorNet.netSize;
-        if (sectorPosition.y >= Sector.size.y * NetSectorNet.netSize)
+            sectorPosition.x = net.sectorSize.width * NetSectorMap.netSize;
+        if (sectorPosition.y >= net.sectorSize.height * NetSectorMap.netSize)
             sectorPosition.y = 0;
         if (sectorPosition.y <= 0)
-            sectorPosition.y = Sector.size.y * NetSectorNet.netSize;
+            sectorPosition.y = net.sectorSize.height * NetSectorMap.netSize;
 
-        return net.sectors[sectorPosition.x / Sector.size.x][sectorPosition.y / Sector.size.y];
+        return net.sectors[sectorPosition.x / net.sectorSize.width][sectorPosition.y / net.sectorSize.height];
     }
 
 }

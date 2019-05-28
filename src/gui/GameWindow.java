@@ -23,7 +23,6 @@ public abstract class GameWindow extends JPanel
     protected KeyAdapter keyAdapter;
     protected Point MapShift;
 
-    protected double viewCoefficient = 1;
 
     protected GameWindow()
     {
@@ -33,11 +32,6 @@ public abstract class GameWindow extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if (!(game instanceof ServerGame))
-            if (viewCoefficient * game.getPlayer().getFattiness() * 2 >= frame.getWidth() / 6
-                || viewCoefficient * game.getPlayer().getFattiness() * 2 >= frame.getHeight() / 6) {
-                viewCoefficient -= 0.1;
-            }
 
         drawGame((Graphics2D)g);
     }
@@ -57,6 +51,7 @@ public abstract class GameWindow extends JPanel
 
     protected void drawCreature(Graphics g, Creature creature, Sector sector)
     {
+        var viewFattiness = (int)(creature.getFattiness() * game.scale);
         g.setColor(new Color(0, 150, 200));
         g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
                 translateY(sector, creature.sectorPosition.y - creature.getFattiness()),
@@ -87,9 +82,8 @@ public abstract class GameWindow extends JPanel
             {
                 g.fillOval(translateX(sector, p.x - pieces.get(p)),
                         translateY(sector, p.y - pieces.get(p)),
-                        (int)(viewCoefficient * pieces.get(p) + 5),
-                        (int)(viewCoefficient * pieces.get(p) + 5));
-                //g.drawLine(p.x - pieces.get(p), p.y - pieces.get(p), game.getPlayer().getAbsolutePosition().x, game.getPlayer().getAbsolutePosition().y);
+                        (int)(pieces.get(p) + 5),
+                        (int)(pieces.get(p) + 5));
             }
         }
 
@@ -119,10 +113,10 @@ public abstract class GameWindow extends JPanel
             BufferedImage bi = ImageIO.read(new File("src/skins/eye.png"));
 
             g.drawImage(bi,
-                    -bi.getWidth(),
-                    -creature.getFattiness(),
-                    (int)(viewCoefficient * creature.getFattiness()),
-                    (int)(viewCoefficient * creature.getFattiness()),
+                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-creature.getFattiness() * game.scale),
+                    (int)(game.scale * creature.getFattiness()),
+                    (int)(game.scale * creature.getFattiness()),
                     null);
         }
         catch (IOException ex)
@@ -159,8 +153,8 @@ public abstract class GameWindow extends JPanel
                 g.drawImage(bi,
                         -bi.getWidth() + 10,
                         -creature.getFattiness() + 50,
-                        (int)(viewCoefficient * creature.getFattiness()),
-                        (int)(viewCoefficient * creature.getFattiness()),
+                        (int)(game.scale * creature.getFattiness()),
+                        (int)(game.scale * creature.getFattiness()),
                         null);
             }
             else
@@ -169,8 +163,8 @@ public abstract class GameWindow extends JPanel
                 g.drawImage(bi,
                         -bi.getWidth() + 10,
                         -creature.getFattiness() + 50,
-                        (int)(viewCoefficient * creature.getFattiness()),
-                        (int)(viewCoefficient * creature.getFattiness()),
+                        (int)(game.scale * creature.getFattiness()),
+                        (int)(game.scale * creature.getFattiness()),
                         null);
             }
 
@@ -208,8 +202,8 @@ public abstract class GameWindow extends JPanel
             g.drawImage(bi,
                     -bi.getWidth() + 50,
                     -creature.getFattiness(),
-                    (int)(viewCoefficient * creature.getFattiness()),
-                    (int)(viewCoefficient * creature.getFattiness()),
+                    (int)(game.scale * creature.getFattiness()),
+                    (int)(game.scale * creature.getFattiness()),
                     null);
 
         }
@@ -223,8 +217,8 @@ public abstract class GameWindow extends JPanel
             g.drawImage(bi,
                     -bi.getWidth() - 15,
                     -creature.getFattiness(),
-                    creature.getFattiness(),
-                    creature.getFattiness(),
+                    (int)(game.scale * creature.getFattiness()),
+                    (int)(game.scale * creature.getFattiness()),
                     null);
 
         }
@@ -240,7 +234,12 @@ public abstract class GameWindow extends JPanel
         BufferedImage bi;
         try{
             bi = ImageIO.read(new File("src/skins/Sector.png"));
-            g.drawImage(bi,sector.location.x, sector.location.y, null);
+            g.drawImage(bi,
+                    (int)(sector.location.x ),
+                    (int)(sector.location.y ),
+                    (int)(game.getSectorNet().sectorSize.width),
+                    (int)(game.getSectorNet().sectorSize.height),
+                    null);
         }
         catch (IOException ex)
         {

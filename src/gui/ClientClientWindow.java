@@ -107,7 +107,8 @@ public class ClientClientWindow extends ClientWindow {
         BufferedImage bi;
         try{
             bi = ImageIO.read(new File("src/skins/Sector.png"));
-            g.drawImage(bi,sector.location.x * Sector.size.x, sector.location.y * Sector.size.y, null);
+            g.drawImage(bi,sector.location.x * game.getSectorNet().sectorSize.width,
+                    sector.location.y * game.getSectorNet().sectorSize.height, null);
         }
         catch (IOException ex)
         {
@@ -117,7 +118,7 @@ public class ClientClientWindow extends ClientWindow {
     @Override
     protected void drawFood(Graphics g, Sector sector)
     {
-        ArrayList<Food> foods = ((NetSectorNet)game.getSectorNet()).getFoods();
+        ArrayList<Food> foods = ((NetSectorMap)game.getSectorNet()).getFoods();
 
         g.setColor(new Color(39, 200, 32));
         ArrayList<Food> food = new ArrayList<Food>();
@@ -139,7 +140,7 @@ public class ClientClientWindow extends ClientWindow {
 
     protected void drawCreature(Graphics g, Creature creature)
     {
-        var sector = creature.getSector((NetSectorNet) game.getSectorNet());
+        var sector = creature.getSector((NetSectorMap) game.getSectorNet());
         g.setColor(new Color(0, 150, 200));
         g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
                 translateY(sector, creature.sectorPosition.y - creature.getFattiness()),

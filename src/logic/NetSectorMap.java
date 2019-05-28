@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class NetSectorNet extends SectorNet {
+public class NetSectorMap extends SectorMap {
     private ArrayList<NetPlayer> players;
     public static int netSize = 13;
     public static final int avgPiecesCount = 7;
@@ -15,7 +15,7 @@ public class NetSectorNet extends SectorNet {
     private static final int avgSectorBotCount = 0;
     private ArrayList<Food> foods = new ArrayList<Food>();
 
-    public NetSectorNet(int nPlayerCount) {
+    public NetSectorMap(int nPlayerCount) {
         sectors = new Sector[netSize][netSize];
         for (int i = 0; i < netSize; i++)
         {
@@ -30,7 +30,7 @@ public class NetSectorNet extends SectorNet {
         {
             int x = nPlayerCount - i;
             int y = nPlayerCount - i;
-            var playerPoint = new Point((Sector.size.x/2)*x, (Sector.size.y/2)*y);
+            var playerPoint = new Point((sectorSize.width/2)*x, (sectorSize.height/2)*y);
             var player = new NetPlayer(playerPoint,  100, 50, 25, i);
             //sectors[x][y].creatures.add(player);
             player.parentSector = player.getSector(this);
@@ -59,8 +59,8 @@ public class NetSectorNet extends SectorNet {
 
         //generate sector food
         for (var ii = 0; ii < curFoodCount; ii++) {
-            var position = new Point(Sector.size.x * i + r.nextInt(Sector.size.x),
-                    Sector.size.y * j + r.nextInt(Sector.size.y));
+            var position = new Point(sectorSize.width * i + r.nextInt(sectorSize.width),
+                    sectorSize.height * j + r.nextInt(sectorSize.height));
             var count = generateCurValue(r, avgPiecesCount);
             var food = new Food(position, count);
             food.parentSector = s;

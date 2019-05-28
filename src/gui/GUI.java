@@ -26,20 +26,21 @@ public class GUI
         frame.pack();
         frame.setVisible(true);
 
-        invokeSPMode();
-        //invokeMainMenu();
+        //invokeSPMode();
+        invokeMainMenu();
     }
 
     public void invokeSPMode()
     {
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
-        if(!(game instanceof ServerGame))
-            frame.add(new ClientClientWindow(frame, (ClientGame) game));
-        else
-            frame.add(new ServerWindow(frame, (ServerGame)game));
+        frame.add(new ClientWindow(frame, game));
+//        if(!(game instanceof ServerGame))
+//            frame.add(new ClientClientWindow(frame, (ClientGame) game));
+//        else
+////            frame.add(new ServerWindow(frame, (ServerGame)game));
         //game.getPlayer().getNewColor();
-        //frame.requestFocus();
+        frame.requestFocus();
         //frame.requestFocus();
         frame.pack();
     }

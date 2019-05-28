@@ -10,11 +10,9 @@ import java.util.LinkedList;
 public class Sector implements Serializable
 {
     public LinkedList<Creature> creatures;
-//    public ArrayList<Creature> bots;
     public LinkedList<Food> food;
     public Player player;
 
-    public static final Point size = new Point(300, 300);
     public Point location;
 
     public Sector()

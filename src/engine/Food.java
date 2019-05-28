@@ -1,11 +1,10 @@
 package engine;
 
-import logic.NetSectorNet;
+import logic.NetSectorMap;
 import logic.Sector;
 
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -64,8 +63,8 @@ public class Food implements Serializable
         return fat;
     }
 
-    public Sector getSector(NetSectorNet net)
+    public Sector getSector(NetSectorMap net)
     {
-        return net.sectors[FoodPosition.x / Sector.size.y][FoodPosition.y / Sector.size.y];
+        return net.sectors[FoodPosition.x / net.sectorSize.width][FoodPosition.y / net.sectorSize.height];
     }
 }
