@@ -1,11 +1,10 @@
 package netParts;
 
-import engine.Player;
 import logic.*;
 
 public class LevelMessage implements IMessage {
-    private NetSectorNet sectors;
-    public LevelMessage(NetSectorNet sectors) {
+    private NetSectorMap sectors;
+    public LevelMessage(NetSectorMap sectors) {
         this.sectors = sectors;
     }
 

@@ -1,8 +1,10 @@
 package engine;
 
+import logic.NetSectorMap;
+import logic.Sector;
+
 import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -11,6 +13,7 @@ public class Food implements Serializable
     private int Count;
     private HashMap<Point, Integer> Pieces;
     private Point FoodPosition;
+    public Sector parentSector;
 
     public boolean isEmpty = false;
 
@@ -58,5 +61,10 @@ public class Food implements Serializable
             isEmpty = true;
 
         return fat;
+    }
+
+    public Sector getSector(NetSectorMap net)
+    {
+        return net.sectors[FoodPosition.x / net.sectorSize.width][FoodPosition.y / net.sectorSize.height];
     }
 }

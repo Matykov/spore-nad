@@ -8,8 +8,9 @@ public class ServerMain {
 //        AsyncServer server = new AsyncServer(8989);
 //        server.run();
         var game = new ServerGame(8081);
-        game.run();
+        //game.run();
         //new GUI().run(game);
+        game.run();
     }
 
 }

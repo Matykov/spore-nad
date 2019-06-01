@@ -1,5 +1,7 @@
 package gui;
 
+import logic.Game;
+
 import java.io.*;
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +12,12 @@ public class Editor extends JPanel
 {
     //public String colorSelected;
 
-    public Editor(GUI gui)
+    Game game;
+
+    public Editor(GUI gui, Game game)
     {
         var frame = gui.frame;
+        this.game = game;
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -76,6 +81,31 @@ public class Editor extends JPanel
         gbc.gridx = 1;
         gbc.gridy = 4;
         add(butClose, gbc);
+
+
+
+        class Preview extends JPanel{
+            protected Preview()
+            {
+
+            }
+
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(game.getPlayer().bodyColor);
+                g.fillOval(25, 25, 50, 50);
+
+                g.setColor(Color.black);
+                g.drawOval(25, 25, 50, 50);
+            }
+        }
+
+        var p = new Preview();
+        p.setVisible(true);
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        add(p, gbc);
+
     }
 
     protected void drawPlayer(Graphics g)

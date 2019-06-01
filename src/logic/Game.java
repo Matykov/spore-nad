@@ -12,10 +12,12 @@ public class Game implements Serializable
     protected Player player;
     protected Level level;
     protected int progressBar;
-    protected SectorNet curSectors;
+    protected SectorMap curSectors;
 
     public static long tick = 0;
     private boolean isLevelCompleted = false;
+    private Point MapShift;
+    public double scale = 1;
 
 
     public Game(Level level)
@@ -23,13 +25,17 @@ public class Game implements Serializable
         this.level = level;
         player = level.getPlayer();
         progressBar = 0;
+        MapShift = new Point(player.sectorPosition.x, player.sectorPosition.y);
+        curSectors = new SectorMap(level);
+    }
 
-        curSectors = new SectorNet(level);
+    public Point getMapShift() {
+        return MapShift;
     }
 
     protected Game()
     {
-        this.curSectors = new NetSectorNet(4);
+        this.curSectors = new NetSectorMap(4);
     }
 
     public Player getPlayer()
@@ -44,14 +50,32 @@ public class Game implements Serializable
 
     public void observeCreatures()
     {
-        for (var j = 0; j < SectorNet.size; j++)
+        var rescaled = scale * player.getFattiness() * 2 > 80 && scale != 0.1;
+        if (rescaled) {
+            scale -= 0.1;
+
+            curSectors.sectorSize = new Dimension((int) (curSectors.sectorSize.width / scale),
+                    (int) (curSectors.sectorSize.height / scale));
+            MapShift = new Point((int)(player.sectorPosition.x / scale),
+                    (int)(player.absPosition.y/scale));
+        }
+
+        for (var j = 0; j < SectorMap.netSize; j++)
         {
-            for (var i = 0; i < SectorNet.size; i++)
+            for (var i = 0; i < SectorMap.netSize; i++)
             {
                 var curSec = curSectors.sectors[j][i];
+                if(rescaled)
+                {
+                    curSec.location.x /= scale;
+                    curSec.location.y /= scale;
+                }
                 for (Creature creature: curSec.getCreatures())
                 {
-
+                    if(rescaled){
+                        //creature.sectorPosition.x /= scale;
+                        //creature.sectorPosition.y /= scale;
+                    }
                     creature.absPosition = new Point(creature.sectorPosition.x + curSec.location.x,
                             creature.sectorPosition.y + curSec.location.y);
 
@@ -63,7 +87,7 @@ public class Game implements Serializable
 
                     //move bot
                     if (creature instanceof Bot) {
-                        if (tick == 10) {
+                        if (tick == 500) {
                             moveBot((Bot) creature);
                             tick = 0;
                         }
@@ -77,7 +101,7 @@ public class Game implements Serializable
         }
     }
 
-    private void eatCreatures(Sector curSec, Creature creature)
+    protected void eatCreatures(Sector curSec, Creature creature)
     {
         for (Creature preyCreature: curSec.getCreatures())
         {
@@ -94,18 +118,25 @@ public class Game implements Serializable
         }
     }
 
-    private void eatFood(Sector curSec, Creature creature)
+    protected void eatFood(Sector curSec, Creature creature)
     {
         var removedFood = new ArrayList<Food>();
+//        System.out.printf("EatFood for player: %d x:%d y%d\n", ((NetPlayer)creature).getId(),
+//                creature.sectorPosition.x, creature.sectorPosition.y);
         for (Food food : curSec.food)
         {
             var keys = food.getPieces().keySet();
             for (Point piecePosition : keys)
             {
+//                System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
+//                System.out.printf("creature pos : %d %d\n", ((NetPlayer)creature).sectorPosition.x, ((NetPlayer)creature).sectorPosition.y);
+//                System.out.printf("piece pos : %d %d\n", piecePosition.x, piecePosition.y);
                 if (dist(creature.sectorPosition, piecePosition) <= creature.getFattiness() - food.MaxSize)
                 {
                     int nutrition = food.destroyPiece(piecePosition);
+                    //System.out.printf("Creture: %d current weight: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
                     creature.putOnWeight(nutrition);
+                    //System.out.printf("Creture: %d weight after putOn: %d\n", ((NetPlayer)creature).getId(), creature.getFattiness());
                     if(food.isEmpty)
                         removedFood.add(food);
                     if (creature instanceof Player)
@@ -138,7 +169,7 @@ public class Game implements Serializable
         tick++;
     }
 
-    private void observeSectorPosition(int curXNet, int curYNet, Creature creature)
+    protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
         var creaturePosX = creature.sectorPosition.x;
         var creaturePosY = creature.sectorPosition.y;
@@ -150,17 +181,18 @@ public class Game implements Serializable
         {
             if (isPlayer) {
                 curSectors.moveFocusLeft(player);
+
             }
             else {
                 //curSec.removeCreature(creature);
                 //creature.die();
-                var newX = curXNet - 1 >= 0 ? curXNet - 1 : SectorNet.size - 1;
+                var newX = curXNet - 1 >= 0 ? curXNet - 1 : SectorMap.netSize - 1;
                 //curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
-            creature.sectorPosition.x = Sector.size.x;
+            creature.sectorPosition.x = curSectors.sectorSize.width;
         }
-        else if (creaturePosX > curSectors.sectorSize.x)
+        else if (creaturePosX > curSectors.sectorSize.width)
         {
             if (isPlayer) {
                 curSectors.moveFocusRight(player);
@@ -169,7 +201,7 @@ public class Game implements Serializable
             {
                 //curSec.removeCreature(creature);
                 //creature.die();
-                var newX = curXNet + 1 < SectorNet.size ? curXNet + 1 : 0;
+                var newX = curXNet + 1 < SectorMap.netSize ? curXNet + 1 : 0;
                 //curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
@@ -184,13 +216,13 @@ public class Game implements Serializable
             {
                 //curSec.removeCreature(creature);
                 //creature.die();
-                var newY = curYNet - 1 >= 0 ? curYNet - 1 : SectorNet.size - 1;
+                var newY = curYNet - 1 >= 0 ? curYNet - 1 : SectorMap.netSize - 1;
                 //curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
 
-            creature.sectorPosition.y = Sector.size.y;
+            creature.sectorPosition.y = curSectors.sectorSize.height;
         }
-        else if (creaturePosY > curSectors.sectorSize.y)
+        else if (creaturePosY > curSectors.sectorSize.height)
         {
             if (isPlayer) {
                 curSectors.moveFocusDown(player);
@@ -199,7 +231,7 @@ public class Game implements Serializable
             {
                 //curSec.removeCreature(creature);
                 //creature.die();
-                var newY = curYNet + 1 < SectorNet.size ? curYNet + 1 : 0;
+                var newY = curYNet + 1 < SectorMap.netSize ? curYNet + 1 : 0;
                 //curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
             creature.sectorPosition.y = 0;
@@ -207,7 +239,7 @@ public class Game implements Serializable
 
     }
 
-    private double dist(Point p1, Point p2)
+    protected double dist(Point p1, Point p2)
     {
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }
@@ -232,7 +264,7 @@ public class Game implements Serializable
         return isLevelCompleted;
     }
 
-    public SectorNet getSectorNet()
+    public SectorMap getSectorNet()
     {
         return curSectors;
     }

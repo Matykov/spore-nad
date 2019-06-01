@@ -1,21 +1,23 @@
 package netParts;
 
-import logic.*;
+import engine.NetPlayer;
+import logic.ClientGame;
+import logic.IMessage;
+import logic.IRunOver;
+import logic.NetSectorMap;
 
 public class RegistrationMessage implements IMessage {
-    private NetPlayer player;
-    private NetSectorNet sectors;
+    private NetSectorMap sectors;
     private int playerId;
-    public RegistrationMessage(NetSectorNet sectors, NetPlayer player){
+    public RegistrationMessage(NetSectorMap sectors, NetPlayer player){
         this.sectors = sectors;
-        this.player = player;
         this.playerId = player.getId();
     }
     @Override
     public void run(IRunOver runOver) {
         if (runOver instanceof ClientGame){
             ClientGame game = (ClientGame)runOver;
-            game.registerSelf(sectors, player, playerId);
+            game.registerSelf(sectors, playerId);
         }
     }
 }

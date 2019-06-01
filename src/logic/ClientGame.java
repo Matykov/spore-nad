@@ -1,34 +1,43 @@
 package logic;
 
-import logger.Logger;
+import engine.Food;
+import engine.NetPlayer;
+import logger.*;
 import netParts.PlayerMessage;
 import netParts.old.Client;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class ClientGame extends Game implements IRunOver{
     private Client client;
     private InputStream inputStream;
     private OutputStream outputStream;
     private Logger logger = new Logger("Client_Server.log");
-    private boolean playerUpdated;
     private int playerId;
+    private boolean playerUpdated;
+    private NetPlayer dummyPlayer;
+
+    public NetSectorMap getSectorNet(){
+        return (NetSectorMap)curSectors;
+    }
 
     public ClientGame(String host, int port){
         try {
-            //this.bots = new ArrayList<>();
-            //this.creatures = new ArrayList<>();
             this.client = new Client(host, port);
             this.inputStream = client.getInputStream();
             this.outputStream = client.getOutputStream();
             this.progressBar = 0;
-            playerUpdated = true;
-
+            this.playerUpdated = false;
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
+                System.out.println(ois.toString());
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
                 System.out.printf("I'v got id: %d \n", this.playerId);
+
+
+                this.dummyPlayer = (NetPlayer) this.player;
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
             }
@@ -36,36 +45,58 @@ public class ClientGame extends Game implements IRunOver{
             this.client.closeConnection();
         }
     }
-    public void registerSelf(NetSectorNet sectors, NetPlayer player, int playerId){
+    public void registerSelf(NetSectorMap sectors, int playerId){
         this.playerId = playerId;
         setSectorNet(sectors);
     }
-//    public void setPlayer(NetPlayer player)
-//    {
-//        this.player = player;
-//    }
-    public void setSectorNet(NetSectorNet sectors)
+
+    public boolean getPlayerUpdated(){
+        return playerUpdated;
+    }
+
+    public NetPlayer getDummyPlayer(){
+        return dummyPlayer;
+    }
+
+    public ArrayList<NetPlayer> getPlayers(){
+        return ((NetSectorMap)curSectors).getPlayers();
+    }
+
+    public ArrayList<Food> getFoods(){
+        return ((NetSectorMap)curSectors).getFoods();
+    }
+
+    public void setSectorNet(NetSectorMap sectors)
     {
         this.curSectors = sectors;
         this.player = sectors.getPlayers().get(this.playerId);
+        playerUpdated = false;
+    }
+
+    @Override
+    public NetPlayer getPlayer(){
+        return (NetPlayer)dummyPlayer;
     }
 
     @Override
     public void update(){
-        try {
+            try {
+                playerUpdated = false;
                 ObjectOutputStream oos = new ObjectOutputStream(outputStream);
-                logger.log("Sending player: " + ((NetPlayer) player).getId() + " position: " + player.absPosition);
-                oos.writeObject(new PlayerMessage((NetPlayer) player));
+                System.out.println("Sending player: " + ((NetPlayer)dummyPlayer).getId() + " fattines: " + player.sectorPosition);
+                oos.writeObject(new PlayerMessage((NetPlayer) dummyPlayer));
                 oos.flush();
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
-                logger.log("player income: " + ((NetPlayer) player).getId() + " position: " + player.absPosition);
-
-            }catch(IOException ioe){
+                System.out.println("player income: " + ((NetPlayer) player).getId() + " fattines: " + player.sectorPosition);
+                dummyPlayer.setFattines(player.getFattiness());
+                //observeCreatures();
+                playerUpdated = true;
+            } catch (IOException ioe) {
                 client.closeConnection();
                 System.out.println(ioe.toString());
-            }catch(ClassNotFoundException ignored){
+            } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
             }
     }
