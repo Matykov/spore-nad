@@ -1,9 +1,13 @@
 package gui;
 
+//import java.awt.image;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Menu extends JPanel
 {
@@ -14,7 +18,7 @@ public class Menu extends JPanel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets.top = frame.getHeight() / 10;
-
+        //BufferedImage buttonIcon = ImageIO.read(new File("src/skins/Sector.png"));
         JButton butSPMode = new JButton("Single Player Mode");
         butSPMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
