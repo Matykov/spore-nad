@@ -10,6 +10,7 @@ public class Eye extends CreaturePart
 {
     public Eye()
     {
+        this.angleOffset = 0.0;
         try {
             this.skins = new ArrayList<BufferedImage>();
             //TODO: rework eye skin

@@ -2,6 +2,8 @@ package engine;
 
 import creatureParts.Body;
 import creatureParts.Eye;
+import creatureParts.Flagella;
+import creatureParts.Spike;
 
 import java.io.*;
 import java.awt.*;
@@ -20,6 +22,8 @@ public class Player extends Creature implements Serializable
         System.out.println(CurrentDir());
         this.body = new Body();
         this.creatureParts.add(new Eye());
+        this.creatureParts.add(new Flagella());
+        this.creatureParts.add(new Spike());
         //getNewColor();
             //g.setColor(new Color(0x842D4E));
         //getNewColor();

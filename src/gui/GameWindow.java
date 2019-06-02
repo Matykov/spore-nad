@@ -154,19 +154,12 @@ public abstract class GameWindow extends JPanel
     protected void drawFlagella(Graphics2D g, AffineTransform oldForm, Creature creature, Sector sector)
     {
         AffineTransform partsAT = (AffineTransform) (oldForm.clone());
-        Point pos;
-        Double angle;
-        if (creature instanceof Player)
-        {
-            pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
-            angle = creature.getDirection();
-        }
-        else {
-            pos = new Point(translateX(sector, creature.sectorPosition.x),
-                    translateY(sector, creature.sectorPosition.y));
-            angle = creature.getDirection() + Math.PI;
-        }
+        Point pos = new Point(translateX(sector, creature.sectorPosition.x),
+                translateY(sector, creature.sectorPosition.y));
+        Double angle = creature.getDirection() + Math.PI;
         partsAT.rotate(angle, pos.x, pos.y);
+
+
         partsAT.translate(pos.x, pos.y);
         g.drawOval(pos.x, pos.y, 7, 7);
         g.setTransform(partsAT);

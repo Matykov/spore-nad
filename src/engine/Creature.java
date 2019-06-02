@@ -27,6 +27,7 @@ public class Creature implements Serializable
     protected Body body;
     protected Color bodyColor = new Color(0, 150, 200);
 
+
     public ArrayList<CreaturePart> getCreatureParts()
     {
         return creatureParts;
@@ -48,6 +49,8 @@ public class Creature implements Serializable
         Agility = agility;
         Fattiness = fattiness;
         Direction = 0;
+        this.creatureParts.add(new creatureParts.Eye());
+
 
         //recountMapLocation();
     }

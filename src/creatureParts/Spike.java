@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Spike extends CreaturePart {
-
     public Spike()
     {
+        this.angleOffset = Math.PI/2;
         this.skins = new ArrayList<BufferedImage>();
         try {
             skins.add(ImageIO.read(new File("src/skins/spikeRight.png")));
