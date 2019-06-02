@@ -6,11 +6,11 @@ public class ClientMain {
     {
         var game = new ClientGame("10.96.0.9", 8081);
 
-        var gui = new GUI();
-        gui.run(game);
+//        var gui = new GUI();
+//        gui.run(game);
         while(true){
             game.update();
-            gui.repaint();
+//            gui.repaint();
             try {
                 Thread.sleep(30);
             }catch(InterruptedException ie){

@@ -1,11 +1,12 @@
 package gui;
 
+import engine.Levels;
 import logic.ClientGame;
 import logic.Game;
-import logic.ServerGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Semaphore;
 
 
 public class GUI
@@ -13,10 +14,12 @@ public class GUI
 
     public JFrame frame;
     private Game game;
+    private  Semaphore semaphore;
     public Menu menu;
 
-    public void run(Game game)
+    public GUI(Semaphore semaphore)
     {
+        this.semaphore = semaphore;
         frame = new JFrame("spore-nad");
         this.game = game;
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,24 +28,22 @@ public class GUI
         frame.setPreferredSize(new Dimension(600, 500));
         frame.pack();
         frame.setVisible(true);
-
-        //invokeSPMode();
+        try {
+            semaphore.acquire();
+        }catch(InterruptedException ie){
+            System.out.println(ie);
+        }
         invokeMainMenu();
     }
 
     public void invokeSPMode()
     {
-        //frame.getContentPane().remove(this.menu);
+        game = new Game(Levels.getTestLevel());
         frame.getContentPane().removeAll();
         frame.add(new ClientWindow(frame, game));
-//        if(!(game instanceof ServerGame))
-//            frame.add(new ClientClientWindow(frame, (ClientGame) game));
-//        else
-////            frame.add(new ServerWindow(frame, (ServerGame)game));
-        //game.getPlayer().getNewColor();
         frame.requestFocus();
-        //frame.requestFocus();
         frame.pack();
+        semaphore.release();
     }
 
     public void invokeMPMode()
@@ -52,6 +53,7 @@ public class GUI
         frame.repaint();
         frame.requestFocus();
         frame.pack();
+        //semaphore.release();
     }
 
     public void invokeClosing()
@@ -67,6 +69,7 @@ public class GUI
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new Editor(this, game));
+        //semaphore.release();
         //System.out.println(frame.getKeyListeners()[0].toString());
         frame.requestFocus();
         frame.repaint();
@@ -76,11 +79,26 @@ public class GUI
 
     public void invokeNetGame(String text)
     {
-        System.out.println(text);
+        var split = text.split(":");
+        try {
+            game = new ClientGame(split[0], Integer.parseInt(split[1]));
+        }catch(IndexOutOfBoundsException ioobe){
+            System.out.println("Do not forget to specify the port");
+            return;
+        }catch(NumberFormatException nfe){
+            System.out.println("Port must be int value");
+            return;
+        }
+        if(game != null) {
+            frame.getContentPane().removeAll();
+            frame.add(new ClientClientWindow(frame, (ClientGame) game));
+            frame.requestFocus();
+            frame.pack();
+            semaphore.release();
+        }
     }
 
-    public void invokeMainMenu()
-    {
+    public void invokeMainMenu() {
         frame.getContentPane().removeAll();
         this.menu = new Menu(this);
         frame.getContentPane().add(this.menu);
@@ -92,5 +110,9 @@ public class GUI
     public void repaint()
     {
         frame.repaint();
+    }
+
+    public Game getGame(){
+        return game;
     }
 }

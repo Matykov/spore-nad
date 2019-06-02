@@ -19,7 +19,7 @@ public class MultiPlayerMode extends JPanel
         gbc.gridy = 1;
         add(label);
 
-        JTextField text = new JTextField("192.168.1.1");
+        JTextField text = new JTextField("127.0.0.1:8081");
         gbc.gridy = 2;
         add(text);
 
