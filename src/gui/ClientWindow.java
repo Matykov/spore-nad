@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class ClientWindow extends GameWindow
@@ -91,8 +92,7 @@ public class ClientWindow extends GameWindow
 
         drawPlayer(g);
         //drawFlagella(g, origXform, game.getPlayer(), null);
-        drawEye(g, origXform, game.getPlayer(), null);
-        //drawSpike(g, origXform, game.getPlayer(), null);
+        //drawEye(g, origXform, game.getPlayer(), null);
 
     }
 
@@ -107,33 +107,45 @@ public class ClientWindow extends GameWindow
         g.drawRect(sector.location.x, sector.location.y, game.getSectorNet().sectorSize.width,
                 game.getSectorNet().sectorSize.height);
         drawFood(g, sector);
-        g.fillOval(game.getPlayer().absPosition.x, game.getPlayer().absPosition.y,
-                game.getPlayer().getFattiness()*2, game.getPlayer().getFattiness()*2);
-
         var creatures = new ArrayList<Creature>(sector.creatures);
-        for (Creature creature : creatures) {
+        for (Creature creature : creatures)
             drawCreature(g, creature, sector);
-            //drawEye(g, mapAT, creature, sector);
-        }
 
         g.setTransform(oldForm);
     }
 
     @Override
-    protected void drawPlayer(Graphics g)
+    protected void drawPlayer(Graphics2D g)
     {
-        int viewFattiness = (int)(game.getPlayer().getFattiness() * game.scale);
-        g.setColor(game.getPlayer().getBodyColor());
-        g.fillOval(frame.getWidth()  / 2 - viewFattiness,
+        var player = game.getPlayer();
+        var playerFattiness = player.getFattiness();
+        int viewFattiness = (int)(playerFattiness * game.scale);
+        //var pos = new Point(player.absPosition.x, player.absPosition.y);
+        g.drawImage(player.getBody().getSkin(), frame.getWidth()  / 2 - viewFattiness,
                 frame.getHeight() / 2 - viewFattiness,
                 viewFattiness * 2,
-                viewFattiness * 2);
+                viewFattiness * 2, null);
+        var creatureParts = player.getCreatureParts();
+        for(var creaturePart:creatureParts)
+        {
+            var oldForm = g.getTransform();
+            AffineTransform partsAT = (AffineTransform) (oldForm.clone());
+            Point pos;
+            Double angle;
+            pos = new Point( player.absPosition.x,
+                    player.absPosition.y);
+            angle = player.getDirection();
 
-        g.setColor(Color.black);
-        g.drawOval(frame.getWidth() / 2 - viewFattiness,
-                frame.getHeight() / 2 - viewFattiness,
-                viewFattiness * 2,
-                viewFattiness * 2);
+            g.drawOval(pos.x, pos.y, 7, 7);
+            g.setTransform(partsAT);
+            BufferedImage bi = creaturePart.getSkin();
+            g.drawImage(bi,
+                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-player.getFattiness() * game.scale),
+                    (int)(game.scale * player.getFattiness()),
+                    (int)(game.scale * player.getFattiness()),
+                    null);
+        }
 
 
     }

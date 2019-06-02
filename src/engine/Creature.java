@@ -1,5 +1,6 @@
 package engine;
 
+import creatureParts.Body;
 import creatureParts.CreaturePart;
 import logic.NetSectorMap;
 import logic.Sector;
@@ -17,6 +18,13 @@ public class Creature implements Serializable
     public int Damage;
     public Sector parentSector;
     protected ArrayList<CreaturePart> creatureParts = new ArrayList<>();
+
+    public Body getBody()
+    {
+        return body;
+    }
+
+    protected Body body;
     protected Color bodyColor = new Color(0, 150, 200);
 
     public ArrayList<CreaturePart> getCreatureParts()

@@ -1,5 +1,8 @@
 package engine;
 
+import creatureParts.Body;
+import creatureParts.Eye;
+
 import java.io.*;
 import java.awt.*;
 
@@ -15,7 +18,9 @@ public class Player extends Creature implements Serializable
     {
         super(position, speed, agility, fattiness);
         System.out.println(CurrentDir());
-        getNewColor();
+        this.body = new Body();
+        this.creatureParts.add(new Eye());
+        //getNewColor();
             //g.setColor(new Color(0x842D4E));
         //getNewColor();
 

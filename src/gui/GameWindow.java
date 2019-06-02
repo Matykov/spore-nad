@@ -37,7 +37,7 @@ public abstract class GameWindow extends JPanel
         drawGame((Graphics2D)g);
     }
     protected abstract void drawSector(Graphics2D g, AffineTransform oldForm, Sector sector);
-    protected abstract void drawPlayer(Graphics g);
+    protected abstract void drawPlayer(Graphics2D g);
     protected abstract void drawGame(Graphics2D g);
 
     protected int translateX(Sector sector, int sectorPosX)
@@ -54,10 +54,11 @@ public abstract class GameWindow extends JPanel
     {
         var viewFattiness = (int)(creature.getFattiness() * game.scale);
         g.setColor(creature.getBodyColor());
-        g.fillOval(translateX(sector, creature.sectorPosition.x - viewFattiness),
+        BufferedImage bodyImg = creature.getBody().getSkin();
+        g.drawImage(bodyImg, translateX(sector, creature.sectorPosition.x - viewFattiness),
                 translateY(sector, creature.sectorPosition.y - viewFattiness),
                 viewFattiness * 2,
-                viewFattiness * 2);
+                viewFattiness * 2, null);
         var creatureParts = creature.getCreatureParts();
         for(var creaturePart:creatureParts)
         {
@@ -65,26 +66,19 @@ public abstract class GameWindow extends JPanel
             AffineTransform partsAT = (AffineTransform) (oldForm.clone());
             Point pos;
             Double angle;
-            if (creature instanceof Player)
-            {
-                pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
-                angle = creature.getDirection();
-            }
-            else {
-                pos = new Point(translateX(sector, creature.sectorPosition.x),
-                        translateY(sector, creature.sectorPosition.y));
-                angle = creature.getDirection() + Math.PI;
-            }
+            pos = new Point(translateX(sector, creature.sectorPosition.x),
+                    translateY(sector, creature.sectorPosition.y));
+            angle = creature.getDirection() + Math.PI;
             partsAT.rotate(angle, pos.x, pos.y);
             partsAT.translate(pos.x, pos.y);
             g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
             BufferedImage bi = creaturePart.getSkin();
             g.drawImage(bi,
-                    -bi.getWidth() + 10,
-                    -creature.getFattiness() + 50,
-                    (int)(game.scale * viewFattiness),
-                    (int)(game.scale * viewFattiness),
+                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-creature.getFattiness() * game.scale),
+                    (int)(game.scale * creature.getFattiness()),
+                    (int)(game.scale * creature.getFattiness()),
                     null);
             g.setTransform(oldForm);
         }

@@ -37,7 +37,7 @@ public class ServerWindow extends GameWindow {
     }
 
     @Override
-    protected void drawPlayer(Graphics g) {
+    protected void drawPlayer(Graphics2D g) {
 
     }
 
