@@ -5,11 +5,17 @@ import java.awt.*;
 
 public class Player extends Creature implements Serializable
 {
-
+    public static String CurrentDir(){
+        String path=System.getProperty("java.class.path");
+        String FileSeparator=(String)System.getProperty("file.separator");
+        return path.substring(0, path.lastIndexOf(FileSeparator)+1);
+    }
     public Player(Point position, int speed, int agility, int fattiness)
 
     {
         super(position, speed, agility, fattiness);
+        System.out.println(CurrentDir());
+        getNewColor();
             //g.setColor(new Color(0x842D4E));
         //getNewColor();
 
@@ -18,7 +24,7 @@ public class Player extends Creature implements Serializable
         String color;
         BufferedReader reader;
         try {
-            FileReader file = new FileReader("C:\\Users\\BigBird\\Desktop\\colors.txt");
+            FileReader file = new FileReader(CurrentDir() + "\\colors.txt");
             reader = new BufferedReader(file);
 
             color =  reader.readLine();
@@ -55,10 +61,6 @@ public class Player extends Creature implements Serializable
         }
         System.out.println(bodyColor);
     }
-    public Color flagellaColor;
-    public Color bodyColor;
-    public Color spikesColor;
-    public Color eyeColor;
 
 
 }

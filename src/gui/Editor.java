@@ -1,5 +1,6 @@
 package gui;
 
+import engine.Player;
 import logic.Game;
 
 import java.io.*;
@@ -12,12 +13,12 @@ public class Editor extends JPanel
 {
     //public String colorSelected;
 
-    Game game;
+    //Game game;
 
     public Editor(GUI gui, Game game)
     {
         var frame = gui.frame;
-        this.game = game;
+        //this.game = game;
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -66,7 +67,7 @@ public class Editor extends JPanel
         butClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileWriter file = new FileWriter("C:\\Users\\BigBird\\Desktop\\colors.txt");
+                    FileWriter file = new FileWriter(Player.CurrentDir() + "\\colors.txt");
                     file.write(colorList.getSelectedItem().toString());
                     System.out.println(colorList.getSelectedItem().toString());
                     file.flush();
@@ -92,7 +93,7 @@ public class Editor extends JPanel
 
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.setColor(game.getPlayer().bodyColor);
+                g.setColor(Color.green);
                 g.fillOval(25, 25, 50, 50);
 
                 g.setColor(Color.black);

@@ -113,7 +113,7 @@ public class ClientWindow extends GameWindow
         var creatures = new ArrayList<Creature>(sector.creatures);
         for (Creature creature : creatures) {
             drawCreature(g, creature, sector);
-            drawEye(g, mapAT, creature, sector);
+            //drawEye(g, mapAT, creature, sector);
         }
 
         g.setTransform(oldForm);
@@ -123,7 +123,7 @@ public class ClientWindow extends GameWindow
     protected void drawPlayer(Graphics g)
     {
         int viewFattiness = (int)(game.getPlayer().getFattiness() * game.scale);
-        g.setColor(game.getPlayer().bodyColor);
+        g.setColor(game.getPlayer().getBodyColor());
         g.fillOval(frame.getWidth()  / 2 - viewFattiness,
                 frame.getHeight() / 2 - viewFattiness,
                 viewFattiness * 2,

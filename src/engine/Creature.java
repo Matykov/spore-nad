@@ -1,10 +1,12 @@
 package engine;
 
+import creatureParts.CreaturePart;
 import logic.NetSectorMap;
 import logic.Sector;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Creature implements Serializable
 {
@@ -14,7 +16,18 @@ public class Creature implements Serializable
     protected int Fattiness;
     public int Damage;
     public Sector parentSector;
+    protected ArrayList<CreaturePart> creatureParts = new ArrayList<>();
+    protected Color bodyColor = new Color(0, 150, 200);
 
+    public ArrayList<CreaturePart> getCreatureParts()
+    {
+        return creatureParts;
+    }
+
+    public Color getBodyColor()
+    {
+        return bodyColor;
+    }
 
     public Point absPosition;
     public Point sectorPosition;

@@ -1,5 +1,6 @@
 package gui;
 
+import creatureParts.CreaturePart;
 import engine.*;
 import logic.Game;
 import logic.Sector;
@@ -13,7 +14,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 
 public abstract class GameWindow extends JPanel
@@ -49,14 +50,44 @@ public abstract class GameWindow extends JPanel
         return sectorPosY + sector.location.y;
     }
 
-    protected void drawCreature(Graphics g, Creature creature, Sector sector)
+    protected void drawCreature(Graphics2D g, Creature creature, Sector sector)
     {
         var viewFattiness = (int)(creature.getFattiness() * game.scale);
-        g.setColor(new Color(0, 150, 200));
-        g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
-                translateY(sector, creature.sectorPosition.y - creature.getFattiness()),
-                creature.getFattiness() * 2,
-                creature.getFattiness() * 2);
+        g.setColor(creature.getBodyColor());
+        g.fillOval(translateX(sector, creature.sectorPosition.x - viewFattiness),
+                translateY(sector, creature.sectorPosition.y - viewFattiness),
+                viewFattiness * 2,
+                viewFattiness * 2);
+        var creatureParts = creature.getCreatureParts();
+        for(var creaturePart:creatureParts)
+        {
+            var oldForm = g.getTransform();
+            AffineTransform partsAT = (AffineTransform) (oldForm.clone());
+            Point pos;
+            Double angle;
+            if (creature instanceof Player)
+            {
+                pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
+                angle = creature.getDirection();
+            }
+            else {
+                pos = new Point(translateX(sector, creature.sectorPosition.x),
+                        translateY(sector, creature.sectorPosition.y));
+                angle = creature.getDirection() + Math.PI;
+            }
+            partsAT.rotate(angle, pos.x, pos.y);
+            partsAT.translate(pos.x, pos.y);
+            g.drawOval(pos.x, pos.y, 7, 7);
+            g.setTransform(partsAT);
+            BufferedImage bi = creaturePart.getSkin();
+            g.drawImage(bi,
+                    -bi.getWidth() + 10,
+                    -creature.getFattiness() + 50,
+                    (int)(game.scale * viewFattiness),
+                    (int)(game.scale * viewFattiness),
+                    null);
+            g.setTransform(oldForm);
+        }
     }
 
     protected void drawProgressBar(Graphics g)
