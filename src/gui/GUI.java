@@ -67,6 +67,7 @@ public class GUI
         System.out.println("Editor");
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
+        MyEditor my = new MyEditor(this, game);
         //frame.getContentPane().add(new Editor(this, game));
         //semaphore.release();
         //System.out.println(frame.getKeyListeners()[0].toString());

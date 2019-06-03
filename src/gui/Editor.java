@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+//Класс для запуска двух потоков
 public class Editor{
 
     public Editor(GUI gui, Game game){
@@ -21,6 +22,7 @@ public class Editor{
     }
 }
 
+//Класс эдитора
 class MyEditor extends JPanel
 {
     static  String colorSelected;
@@ -143,7 +145,7 @@ class Preview extends JPanel {
 
     }
 }
-
+//Поток отрисовки эдитора
 class DrawEditor extends Thread {
     GUI gui;
     Game game;
@@ -159,6 +161,7 @@ class DrawEditor extends Thread {
     }
 }
 
+//Поток для отрисовки игрока
 class DrawPlayer extends Thread {
     Graphics graph;
     DrawPlayer(Graphics g){
