@@ -13,25 +13,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//Класс для запуска двух потоков
-public class Editor{
 
-    public Editor(GUI gui, Game game){
-        new DrawEditor(gui, game).start();
-        new DrawPlayer(gui.frame.getGraphics()).start();
-    }
-}
 
 //Класс эдитора
-class MyEditor extends JPanel
+public class Editor extends JPanel
 {
     static  String colorSelected;
     static JFrame frame;
 
 
-    public MyEditor(GUI gui, Game game){
-        frame.getContentPane().add(new MyEditor(gui, game));
+    public Editor(GUI gui, Game game){
         frame = gui.frame;
+
+
         var frame = gui.frame;
         //this.game = game;
         setLayout(new GridBagLayout());
@@ -100,7 +94,7 @@ class MyEditor extends JPanel
         gbc.gridy = 4;
         add(butClose, gbc);
 
-        Preview prev = new Preview(MyEditor.frame.getGraphics());
+        //Preview prev = new Preview(Editor.frame.getGraphics());
     }
 
 }
@@ -113,8 +107,8 @@ class MyItemListener implements ItemListener {
         Object item = evt.getItem();
 
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            MyEditor.colorSelected = item.toString();
-            System.out.println(MyEditor.colorSelected);
+            Editor.colorSelected = item.toString();
+            System.out.println(Editor.colorSelected);
 
         } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
         }
@@ -128,7 +122,7 @@ class Preview extends JPanel {
         while (true) {
 
             String skin;
-            if (MyEditor.colorSelected == "1") {
+            if (Editor.colorSelected == "1") {
                 skin = "body.png";
             } else {
                 skin = "eye.png";
@@ -145,34 +139,7 @@ class Preview extends JPanel {
 
     }
 }
-//Поток отрисовки эдитора
-class DrawEditor extends Thread {
-    GUI gui;
-    Game game;
-    DrawEditor(GUI g, Game ga){
-        gui = g;
-        game = ga;
 
-    }
-
-    public void run(){
-
-        MyEditor editor = new MyEditor(gui, game);
-    }
-}
-
-//Поток для отрисовки игрока
-class DrawPlayer extends Thread {
-    Graphics graph;
-    DrawPlayer(Graphics g){
-        graph = g;
-    }
-
-    public void run(){
-
-        Preview prev = new Preview(graph);
-    }
-}
 
 //Старые черновики, пусть будут
 
