@@ -3,20 +3,33 @@ package gui;
 import engine.Player;
 import logic.Game;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Editor extends JPanel
+public class Editor{
+
+    public Editor(GUI gui, Game game){
+        new DrawEditor(gui, game).start();
+        new DrawPlayer(gui.frame.getGraphics()).start();
+    }
+}
+
+class MyEditor extends JPanel
 {
-    //public String colorSelected;
+    static  String colorSelected;
+    static JFrame frame;
 
-    //Game game;
 
-    public Editor(GUI gui, Game game)
-    {
+    public MyEditor(GUI gui, Game game){
+        frame.getContentPane().add(new MyEditor(gui, game));
+        frame = gui.frame;
         var frame = gui.frame;
         //this.game = game;
         setLayout(new GridBagLayout());
@@ -30,12 +43,14 @@ public class Editor extends JPanel
         gbc.gridy = 3;
         add(colorLable, gbc);
 
-        String[] colors = { "red", "blue", "orange", "green", "yellow"};
+        String[] colors = { "1", "2", "3", "4", "5"};
         JComboBox colorList = new JComboBox(colors);
         colorList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 3;
         add(colorList, gbc);
+        MyItemListener actionListener = new MyItemListener();
+        colorList.addItemListener(actionListener);
 
         //Жгутики
         Label flagellaLable = new Label("Flagella");
@@ -83,65 +98,120 @@ public class Editor extends JPanel
         gbc.gridy = 4;
         add(butClose, gbc);
 
-
-
-        class Preview extends JPanel{
-            protected Preview()
-            {
-
-            }
-
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.setColor(Color.green);
-                g.fillOval(25, 25, 50, 50);
-
-                g.setColor(Color.black);
-                g.drawOval(25, 25, 50, 50);
-            }
-        }
-
-        var p = new Preview();
-        p.setVisible(true);
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        add(p, gbc);
-
+        Preview prev = new Preview(MyEditor.frame.getGraphics());
     }
 
-    protected void drawPlayer(Graphics g)
-    {
-        //g.setColor(new Color(0x842D4E));
-        //if (color != null)
-            switch ("red") {
-                case "red":
-                    g.setColor(Color.red);
-                    break;
-                case "blue":
-                    g.setColor(Color.blue);
-                    break;
-                case "green":
-                    g.setColor(Color.green);
-                    break;
-                case "yellow":
-                    g.setColor(Color.yellow);
-                    break;
-                case "orange":
-                    g.setColor(Color.orange);
-                    break;
-                default:
-                    g.setColor(Color.red);
+}
 
+//Класс для реакции при выборе нового предемета в выпадающем списке
+class MyItemListener implements ItemListener {
+    public void itemStateChanged(ItemEvent evt) {
+        JComboBox colorList = (JComboBox) evt.getSource();
+
+        Object item = evt.getItem();
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            MyEditor.colorSelected = item.toString();
+            System.out.println(MyEditor.colorSelected);
+
+        } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
+        }
+    }
+}
+
+
+//Класс для отрисовки игрока в редакторе
+class Preview extends JPanel {
+    protected Preview(Graphics g) {
+        while (true) {
+
+            String skin;
+            if (MyEditor.colorSelected == "1") {
+                skin = "body.png";
+            } else {
+                skin = "eye.png";
             }
-        //else
-           // g.setColor(new Color(0x842D4E));
 
-
-        g.fillOval(300 - 25,
-                250 - 25,
-                50,
-                50);
+            try {
+                BufferedImage im = ImageIO.read(new File("src/skins/" + skin));
+                g.drawImage(im, 200, 200, 200, 200, null);
+            } catch (IOException ioe) {
+                System.err.println(ioe.toString());
+            }
+        }
 
 
     }
 }
+
+class DrawEditor extends Thread {
+    GUI gui;
+    Game game;
+    DrawEditor(GUI g, Game ga){
+        gui = g;
+        game = ga;
+
+    }
+
+    public void run(){
+
+        MyEditor editor = new MyEditor(gui, game);
+    }
+}
+
+class DrawPlayer extends Thread {
+    Graphics graph;
+    DrawPlayer(Graphics g){
+        graph = g;
+    }
+
+    public void run(){
+
+        Preview prev = new Preview(graph);
+    }
+}
+
+//Старые черновики, пусть будут
+
+//
+//            protected void paintComponent(Graphics g) {
+//                super.paintComponent(g);
+//                g.setColor(Color.green);
+//                g.fillOval(25, 25, 50, 50);
+//
+//                g.setColor(Color.black);
+//                g.drawOval(25, 25, 50, 50);
+//            }
+//        }
+
+//        var p = new Preview();
+//        p.setVisible(true);
+//        gbc.gridx = 1;
+//        gbc.gridy = 5;
+//        add(p, gbc);
+
+//    }
+
+//    protected void drawPlayer(Graphics g){
+//        String skin;
+//        if (colorSelected == "1"){
+//            skin = "body.png";
+//        }
+//        else{
+//            skin = "eye.png";
+//        }
+//        BufferedReader reader;
+//
+//        try {
+//            BufferedImage im = ImageIO.read(new File("src/skins/eye.png"));
+//            g.drawImage(im, 200, 200, 200, 200, null);
+//        }
+//        catch(IOException ioe) {
+//            System.err.println(ioe.toString());
+//        }
+//
+//
+//    }
+//}
+
+

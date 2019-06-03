@@ -6,6 +6,7 @@ import logic.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 
@@ -62,13 +63,11 @@ public class GUI
         System.exit(0);
     }
 
-    public void invokeEditor()
-
-    {
+    public void invokeEditor() throws IOException {
         System.out.println("Editor");
         //frame.getContentPane().remove(this.menu);
         frame.getContentPane().removeAll();
-        frame.getContentPane().add(new Editor(this, game));
+        //frame.getContentPane().add(new Editor(this, game));
         //semaphore.release();
         //System.out.println(frame.getKeyListeners()[0].toString());
         frame.requestFocus();

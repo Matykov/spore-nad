@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class Menu extends JPanel
 {
@@ -69,7 +70,11 @@ public class Menu extends JPanel
         butEdit.setBorder(null);
         butEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gui.invokeEditor();
+                try {
+                    gui.invokeEditor();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         gbc.fill = GridBagConstraints.HORIZONTAL;
