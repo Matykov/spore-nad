@@ -17,9 +17,9 @@ public class Menu extends JPanel
     {
         var frame = gui.frame;
         setLayout(new GridBagLayout());
-
-        frame.getContentPane().setBackground(Color.BLACK);
         GridBagConstraints gbc = new GridBagConstraints();
+        frame.getContentPane().setBackground(Color.BLACK);
+
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets.top = frame.getHeight() / 10;
@@ -29,6 +29,9 @@ public class Menu extends JPanel
         JButton butSPMode = new JButton(single_but_pic);
         butSPMode.setMargin(new Insets(0, 0, 0, 0));
         butSPMode.setBorder(null);
+        butSPMode.setOpaque(false);
+        butSPMode.setContentAreaFilled(false);
+        butSPMode.setBorderPainted(false);
         butSPMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gui.invokeSPMode();
@@ -48,30 +51,33 @@ public class Menu extends JPanel
 
 
         ImageIcon multi_but_pic = new ImageIcon("src/skins/multi_mod_but.png");
-        ImageIcon multi_but_hover_pic = new ImageIcon("src/skins/multi_mod_but_hover.png");
+        ImageIcon multi_but_hover_pic = new ImageIcon("src/skins/multi_mod_hover_but.png");
         JButton butMPMode = new JButton(multi_but_pic);
-        butMPMode.setMargin(new Insets(0, 0, 0, 0));
         butMPMode.setBorder(null);
-//        butMPMode.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                gui.invokeMPMode();
-//            }
-//        });
-//        butSPMode.addMouseListener(new MouseAdapter() {
-//            public void mouseEntered(MouseEvent me) {
-//                butSPMode.setIcon(single_but_hover_pic);
-//            }
-//            public void mouseExited(MouseEvent me) {
-//                butSPMode.setIcon(single_but_pic);
-//            }
-//        });
+        butMPMode.setOpaque(false);
+        butMPMode.setContentAreaFilled(false);
+        butMPMode.setBorderPainted(false);
+        butMPMode.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                gui.invokeMPMode();
+            }
+        });
+        butMPMode.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent me) { butMPMode.setIcon(multi_but_hover_pic);
+            }
+            public void mouseExited(MouseEvent me) { butMPMode.setIcon(multi_but_pic);
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 3;
         add(butMPMode, gbc);
         ImageIcon editor_but_pic = new ImageIcon("src/skins/editor_but.png");
+        ImageIcon edit_but_hover_pic = new ImageIcon("src/skins/editor_hover_but.png");
         JButton butEdit = new JButton(editor_but_pic);
-        butEdit.setMargin(new Insets(0, 0, 0, 0));
         butEdit.setBorder(null);
+        butEdit.setOpaque(false);
+        butEdit.setContentAreaFilled(false);
+        butEdit.setBorderPainted(false);
         butEdit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -81,6 +87,12 @@ public class Menu extends JPanel
                 }
             }
         });
+        butEdit.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent me) { butEdit.setIcon(edit_but_hover_pic);
+            }
+            public void mouseExited(MouseEvent me) { butEdit.setIcon(editor_but_pic);
+            }
+        });
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 5;
@@ -88,12 +100,22 @@ public class Menu extends JPanel
 
 
         ImageIcon quit_but_pic = new ImageIcon("src/skins/quit_but.png");
+        ImageIcon quit_but_hover_pic = new ImageIcon("src/skins/quit_hover_but.png");
         JButton butQuit = new JButton(quit_but_pic);
         butQuit.setMargin(new Insets(0, 0, 0, 0));
         butQuit.setBorder(null);
+        butQuit.setOpaque(false);
+        butQuit.setContentAreaFilled(false);
+        butQuit.setBorderPainted(false);
         butQuit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gui.invokeClosing();
+            }
+        });
+        butQuit.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent me) { butQuit.setIcon(quit_but_hover_pic);
+            }
+            public void mouseExited(MouseEvent me) { butQuit.setIcon(quit_but_pic);
             }
         });
         gbc.fill = GridBagConstraints.HORIZONTAL;
