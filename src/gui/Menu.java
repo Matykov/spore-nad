@@ -1,12 +1,14 @@
 package gui;
 import engine.Player;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,9 +18,19 @@ public class Menu extends JPanel
     public Menu(GUI gui)
     {
         var frame = gui.frame;
+        this.setOpaque(true);
+//        try {
+//
+//            frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src/skins/background.png")))));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        frame.getContentPane().setBackground(Color.BLACK);
+        this.setBackground(Color.BLACK);
+
+
 
 
         gbc.fill = GridBagConstraints.HORIZONTAL;

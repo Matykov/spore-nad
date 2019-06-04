@@ -22,8 +22,11 @@ public class Editor extends JPanel
         frame = gui.frame;
 
 
+
         var frame = gui.frame;
         //this.game = game;
+        this.setOpaque(true);
+        this.setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
