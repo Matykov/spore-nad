@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="Убрала потоки из эдитора">
+    <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/creatureParts/Body.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/creatureParts/Body.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/Editor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Editor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/Sector.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/Sector.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/body.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/eye.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/eye.png" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/GameWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="262" column="9" lean-forward="true" selection-start-line="262" selection-start-column="9" selection-end-line="262" selection-end-column="9" />
+            <state relative-caret-position="55">
+              <caret line="246" column="32" selection-start-line="246" selection-start-column="32" selection-end-line="246" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1005#1006#0" expanded="true" />
@@ -134,7 +129,7 @@
         <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="123">
-              <caret line="67" column="31" lean-forward="true" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+              <caret line="67" column="31" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -648,7 +643,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559605751599</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Уф&#10;Редактор работает, но без отрисовки игрока пока, я не поняла, как ее сделать&#10;Добавила немножко графона">
+      <created>1559610289752</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1559610289752</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -665,9 +667,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18003026" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18003026" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -676,7 +677,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32405892" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.61270803" visible="true" weight="0.27986908" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.61270803" visible="true" weight="0.27986908" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48007712" weight="0.3878887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -801,7 +802,8 @@
     <MESSAGE value="commit" />
     <MESSAGE value="Попыталась доделать эдитор и совсем поломала его т.т" />
     <MESSAGE value="Убрала потоки из эдитора" />
-    <option name="LAST_COMMIT_MESSAGE" value="Убрала потоки из эдитора" />
+    <MESSAGE value="Уф&#10;Редактор работает, но без отрисовки игрока пока, я не поняла, как ее сделать&#10;Добавила немножко графона" />
+    <option name="LAST_COMMIT_MESSAGE" value="Уф&#10;Редактор работает, но без отрисовки игрока пока, я не поняла, как ее сделать&#10;Добавила немножко графона" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1287,7 +1289,7 @@
     <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
-          <caret line="67" column="31" lean-forward="true" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+          <caret line="67" column="31" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1306,8 +1308,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GameWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="262" column="9" lean-forward="true" selection-start-line="262" selection-start-column="9" selection-end-line="262" selection-end-column="9" />
+        <state relative-caret-position="55">
+          <caret line="246" column="32" selection-start-line="246" selection-start-column="32" selection-end-line="246" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1005#1006#0" expanded="true" />
