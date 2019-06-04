@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="Уф">
-      <change beforePath="$PROJECT_DIR$/src/gui/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/editor_but.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/editor_but.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/multi_mod_but.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/multi_mod_but.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/multi_mod_hover_but.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/multi_mod_hover_but.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/quit_but.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/quit_but.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/single_mod_but.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/single_mod_but.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/single_mod_but_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/single_mod_but_hover.png" afterDir="false" />
+    <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/skins/back_but.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/skins/back_hover_but.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/Editor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Editor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/skins/bodyLabel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/bodyLabel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/skins/flagellaLabel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/flagellaLabel.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/skins/spikesLabel.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/skins/spikesLabel.png" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -114,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret lean-forward="true" />
+            <state relative-caret-position="327">
+              <caret line="130" column="65" lean-forward="true" selection-start-line="130" selection-start-column="65" selection-end-line="130" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -126,17 +126,17 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="94" column="11" lean-forward="true" selection-start-line="94" selection-start-column="11" selection-end-line="94" selection-end-column="11" />
+            <state relative-caret-position="191">
+              <caret line="119" column="11" lean-forward="true" selection-start-line="114" selection-start-column="8" selection-end-line="119" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1299#1300#0" expanded="true" />
                 <element signature="e#1349#1350#0" expanded="true" />
                 <element signature="e#2305#2306#0" expanded="true" />
-                <element signature="e#4118#4119#0" expanded="true" />
+                <element signature="e#4326#4327#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -247,9 +247,9 @@
         <option value="$PROJECT_DIR$/src/creatureParts/Body.java" />
         <option value="$PROJECT_DIR$/src/gui/GameWindow.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Flagella.java" />
-        <option value="$PROJECT_DIR$/src/gui/Editor.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Spike.java" />
         <option value="$PROJECT_DIR$/src/gui/Menu.java" />
+        <option value="$PROJECT_DIR$/src/gui/Editor.java" />
       </list>
     </option>
   </component>
@@ -678,7 +678,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559616666266</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Новые кнопочки">
+      <created>1559619309343</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1559619309343</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -695,9 +702,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18003026" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18003026" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -706,7 +712,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32405892" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.61270803" visible="true" weight="0.27986908" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.61270803" visible="true" weight="0.27986908" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48007712" weight="0.3878887" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -833,7 +839,8 @@
     <MESSAGE value="Убрала потоки из эдитора" />
     <MESSAGE value="Уф&#10;Редактор работает, но без отрисовки игрока пока, я не поняла, как ее сделать&#10;Добавила немножко графона" />
     <MESSAGE value="Уф" />
-    <option name="LAST_COMMIT_MESSAGE" value="Уф" />
+    <MESSAGE value="Новые кнопочки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Новые кнопочки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1299,16 +1306,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/creatureParts/Flagella.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -1345,14 +1342,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="94" column="11" lean-forward="true" selection-start-line="94" selection-start-column="11" selection-end-line="94" selection-end-column="11" />
+        <state relative-caret-position="191">
+          <caret line="119" column="11" lean-forward="true" selection-start-line="114" selection-start-column="8" selection-end-line="119" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1299#1300#0" expanded="true" />
             <element signature="e#1349#1350#0" expanded="true" />
             <element signature="e#2305#2306#0" expanded="true" />
-            <element signature="e#4118#4119#0" expanded="true" />
+            <element signature="e#4326#4327#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="130" column="65" lean-forward="true" selection-start-line="130" selection-start-column="65" selection-end-line="130" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,16 +3,12 @@ package gui;
 import engine.Player;
 import logic.Game;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 
 
 //Класс эдитора
@@ -92,8 +88,15 @@ public class Editor extends JPanel
         MyItemListener actionListener3 = new MyItemListener();
         flagellaList.addItemListener(actionListener3);
 
-        JButton butClose = new JButton("Back to Menu");
-        butClose.addActionListener(new ActionListener() {
+
+        ImageIcon back_but_pic = new ImageIcon("src/skins/back_but.png");
+        ImageIcon back_but_hover_pic = new ImageIcon("src/skins/back_hover_but.png");
+        JButton backBut = new JButton(back_but_pic);
+        backBut.setBorder(null);
+        backBut.setOpaque(false);
+        backBut.setContentAreaFilled(false);
+        backBut.setBorderPainted(false);
+        backBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
@@ -113,10 +116,17 @@ public class Editor extends JPanel
                 gui.invokeMainMenu();
             }
         });
+
+        backBut.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent me) { backBut.setIcon(back_but_hover_pic);
+            }
+            public void mouseExited(MouseEvent me) { backBut.setIcon(back_but_pic);
+            }
+        });
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 4;
-        add(butClose, gbc);
+        add(backBut, gbc);
 
         //Preview prev = new Preview(Editor.frame.getGraphics());
     }
