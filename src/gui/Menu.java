@@ -105,14 +105,18 @@ public class Menu extends JPanel
         //Проверка на существование файлов внешности и их заполнение
         try {
             if ((!new File(Player.CurrentDir() + "\\colors.txt").exists()) ||
-                    (!new File(Player.CurrentDir() + "\\flagella.txt").exists())) {
+                    (!new File(Player.CurrentDir() + "\\flagella.txt").exists()) ||
+                    (!new File(Player.CurrentDir() + "\\spikes.txt").exists())) {
                 FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
                 FileWriter fileFlagella = new FileWriter(Player.CurrentDir() + "\\flagella.txt");
+                FileWriter fileSpike = new FileWriter(Player.CurrentDir() + "\\spikes.txt");
 
                 fileBody.write("src/skins/body1but.png");
                 fileFlagella.write("src/skins/flagella1A.png");
+                fileSpike.write("src/skins/spike1A.png");
                 fileBody.flush();
                 fileFlagella.flush();
+                fileSpike.flush();
             }
         }catch(IOException ioe) {
             System.err.println(ioe.toString());

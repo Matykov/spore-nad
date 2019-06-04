@@ -79,12 +79,18 @@ public class Editor extends JPanel
         gbc.gridy = 2;
         add(spikesLabel, gbc);
 
-        String[] spikes = { "1", "2", "3", "4"};
+        ImageIcon[] spikes = {
+                new ImageIcon("src/skins/spike1A.png"),
+                new ImageIcon("src/skins/spike2A.png"),
+                new ImageIcon("src/skins/spike3A.png")
+        };
         JComboBox spikesList = new JComboBox(spikes);
         spikesList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 2;
         add(spikesList, gbc);
+        MyItemListener actionListener3 = new MyItemListener();
+        flagellaList.addItemListener(actionListener3);
 
         JButton butClose = new JButton("Back to Menu");
         butClose.addActionListener(new ActionListener() {
@@ -92,12 +98,14 @@ public class Editor extends JPanel
                 try {
                     FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
                     FileWriter fileFlagella = new FileWriter(Player.CurrentDir() + "\\flagella.txt");
+                    FileWriter fileSpike = new FileWriter(Player.CurrentDir() + "\\spikes.txt");
                     fileBody.write(colorList.getSelectedItem().toString());
                     fileFlagella.write(flagellaList.getSelectedItem().toString());
-                    System.out.println(colorList.getSelectedItem().toString());
-                    System.out.println(flagellaList.getSelectedItem().toString());
+                    fileSpike.write(spikesList.getSelectedItem().toString());
+                    System.out.println(spikesList.getSelectedItem().toString());
                     fileBody.flush();
                     fileFlagella.flush();
+                    fileSpike.flush();
                 }catch(IOException ioe) {
                     System.err.println(ioe.toString());
                     gui.invokeMainMenu();
