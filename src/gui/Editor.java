@@ -34,35 +34,41 @@ public class Editor extends JPanel
         gbc.insets.top = frame.getHeight() / 10;
 
         //Цвет клетки
-        Label colorLable = new Label("Color");
+        JLabel colorLable = new JLabel(new ImageIcon("src/skins/bodyLabel.png"));;
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         add(colorLable, gbc);
 
-        String[] colors = { "1", "2", "3", "4", "5"};
+        ImageIcon[] colors = {
+                new ImageIcon("src/skins/body1but.png"),
+                new ImageIcon("src/skins/body2but.png"),
+                new ImageIcon("src/skins/body3but.png")
+        };
         JComboBox colorList = new JComboBox(colors);
+
         colorList.setEditable(false);
         gbc.gridx = 2;
-        gbc.gridy = 3;
+        gbc.gridy = 1;
         add(colorList, gbc);
         MyItemListener actionListener = new MyItemListener();
         colorList.addItemListener(actionListener);
 
         //Жгутики
-        Label flagellaLable = new Label("Flagella");
+        JLabel flagellaLable = new JLabel(new ImageIcon("src/skins/flagellaLabel.png"));
+
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         add(flagellaLable, gbc);
 
         String[] flagella = { "1", "2", "3", "4"};
         JComboBox flagellaList = new JComboBox(flagella);
         flagellaList.setEditable(false);
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = 3;
         add(flagellaList, gbc);
 
         //Шипы
-        Label spikesLabel = new Label("Spikes");
+        JLabel spikesLabel = new JLabel(new ImageIcon("src/skins/spikesLabel.png"));
         gbc.gridx = 1;
         gbc.gridy = 2;
         add(spikesLabel, gbc);

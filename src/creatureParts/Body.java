@@ -17,12 +17,7 @@ public class Body extends CreaturePart {
         try {
             FileReader file = new FileReader(Player.CurrentDir() + "\\colors.txt");
             reader = new BufferedReader(file);
-            if (reader.readLine().startsWith("1")) {
-                skin = "src/skins/eye.png";
-            }
-            else{
-                skin = "src/skins/body.png";
-            }
+            skin = reader.readLine().replaceAll("but", "");
         }
         catch(IOException ioe) {
             System.err.println(ioe.toString());
