@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -84,14 +85,22 @@ public abstract class GameWindow extends JPanel
         }
     }
 
-    protected void drawProgressBar(Graphics g)
-    {
-        g.setColor(new Color(0x136B21));
-        g.drawRect(frame.getWidth() / 4, 20, frame.getWidth() / 2, 30);
+    protected void drawProgressBar(Graphics2D g) {
 
-        var fullness = game.getPercentCompletion() > 1 ? 1 : game.getPercentCompletion();
+        try {
+            var fullness = game.getPercentCompletion() > 1 ? 1 : game.getPercentCompletion();
 
-        g.fillRect(frame.getWidth() / 4, 20, (int)(fullness * frame.getWidth() / 2), 30);
+            BufferedImage im = ImageIO.read(new File("src/skins/world/health.png"));
+            g.setColor(new Color(0x136B21));
+            g.drawRect(frame.getWidth() / 4, 20, frame.getWidth() / 2, 30);
+            TexturePaint tp = new TexturePaint(im, new Rectangle(frame.getWidth() / 4, 20, (int)(fullness * frame.getWidth() / 2), 30));
+
+            Rectangle2D points = new Rectangle2D.Double(frame.getWidth() / 4, 20, (int)(fullness * frame.getWidth() / 2), 30);
+            g.setPaint(tp);
+            g.fill(points);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void drawFood(Graphics g, Sector sector)

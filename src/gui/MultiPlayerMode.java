@@ -1,5 +1,8 @@
 package gui;
 
+import netParts.old.Client;
+
+import javax.swing.border.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +28,17 @@ public class MultiPlayerMode extends JPanel
         add(label);
 
         JTextField text = new JTextField("127.0.0.1:8081");
+        text.setHorizontalAlignment(0);
+        ImageIcon pic = new ImageIcon("src/skins/labels/border.png");
+        text.setBorder(BorderFactory.createMatteBorder(-1,-1,-1,-1, pic));
+        text.setOpaque(false);
+        Font f = new Font("Comic Sans MS",Font.ITALIC,20);
+        //text.setDisabledTextColor(Color.cyan);
+        //text.setSelectedTextColor(Color.cyan);
+        //text.setCaretColor(Color.cyan);
+        //text.setSelectionColor(Color.cyan);
+        text.setFont(f);
+        text.setForeground(Color.green);
         gbc.gridy = 2;
         add(text);
 
