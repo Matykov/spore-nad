@@ -50,8 +50,8 @@ public class Editor extends JPanel
         gbc.gridx = 2;
         gbc.gridy = 1;
         add(colorList, gbc);
-        MyItemListener actionListener = new MyItemListener();
-        colorList.addItemListener(actionListener);
+        MyItemListener actionListener1 = new MyItemListener();
+        colorList.addItemListener(actionListener1);
 
         //Жгутики
         JLabel flagellaLable = new JLabel(new ImageIcon("src/skins/flagellaLabel.png"));
@@ -60,12 +60,18 @@ public class Editor extends JPanel
         gbc.gridy = 3;
         add(flagellaLable, gbc);
 
-        String[] flagella = { "1", "2", "3", "4"};
+        ImageIcon[] flagella = {
+                new ImageIcon("src/skins/flagella1A.png"),
+                new ImageIcon("src/skins/flagella2A.png"),
+                new ImageIcon("src/skins/flagella3A.png")
+        };
         JComboBox flagellaList = new JComboBox(flagella);
         flagellaList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 3;
         add(flagellaList, gbc);
+        MyItemListener actionListener2 = new MyItemListener();
+        flagellaList.addItemListener(actionListener2);
 
         //Шипы
         JLabel spikesLabel = new JLabel(new ImageIcon("src/skins/spikesLabel.png"));
@@ -74,7 +80,7 @@ public class Editor extends JPanel
         add(spikesLabel, gbc);
 
         String[] spikes = { "1", "2", "3", "4"};
-        JComboBox spikesList = new JComboBox(flagella);
+        JComboBox spikesList = new JComboBox(spikes);
         spikesList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -84,10 +90,14 @@ public class Editor extends JPanel
         butClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileWriter file = new FileWriter(Player.CurrentDir() + "\\colors.txt");
-                    file.write(colorList.getSelectedItem().toString());
+                    FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
+                    FileWriter fileFlagella = new FileWriter(Player.CurrentDir() + "\\flagella.txt");
+                    fileBody.write(colorList.getSelectedItem().toString());
+                    fileFlagella.write(flagellaList.getSelectedItem().toString());
                     System.out.println(colorList.getSelectedItem().toString());
-                    file.flush();
+                    System.out.println(flagellaList.getSelectedItem().toString());
+                    fileBody.flush();
+                    fileFlagella.flush();
                 }catch(IOException ioe) {
                     System.err.println(ioe.toString());
                     gui.invokeMainMenu();
@@ -108,7 +118,7 @@ public class Editor extends JPanel
 //Класс для реакции при выборе нового предемета в выпадающем списке
 class MyItemListener implements ItemListener {
     public void itemStateChanged(ItemEvent evt) {
-        JComboBox colorList = (JComboBox) evt.getSource();
+        JComboBox myBox = (JComboBox) evt.getSource();
 
         Object item = evt.getItem();
 

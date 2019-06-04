@@ -1,26 +1,47 @@
 package creatureParts;
 
+import engine.Player;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Flagella extends CreaturePart{
+    String skin;
     public Flagella()
     {
         this.angleOffset = Math.PI;
         this.skins = new ArrayList<BufferedImage>();
+
+        BufferedReader reader;
         try {
-            var skin1 =ImageIO.read( new File("src/skins/flagella1.png"));
-            var skin2 =ImageIO.read( new File("src/skins/flagella2.png"));
+            FileReader file = new FileReader(Player.CurrentDir() + "\\flagella.txt");
+            reader = new BufferedReader(file);
+            skin = reader.readLine().replaceAll("but", "");
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.toString());
+        }
+
+        try {
+            //this.skins.add(ImageIO.read(new File(skin)));
+            var skin1 =ImageIO.read( new File(skin));
+            var skin2 =ImageIO.read( new File(skin.replaceAll("A", "B")));
+
             for(int i=0;i<6;i++)
                 skins.add(skin1);
             for(int i=0;i<6;i++)
                 skins.add(skin2);
-
         }catch(IOException ioe){
-            System.out.println("Can't flagella skin");
+            System.out.println("can't load body sprite");
+
+
+
+
         }
     }
 }

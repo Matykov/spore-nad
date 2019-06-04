@@ -1,10 +1,14 @@
 package gui;
+import engine.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Menu extends JPanel
@@ -96,5 +100,22 @@ public class Menu extends JPanel
         gbc.gridx = 1;
         gbc.gridy = 6;
         add(butQuit, gbc);
+
+
+        //Проверка на существование файлов внешности и их заполнение
+        try {
+            if ((!new File(Player.CurrentDir() + "\\colors.txt").exists()) ||
+                    (!new File(Player.CurrentDir() + "\\flagella.txt").exists())) {
+                FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
+                FileWriter fileFlagella = new FileWriter(Player.CurrentDir() + "\\flagella.txt");
+
+                fileBody.write("src/skins/body1but.png");
+                fileFlagella.write("src/skins/flagella1A.png");
+                fileBody.flush();
+                fileFlagella.flush();
+            }
+        }catch(IOException ioe) {
+            System.err.println(ioe.toString());
     }
+}
 }
