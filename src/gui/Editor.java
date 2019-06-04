@@ -42,7 +42,8 @@ public class Editor extends JPanel
         ImageIcon[] colors = {
                 new ImageIcon("src/skins/body1but.png"),
                 new ImageIcon("src/skins/body2but.png"),
-                new ImageIcon("src/skins/body3but.png")
+                new ImageIcon("src/skins/body3but.png"),
+                new ImageIcon("src/skins/body4but.png")
         };
         JComboBox colorList = new JComboBox(colors);
 
@@ -61,9 +62,10 @@ public class Editor extends JPanel
         add(flagellaLable, gbc);
 
         ImageIcon[] flagella = {
-                new ImageIcon("src/skins/flagella1A.png"),
-                new ImageIcon("src/skins/flagella2A.png"),
-                new ImageIcon("src/skins/flagella3A.png")
+                new ImageIcon("src/skins/flagella1Abut.png"),
+                new ImageIcon("src/skins/flagella2Abut.png"),
+                new ImageIcon("src/skins/flagella3Abut.png"),
+                new ImageIcon("src/skins/flagella4Abut.png")
         };
         JComboBox flagellaList = new JComboBox(flagella);
         flagellaList.setEditable(false);
@@ -80,9 +82,10 @@ public class Editor extends JPanel
         add(spikesLabel, gbc);
 
         ImageIcon[] spikes = {
-                new ImageIcon("src/skins/spike1A.png"),
-                new ImageIcon("src/skins/spike2A.png"),
-                new ImageIcon("src/skins/spike3A.png")
+                new ImageIcon("src/skins/spike1Abut.png"),
+                new ImageIcon("src/skins/spike2Abut.png"),
+                new ImageIcon("src/skins/spike3Abut.png"),
+                new ImageIcon("src/skins/spike4Abut.png")
         };
         JComboBox spikesList = new JComboBox(spikes);
         spikesList.setEditable(false);

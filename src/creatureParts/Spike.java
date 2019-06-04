@@ -21,7 +21,7 @@ public class Spike extends CreaturePart {
 
             FileReader file = new FileReader(Player.CurrentDir() + "\\spikes.txt");
             reader = new BufferedReader(file);
-            skin = reader.readLine();
+            skin = reader.readLine().replaceAll("but", "");
             skins.add(ImageIO.read( new File(skin)));
         }
         catch(IOException ioe) {
