@@ -71,7 +71,7 @@ public abstract class GameWindow extends JPanel
             angle = creature.getDirection() + Math.PI;
             partsAT.rotate(angle, pos.x, pos.y);
             partsAT.translate(pos.x, pos.y);
-            g.drawOval(pos.x, pos.y, 7, 7);
+            //g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
             BufferedImage bi = creaturePart.getSkin();
             g.drawImage(bi,

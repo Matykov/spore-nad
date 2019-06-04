@@ -7,6 +7,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
+import javax.naming.event.EventDirContext;
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,7 +15,10 @@ import java.awt.*;
 //Класс эдитора
 public class Editor extends JPanel
 {
-    static  String colorSelected;
+    static String part;
+    static String bodySelected;
+    static String flagellaSelected;
+    static String spikeSelected;
     static JFrame frame;
 
 
@@ -87,13 +91,14 @@ public class Editor extends JPanel
                 new ImageIcon("src/skins/spike3Abut.png"),
                 new ImageIcon("src/skins/spike4Abut.png")
         };
+
         JComboBox spikesList = new JComboBox(spikes);
         spikesList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 2;
         add(spikesList, gbc);
         MyItemListener actionListener3 = new MyItemListener();
-        flagellaList.addItemListener(actionListener3);
+        spikesList.addItemListener(actionListener3);
 
 
         gbc.gridx = 1;
@@ -130,6 +135,8 @@ public class Editor extends JPanel
             }
         });
 
+
+
         backBut.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent me) { backBut.setIcon(back_but_hover_pic);
             }
@@ -143,21 +150,33 @@ public class Editor extends JPanel
 
 
 
-        //Preview prev = new Preview(Editor.frame.getGraphics());
+        Preview prev = new Preview(Editor.frame.getGraphics());
     }
 
 }
 
 //Класс для реакции при выборе нового предемета в выпадающем списке
+//Позволяет рисовать актуаьные детали игрока
 class MyItemListener implements ItemListener {
+
     public void itemStateChanged(ItemEvent evt) {
-        JComboBox myBox = (JComboBox) evt.getSource();
+        JComboBox myBox = (JComboBox)evt.getSource();
 
         Object item = evt.getItem();
 
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            Editor.colorSelected = item.toString();
-            System.out.println(Editor.colorSelected);
+            if (item.toString().contains("body")) {
+                Editor.bodySelected = item.toString();
+
+            }
+            else if (item.toString().contains("flagella")){
+                Editor.flagellaSelected = item.toString();
+
+            }
+            else if (item.toString().contains("spike")){
+                Editor.spikeSelected = item.toString();
+
+            }
 
         } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
         }
@@ -168,21 +187,21 @@ class MyItemListener implements ItemListener {
 //Класс для отрисовки игрока в редакторе
 class Preview extends JPanel {
     protected Preview(Graphics g) {
-        while (true) {
 
-            String skin;
-            if (Editor.colorSelected == "1") {
-                skin = "body.png";
-            } else {
-                skin = "eye.png";
-            }
+        String skin;
+        if (Editor.bodySelected == "1") {
+            skin = "body1.png";
+        } else {
+            skin = "body2.png";
+        }
 
-            try {
-                BufferedImage im = ImageIO.read(new File("src/skins/" + skin));
-                g.drawImage(im, 200, 200, 200, 200, null);
-            } catch (IOException ioe) {
-                System.err.println(ioe.toString());
-            }
+        try {
+            BufferedImage im = ImageIO.read(new File("src/skins/" + skin));
+            g.drawImage(im, 200, 200, 200, 200, null);
+            //System.out.println("OK");
+        } catch (IOException ioe) {
+            System.err.println(ioe.toString());
+
         }
 
 

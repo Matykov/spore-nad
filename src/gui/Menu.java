@@ -20,12 +20,6 @@ public class Menu extends JPanel
         var frame = gui.frame;
         this.setOpaque(true);
 
-//        try {
-//
-//            frame.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src/skins/background.png")))));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -36,8 +30,6 @@ public class Menu extends JPanel
 
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //gbc.insets.top = frame.getHeight() / 10;
-        //BufferedImage buttonIcon = ImageIO.read(new File("src/skins/Sector.png"));
         ImageIcon single_but_pic = new ImageIcon("src/skins/buttons/single_mod_but.png");
         ImageIcon single_but_hover_pic = new ImageIcon("src/skins/buttons/single_mod_but_hover.png");
         JButton butSPMode = new JButton(single_but_pic);
