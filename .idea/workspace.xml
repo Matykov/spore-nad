@@ -2,37 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/ClientClientWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/ClientClientWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/Editor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Editor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/GameWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/GameWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/MultiPlayerMode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/MultiPlayerMode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/Sector.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/SectorOld.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/back_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/back_hover_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/body.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/bodyLabel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/editor_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/editor_hover_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/eye.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/eyeOld.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/flagellaLabel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/food.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/multi_mod_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/multi_mod_hover_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/play_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/play_hover_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/player.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/quit_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/quit_hover_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/serverLabel.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/single_mod_but.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/single_mod_but_hover.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/skins/spikesLabel.png" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -117,8 +89,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1563">
-              <caret line="39" column="66" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="66" />
+            <state relative-caret-position="341">
+              <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -129,8 +101,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/MultiPlayerMode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="76" column="22" lean-forward="true" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
+            <state relative-caret-position="229">
+              <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -141,8 +113,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+            <state relative-caret-position="222">
+              <caret line="38" column="42" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -183,7 +155,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>graphics</find>
       <find>fra</find>
       <find>fram</find>
       <find>frame</find>
@@ -213,6 +184,7 @@
       <find>image</find>
       <find>singl</find>
       <find>new fil</find>
+      <find>inset</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -271,14 +243,14 @@
         <option value="$PROJECT_DIR$/src/gui/GUI.java" />
         <option value="$PROJECT_DIR$/src/engine/Player.java" />
         <option value="$PROJECT_DIR$/src/gui/ClientClientWindow.java" />
-        <option value="$PROJECT_DIR$/src/gui/Menu.java" />
-        <option value="$PROJECT_DIR$/src/gui/MultiPlayerMode.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Body.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Eye.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Flagella.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Spike.java" />
-        <option value="$PROJECT_DIR$/src/gui/Editor.java" />
         <option value="$PROJECT_DIR$/src/gui/GameWindow.java" />
+        <option value="$PROJECT_DIR$/src/gui/Editor.java" />
+        <option value="$PROJECT_DIR$/src/gui/Menu.java" />
+        <option value="$PROJECT_DIR$/src/gui/MultiPlayerMode.java" />
       </list>
     </option>
   </component>
@@ -722,7 +694,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559623405852</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Часть спрайтов разбита на директории">
+      <created>1559626198995</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1559626198995</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -738,7 +717,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18003026" />
@@ -880,7 +859,8 @@
     <MESSAGE value="Новые кнопочки" />
     <MESSAGE value="Новые кнопки и метки" />
     <MESSAGE value="Кнопки и метки в мультиплеере" />
-    <option name="LAST_COMMIT_MESSAGE" value="Кнопки и метки в мультиплеере" />
+    <MESSAGE value="Часть спрайтов разбита на директории" />
+    <option name="LAST_COMMIT_MESSAGE" value="Часть спрайтов разбита на директории" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1332,16 +1312,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GameWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-120">
@@ -1370,10 +1340,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/Editor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="38" column="42" lean-forward="true" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1563">
-          <caret line="39" column="66" selection-start-line="39" selection-start-column="56" selection-end-line="39" selection-end-column="66" />
+        <state relative-caret-position="341">
+          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1382,8 +1362,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/MultiPlayerMode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="76" column="22" lean-forward="true" selection-start-line="76" selection-start-column="22" selection-end-line="76" selection-end-column="22" />
+        <state relative-caret-position="229">
+          <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

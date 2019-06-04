@@ -36,6 +36,7 @@ public class Editor extends JPanel
         JLabel colorLable = new JLabel(new ImageIcon("src/skins/labels/bodyLabel.png"));;
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.insets = new Insets(5,0,5,40);
         add(colorLable, gbc);
 
         ImageIcon[] colors = {
@@ -92,6 +93,12 @@ public class Editor extends JPanel
         flagellaList.addItemListener(actionListener3);
 
 
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        JLabel empty = new JLabel("   \n");
+        empty.setPreferredSize(new Dimension(1, 100));
+        add(empty, gbc);
+
         ImageIcon back_but_pic = new ImageIcon("src/skins/buttons/back_but.png");
         ImageIcon back_but_hover_pic = new ImageIcon("src/skins/buttons/back_hover_but.png");
         JButton backBut = new JButton(back_but_pic);
@@ -126,10 +133,12 @@ public class Editor extends JPanel
             public void mouseExited(MouseEvent me) { backBut.setIcon(back_but_pic);
             }
         });
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         add(backBut, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+
 
         //Preview prev = new Preview(Editor.frame.getGraphics());
     }

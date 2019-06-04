@@ -17,8 +17,8 @@ public class MultiPlayerMode extends JPanel
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets.top = gui.frame.getHeight() / 10;
-
+        //gbc.insets.top = gui.frame.getHeight() / 10;
+        gbc.insets = new Insets(5,0,5,150);
         JLabel label = new JLabel(new ImageIcon("src/skins/labels/serverLabel.png"));
         gbc.gridx = 1;
         gbc.gridy = 1;
