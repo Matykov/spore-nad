@@ -33,7 +33,7 @@ public class Editor extends JPanel
         gbc.insets.top = frame.getHeight() / 10;
 
         //Цвет клетки
-        JLabel colorLable = new JLabel(new ImageIcon("src/skins/bodyLabel.png"));;
+        JLabel colorLable = new JLabel(new ImageIcon("src/skins/labels/bodyLabel.png"));;
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(colorLable, gbc);
@@ -53,7 +53,7 @@ public class Editor extends JPanel
         colorList.addItemListener(actionListener1);
 
         //Жгутики
-        JLabel flagellaLable = new JLabel(new ImageIcon("src/skins/flagellaLabel.png"));
+        JLabel flagellaLable = new JLabel(new ImageIcon("src/skins/labels/flagellaLabel.png"));
 
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -73,7 +73,7 @@ public class Editor extends JPanel
         flagellaList.addItemListener(actionListener2);
 
         //Шипы
-        JLabel spikesLabel = new JLabel(new ImageIcon("src/skins/spikesLabel.png"));
+        JLabel spikesLabel = new JLabel(new ImageIcon("src/skins/labels/spikesLabel.png"));
         gbc.gridx = 1;
         gbc.gridy = 2;
         add(spikesLabel, gbc);
@@ -92,8 +92,8 @@ public class Editor extends JPanel
         flagellaList.addItemListener(actionListener3);
 
 
-        ImageIcon back_but_pic = new ImageIcon("src/skins/back_but.png");
-        ImageIcon back_but_hover_pic = new ImageIcon("src/skins/back_hover_but.png");
+        ImageIcon back_but_pic = new ImageIcon("src/skins/buttons/back_but.png");
+        ImageIcon back_but_hover_pic = new ImageIcon("src/skins/buttons/back_hover_but.png");
         JButton backBut = new JButton(back_but_pic);
         backBut.setBorder(null);
         backBut.setOpaque(false);

@@ -36,8 +36,8 @@ public class Menu extends JPanel
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets.top = frame.getHeight() / 10;
         //BufferedImage buttonIcon = ImageIO.read(new File("src/skins/Sector.png"));
-        ImageIcon single_but_pic = new ImageIcon("src/skins/single_mod_but.png");
-        ImageIcon single_but_hover_pic = new ImageIcon("src/skins/single_mod_but_hover.png");
+        ImageIcon single_but_pic = new ImageIcon("src/skins/buttons/single_mod_but.png");
+        ImageIcon single_but_hover_pic = new ImageIcon("src/skins/buttons/single_mod_but_hover.png");
         JButton butSPMode = new JButton(single_but_pic);
         butSPMode.setMargin(new Insets(0, 0, 0, 0));
         butSPMode.setBorder(null);
@@ -62,8 +62,8 @@ public class Menu extends JPanel
         add(butSPMode, gbc);
 
 
-        ImageIcon multi_but_pic = new ImageIcon("src/skins/multi_mod_but.png");
-        ImageIcon multi_but_hover_pic = new ImageIcon("src/skins/multi_mod_hover_but.png");
+        ImageIcon multi_but_pic = new ImageIcon("src/skins/buttons/multi_mod_but.png");
+        ImageIcon multi_but_hover_pic = new ImageIcon("src/skins/buttons/multi_mod_hover_but.png");
         JButton butMPMode = new JButton(multi_but_pic);
         butMPMode.setBorder(null);
         butMPMode.setOpaque(false);
@@ -83,8 +83,8 @@ public class Menu extends JPanel
         gbc.gridx = 1;
         gbc.gridy = 3;
         add(butMPMode, gbc);
-        ImageIcon editor_but_pic = new ImageIcon("src/skins/editor_but.png");
-        ImageIcon edit_but_hover_pic = new ImageIcon("src/skins/editor_hover_but.png");
+        ImageIcon editor_but_pic = new ImageIcon("src/skins/buttons/editor_but.png");
+        ImageIcon edit_but_hover_pic = new ImageIcon("src/skins/buttons/editor_hover_but.png");
         JButton butEdit = new JButton(editor_but_pic);
         butEdit.setBorder(null);
         butEdit.setOpaque(false);
@@ -111,8 +111,8 @@ public class Menu extends JPanel
         add(butEdit, gbc);
 
 
-        ImageIcon quit_but_pic = new ImageIcon("src/skins/quit_but.png");
-        ImageIcon quit_but_hover_pic = new ImageIcon("src/skins/quit_hover_but.png");
+        ImageIcon quit_but_pic = new ImageIcon("src/skins/buttons/quit_but.png");
+        ImageIcon quit_but_hover_pic = new ImageIcon("src/skins/buttons/quit_hover_but.png");
         JButton butQuit = new JButton(quit_but_pic);
         butQuit.setMargin(new Insets(0, 0, 0, 0));
         butQuit.setBorder(null);

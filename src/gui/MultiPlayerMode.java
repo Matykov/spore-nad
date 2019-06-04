@@ -19,7 +19,7 @@ public class MultiPlayerMode extends JPanel
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets.top = gui.frame.getHeight() / 10;
 
-        JLabel label = new JLabel(new ImageIcon("src/skins/serverLabel.png"));
+        JLabel label = new JLabel(new ImageIcon("src/skins/labels/serverLabel.png"));
         gbc.gridx = 1;
         gbc.gridy = 1;
         add(label);
@@ -29,8 +29,8 @@ public class MultiPlayerMode extends JPanel
         add(text);
 
 
-        ImageIcon play_but_pic = new ImageIcon("src/skins/play_but.png");
-        ImageIcon play_but_hover_pic = new ImageIcon("src/skins/play_hover_but.png");
+        ImageIcon play_but_pic = new ImageIcon("src/skins/buttons/play_but.png");
+        ImageIcon play_but_hover_pic = new ImageIcon("src/skins/buttons/play_hover_but.png");
         JButton  butOK = new JButton(play_but_pic);
         butOK .setBorder(null);
         butOK .setOpaque(false);
@@ -52,8 +52,8 @@ public class MultiPlayerMode extends JPanel
         gbc.gridy = 3;
         add(butOK, gbc);
 
-        ImageIcon back_but_pic = new ImageIcon("src/skins/back_but.png");
-        ImageIcon back_but_hover_pic = new ImageIcon("src/skins/back_hover_but.png");
+        ImageIcon back_but_pic = new ImageIcon("src/skins/buttons/back_but.png");
+        ImageIcon back_but_hover_pic = new ImageIcon("src/skins/buttons/back_hover_but.png");
         JButton butBack = new JButton(back_but_pic);
         butBack.setBorder(null);
         butBack.setOpaque(false);

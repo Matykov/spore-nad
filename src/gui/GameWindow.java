@@ -251,7 +251,7 @@ public abstract class GameWindow extends JPanel
     {
         BufferedImage bi;
         try{
-            bi = ImageIO.read(new File("src/skins/Sector.png"));
+            bi = ImageIO.read(new File("src/skins/world/Sector.png"));
             g.drawImage(bi,
                     (int)(sector.location.x ),
                     (int)(sector.location.y ),

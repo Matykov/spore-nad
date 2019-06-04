@@ -106,7 +106,7 @@ public class ClientClientWindow extends ClientWindow {
     {
         BufferedImage bi;
         try{
-            bi = ImageIO.read(new File("src/skins/Sector.png"));
+            bi = ImageIO.read(new File("src/skins/world/Sector.png"));
             g.drawImage(bi,sector.location.x * game.getSectorNet().sectorSize.width,
                     sector.location.y * game.getSectorNet().sectorSize.height, null);
         }
