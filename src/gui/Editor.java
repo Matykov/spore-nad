@@ -193,6 +193,8 @@ public class Editor extends JPanel
                 //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 //подожди) сейчас, я проверю, что тут не так, можешь пока почиллить)
+                //так, ну вроде все
+
 
 
 
