@@ -4,17 +4,16 @@ import engine.Player;
 import logic.Game;
 
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import javax.imageio.ImageIO;
-import javax.naming.event.EventDirContext;
 import javax.swing.*;
 import java.awt.*;
 
 
 //Класс эдитора
 public class Editor extends JPanel
+
 {
+
     static String part;
     static String bodySelected;
     static String flagellaSelected;
@@ -22,15 +21,24 @@ public class Editor extends JPanel
     static JFrame frame;
 
 
+
+
     public Editor(GUI gui, Game game){
+
+        //prev.paintComponent(frame.getGraphics());
         frame = gui.frame;
+        this.setBackground(Color.BLACK);
+
 
 
 
         var frame = gui.frame;
+        Preview prev = new Preview(frame.getGraphics());
+        frame.getContentPane().add(prev);
+
         //this.game = game;
-        this.setOpaque(true);
-        this.setBackground(Color.BLACK);
+        //this.setOpaque(true);
+        //this.setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -50,6 +58,7 @@ public class Editor extends JPanel
                 new ImageIcon("src/skins/body4but.png")
         };
         JComboBox colorList = new JComboBox(colors);
+        colorList.setPreferredSize(new Dimension(25,30));
 
         colorList.setEditable(false);
         gbc.gridx = 2;
@@ -72,6 +81,7 @@ public class Editor extends JPanel
                 new ImageIcon("src/skins/flagella4Abut.png")
         };
         JComboBox flagellaList = new JComboBox(flagella);
+        flagellaList.setPreferredSize(new Dimension(25,30));
         flagellaList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 3;
@@ -93,6 +103,7 @@ public class Editor extends JPanel
         };
 
         JComboBox spikesList = new JComboBox(spikes);
+        spikesList.setPreferredSize(new Dimension(55,30));
         spikesList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -149,10 +160,25 @@ public class Editor extends JPanel
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
-
-        Preview prev = new Preview(Editor.frame.getGraphics());
     }
 
+    public static class Preview extends JPanel {
+        Preview(Graphics gr){
+            paintComponent(gr);
+        }
+
+        public void paintComponent(Graphics g) {
+            // Always call super.paintComponent (g):
+            super.paintComponent(g);
+
+            // drawString() is a Graphics method.
+            // Draw the string "Hello World" at location 100,100
+            g.drawString("Hello World!", 100, 100);
+
+            // Let's find out when paintComponent() is called.
+            System.out.println("Inside paintComponent");
+        }
+    }
 }
 
 //Класс для реакции при выборе нового предемета в выпадающем списке
@@ -180,31 +206,6 @@ class MyItemListener implements ItemListener {
 
         } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
         }
-    }
-}
-
-
-//Класс для отрисовки игрока в редакторе
-class Preview extends JPanel {
-    protected Preview(Graphics g) {
-
-        String skin;
-        if (Editor.bodySelected == "1") {
-            skin = "body1.png";
-        } else {
-            skin = "body2.png";
-        }
-
-        try {
-            BufferedImage im = ImageIO.read(new File("src/skins/" + skin));
-            g.drawImage(im, 200, 200, 200, 200, null);
-            //System.out.println("OK");
-        } catch (IOException ioe) {
-            System.err.println(ioe.toString());
-
-        }
-
-
     }
 }
 
