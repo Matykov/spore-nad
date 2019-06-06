@@ -173,44 +173,36 @@ public class Editor extends JPanel
         }
 
         public void paintComponent(Graphics g) {
-            // Always call super.paintComponent (g):
+
             super.paintComponent(g);
 
 
-            // drawString() is a Graphics method.
-            // Draw the string "Hello World" at location 100,100
-            g.setColor(new Color(0x136B21));
-            //g.drawOval(0,0,60,60);
             try {
                 BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
-                BufferedImage flagella = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
+                BufferedImage flagellaL = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
+                BufferedImage flagellaR = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "").replaceAll("A", "B")));
                 BufferedImage spikeL = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
                 BufferedImage spikeR = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "").replaceAll("A","B")));
 
                 g.drawImage(body, 30,0, 100,100,
                         null);
                 g.drawImage(eye, 60,10, 36,36, null);
-                g.drawImage(flagella, 65,80, 30,50, null);
+                if (System.currentTimeMillis() % 400 > 200) {
+                    g.drawImage(flagellaL, 65, 80, 30, 50, null);
+                }
+                else {
+                    g.drawImage(flagellaR, 65, 80, 30, 50, null);
+                }
                 g.drawImage(spikeL, 15,-10, 30,50, null);
                 g.drawImage(spikeR, 115,-10, 30,50, null);
-                //System.out.println("j");
-                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
-                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
-                //подожди) сейчас, я проверю, что тут не так, можешь пока почиллить)
-                //так, ну вроде все
 
 
-
-
-                System.out.println("!");
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
 
-            // Let's find out when paintComponent() is called.
-            //System.out.println("Inside paintComponent");
             super.repaint();
         }
     }
