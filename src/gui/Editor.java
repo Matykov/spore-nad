@@ -18,7 +18,7 @@ public class Editor extends JPanel
 
     static String part;
     static String bodySelected = "src/skins/body1.png";
-    static String flagellaSelected;
+    static String flagellaSelected = "src/skins/flagella1Abut.png";
     static String spikeSelected;
     static JFrame frame;
 
@@ -183,11 +183,19 @@ public class Editor extends JPanel
             //g.drawOval(0,0,60,60);
             try {
                 BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
-                //BufferedImage eye = ImageIO.read(new File());
-                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
-                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 g.drawImage(body, 30,0, 100,100,
                         null);
+                BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
+                g.drawImage(eye, 60,30, 30,30, null);
+                BufferedImage flagella = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
+                g.drawImage(flagella, 30,10, 30,30, null);
+                //System.out.println("j");
+                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                //подожди) сейчас, я проверю, что тут не так, можешь пока почиллить)
+
+
+
                 System.out.println("!");
             } catch (IOException e) {
                 e.printStackTrace();
