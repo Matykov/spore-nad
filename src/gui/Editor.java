@@ -4,7 +4,9 @@ import engine.Player;
 import logic.Game;
 
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,7 +17,7 @@ public class Editor extends JPanel
 {
 
     static String part;
-    static String bodySelected;
+    static String bodySelected = "src/skins/body1.png";
     static String flagellaSelected;
     static String spikeSelected;
     static JFrame frame;
@@ -34,7 +36,10 @@ public class Editor extends JPanel
 
         var frame = gui.frame;
         Preview prev = new Preview(frame.getGraphics());
-        frame.getContentPane().add(prev);
+        frame.add(prev).setLocation(350,300);
+        frame.add(prev).setSize(600,600);
+        frame.add(prev).setBackground(Color.BLACK);
+
 
         //this.game = game;
         //this.setOpaque(true);
@@ -45,7 +50,7 @@ public class Editor extends JPanel
         gbc.insets.top = frame.getHeight() / 10;
 
         //Цвет клетки
-        JLabel colorLable = new JLabel(new ImageIcon("src/skins/labels/bodyLabel.png"));;
+        JLabel colorLable = new JLabel(new ImageIcon("src/skins/labels/bodyLabel.png"));
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.insets = new Insets(5,0,5,40);
@@ -171,12 +176,27 @@ public class Editor extends JPanel
             // Always call super.paintComponent (g):
             super.paintComponent(g);
 
+
             // drawString() is a Graphics method.
             // Draw the string "Hello World" at location 100,100
-            g.drawString("Hello World!", 100, 100);
+            g.setColor(new Color(0x136B21));
+            //g.drawOval(0,0,60,60);
+            try {
+                BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                //BufferedImage eye = ImageIO.read(new File());
+                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                g.drawImage(body, 30,0, 100,100,
+                        null);
+                System.out.println("!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             // Let's find out when paintComponent() is called.
-            System.out.println("Inside paintComponent");
+            //System.out.println("Inside paintComponent");
+            super.repaint();
         }
     }
 }
