@@ -15,7 +15,6 @@ import java.awt.*;
 public class Editor extends JPanel
 
 {
-
     static String part;
     static String bodySelected = "src/skins/body1.png";
     static String flagellaSelected = "src/skins/flagella1Abut.png";
@@ -23,27 +22,18 @@ public class Editor extends JPanel
     static JFrame frame;
 
 
-
-
     public Editor(GUI gui, Game game){
 
-        //prev.paintComponent(frame.getGraphics());
         frame = gui.frame;
         this.setBackground(Color.BLACK);
-
-
-
-
         var frame = gui.frame;
+
+        //Рисуем игрока ._.
         Preview prev = new Preview(frame.getGraphics());
         frame.add(prev).setLocation(350,300);
         frame.add(prev).setSize(600,600);
         frame.add(prev).setBackground(Color.BLACK);
 
-
-        //this.game = game;
-        //this.setOpaque(true);
-        //this.setBackground(Color.BLACK);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -130,6 +120,7 @@ public class Editor extends JPanel
         backBut.setOpaque(false);
         backBut.setContentAreaFilled(false);
         backBut.setBorderPainted(false);
+        //Запись параметров внешности в файл при выходе из редактора
         backBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -150,8 +141,6 @@ public class Editor extends JPanel
                 gui.invokeMainMenu();
             }
         });
-
-
 
         backBut.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent me) { backBut.setIcon(back_but_hover_pic);
@@ -176,7 +165,6 @@ public class Editor extends JPanel
 
             super.paintComponent(g);
 
-
             try {
                 BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
@@ -185,23 +173,22 @@ public class Editor extends JPanel
                 BufferedImage spikeL = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
                 BufferedImage spikeR = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "").replaceAll("A","B")));
 
-                g.drawImage(body, 30,0, 100,100,
-                        null);
+                g.drawImage(body, 30,0, 100,100, null);
                 g.drawImage(eye, 60,10, 36,36, null);
-                if (System.currentTimeMillis() % 400 > 200) {
+
+                //Типа анимация, ок?
+                if (System.currentTimeMillis() % 400 > 200)
                     g.drawImage(flagellaL, 65, 80, 30, 50, null);
-                }
-                else {
+
+                else
                     g.drawImage(flagellaR, 65, 80, 30, 50, null);
-                }
+
                 g.drawImage(spikeL, 15,-10, 30,50, null);
                 g.drawImage(spikeR, 115,-10, 30,50, null);
-
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
 
             super.repaint();
         }
@@ -235,49 +222,5 @@ class MyItemListener implements ItemListener {
         }
     }
 }
-
-
-//Старые черновики, пусть будут
-
-//
-//            protected void paintComponent(Graphics g) {
-//                super.paintComponent(g);
-//                g.setColor(Color.green);
-//                g.fillOval(25, 25, 50, 50);
-//
-//                g.setColor(Color.black);
-//                g.drawOval(25, 25, 50, 50);
-//            }
-//        }
-
-//        var p = new Preview();
-//        p.setVisible(true);
-//        gbc.gridx = 1;
-//        gbc.gridy = 5;
-//        add(p, gbc);
-
-//    }
-
-//    protected void drawPlayer(Graphics g){
-//        String skin;
-//        if (colorSelected == "1"){
-//            skin = "body.png";
-//        }
-//        else{
-//            skin = "eye.png";
-//        }
-//        BufferedReader reader;
-//
-//        try {
-//            BufferedImage im = ImageIO.read(new File("src/skins/eye.png"));
-//            g.drawImage(im, 200, 200, 200, 200, null);
-//        }
-//        catch(IOException ioe) {
-//            System.err.println(ioe.toString());
-//        }
-//
-//
-//    }
-//}
 
 

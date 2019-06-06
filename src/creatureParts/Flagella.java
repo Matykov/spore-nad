@@ -28,18 +28,15 @@ public class Flagella extends CreaturePart{
         }
 
         try {
-            //this.skins.add(ImageIO.read(new File(skin)));
             var skin1 =ImageIO.read( new File(skin));
             var skin2 =ImageIO.read( new File(skin.replaceAll("A", "B")));
 
-            for(int i=0;i<6;i++)
+            for(int i=0;i<10;i++)
                 skins.add(skin1);
-            for(int i=0;i<6;i++)
+            for(int i=0;i<10;i++)
                 skins.add(skin2);
         }catch(IOException ioe){
             System.out.println("can't load body sprite");
-
-
 
 
         }

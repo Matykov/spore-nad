@@ -27,7 +27,5 @@ public class Spike extends CreaturePart {
         catch(IOException ioe) {
             System.err.println(ioe.toString());
         }
-
-
     }
 }
