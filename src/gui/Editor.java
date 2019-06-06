@@ -19,7 +19,7 @@ public class Editor extends JPanel
     static String part;
     static String bodySelected = "src/skins/body1.png";
     static String flagellaSelected = "src/skins/flagella1Abut.png";
-    static String spikeSelected;
+    static String spikeSelected = "src/skins/spike1A.png";
     static JFrame frame;
 
 
@@ -183,12 +183,17 @@ public class Editor extends JPanel
             //g.drawOval(0,0,60,60);
             try {
                 BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
+                BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
+                BufferedImage flagella = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
+                BufferedImage spikeL = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
+                BufferedImage spikeR = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "").replaceAll("A","B")));
+
                 g.drawImage(body, 30,0, 100,100,
                         null);
-                BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
-                g.drawImage(eye, 60,30, 30,30, null);
-                BufferedImage flagella = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
-                g.drawImage(flagella, 30,10, 30,30, null);
+                g.drawImage(eye, 60,10, 36,36, null);
+                g.drawImage(flagella, 65,80, 30,50, null);
+                g.drawImage(spikeL, 15,-10, 30,50, null);
+                g.drawImage(spikeR, 115,-10, 30,50, null);
                 //System.out.println("j");
                 //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 //BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
