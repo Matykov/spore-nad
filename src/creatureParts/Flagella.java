@@ -3,7 +3,7 @@ package creatureParts;
 import engine.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +15,7 @@ public class Flagella extends CreaturePart{
     public Flagella()
     {
         this.angleOffset = Math.PI;
-        this.skins = new ArrayList<BufferedImage>();
+        this.skins = new ArrayList<>();
 
         BufferedReader reader;
         try {
@@ -29,8 +29,8 @@ public class Flagella extends CreaturePart{
 
         try {
             //this.skins.add(ImageIO.read(new File(skin)));
-            var skin1 =ImageIO.read( new File(skin));
-            var skin2 =ImageIO.read( new File(skin.replaceAll("A", "B")));
+            var skin1 =new ImageIcon(ImageIO.read( new File(skin)));
+            var skin2 =new ImageIcon(ImageIO.read( new File(skin.replaceAll("A", "B"))));
 
             for(int i=0;i<6;i++)
                 skins.add(skin1);

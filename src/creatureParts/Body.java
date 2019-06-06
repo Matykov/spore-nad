@@ -3,6 +3,7 @@ package creatureParts;
 import engine.Player;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,7 +25,7 @@ public class Body extends CreaturePart {
         }
 
         try {
-            this.skins.add(ImageIO.read(new File(skin)));
+            this.skins.add(new ImageIcon(ImageIO.read(new File(skin))));
         }catch(IOException ioe){
             System.out.println("can't load body sprite");
         }

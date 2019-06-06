@@ -55,7 +55,7 @@ public abstract class GameWindow extends JPanel
     {
         var viewFattiness = (int)(creature.getFattiness() * game.scale);
         g.setColor(creature.getBodyColor());
-        BufferedImage bodyImg = creature.getBody().getSkin();
+        Image bodyImg = creature.getBody().getSkin();
         g.drawImage(bodyImg, translateX(sector, creature.sectorPosition.x - viewFattiness),
                 translateY(sector, creature.sectorPosition.y - viewFattiness),
                 viewFattiness * 2,
@@ -74,9 +74,9 @@ public abstract class GameWindow extends JPanel
             partsAT.translate(pos.x, pos.y);
             //g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
-            BufferedImage bi = creaturePart.getSkin();
+            Image bi = creaturePart.getSkin();
             g.drawImage(bi,
-                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-bi.getWidth(null) * game.scale),
                     (int)(-creature.getFattiness() * game.scale),
                     (int)(game.scale * creature.getFattiness()),
                     (int)(game.scale * creature.getFattiness()),

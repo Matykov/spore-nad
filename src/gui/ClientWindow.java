@@ -138,9 +138,9 @@ public class ClientWindow extends GameWindow
             partsAT.translate(pos.x, pos.y);
             g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
-            BufferedImage bi = creaturePart.getSkin();
+            Image bi = creaturePart.getSkin();
             g.drawImage(bi,
-                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-bi.getWidth(null) * game.scale),
                     (int)(-player.getFattiness() * game.scale),
                     (int)(game.scale * player.getFattiness()),
                     (int)(game.scale * player.getFattiness()),
