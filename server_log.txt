@@ -1,0 +1,8 @@
+Fri Jun 07 01:02:53 YEKT 2019 Server created: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=8081] 
+Fri Jun 07 01:03:10 YEKT 2019 New Client connected: Socket[addr=/127.0.0.1,port=60443,localport=8081] 
+Fri Jun 07 01:03:10 YEKT 2019 Client thread err: java.io.NotSerializableException: creatureParts.Body
+	Client info: Socket[addr=/127.0.0.1,port=60443,localport=8081] 
+Fri Jun 07 01:08:48 YEKT 2019 Server created: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=8081] 
+Fri Jun 07 01:09:22 YEKT 2019 Server created: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=8081] 
+Fri Jun 07 01:10:44 YEKT 2019 Server created: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=8081] 
+Fri Jun 07 01:13:38 YEKT 2019 Server created: ServerSocket[addr=0.0.0.0/0.0.0.0,localport=8081] 
