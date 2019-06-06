@@ -1,7 +1,7 @@
 package creatureParts;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ public class Eye extends CreaturePart
     public Eye()
     {
         try {
-            this.skins = new ArrayList<BufferedImage>();
+            this.skins = new ArrayList<>();
             //TODO: rework eye skin
-            skins.add(ImageIO.read(new File("src/skins/eye.png")));
+            skins.add(new ImageIcon(ImageIO.read(new File("src/skins/eye.png"))));
         }catch(IOException ioe){
             System.out.println("Can't load eye skin");
         }

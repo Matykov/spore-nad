@@ -121,7 +121,7 @@ public class ClientWindow extends GameWindow
         var playerFattiness = player.getFattiness();
         int viewFattiness = (int)(playerFattiness * game.scale);
         //var pos = new Point(player.absPosition.x, player.absPosition.y);
-        g.drawImage(player.getBody().getSkin(), frame.getWidth()  / 2 - viewFattiness,
+        g.drawImage(player.getBody().getSkin().getImage(), frame.getWidth()  / 2 - viewFattiness,
                 frame.getHeight() / 2 - viewFattiness,
                 viewFattiness * 2,
                 viewFattiness * 2, null);
@@ -138,9 +138,9 @@ public class ClientWindow extends GameWindow
 
             g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
-            BufferedImage bi = creaturePart.getSkin();
+            Image bi = creaturePart.getSkin().getImage();
             g.drawImage(bi,
-                    (int)(-bi.getWidth() * game.scale),
+                    (int)(-bi.getWidth(null) * game.scale),
                     (int)(-player.getFattiness() * game.scale),
                     (int)(game.scale * player.getFattiness()),
                     (int)(game.scale * player.getFattiness()),

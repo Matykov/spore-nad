@@ -6,6 +6,7 @@ import logger.*;
 import netParts.PlayerMessage;
 import netParts.old.Client;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -31,7 +32,6 @@ public class ClientGame extends Game implements IRunOver{
             this.playerUpdated = false;
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
-                System.out.println(ois.toString());
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
                 System.out.printf("I'v got id: %d \n", this.playerId);

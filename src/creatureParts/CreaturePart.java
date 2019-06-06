@@ -1,12 +1,13 @@
 package creatureParts;
 
-import java.awt.image.BufferedImage;
+import javax.swing.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class CreaturePart {
-    protected ArrayList<BufferedImage> skins = new ArrayList<>();
+public abstract class CreaturePart implements Serializable {
+    protected ArrayList<ImageIcon> skins = new ArrayList<>();
     private int curSkin = 0;
-    public BufferedImage getSkin(){
+    public ImageIcon getSkin(){
         curSkin++;
         if(curSkin >= skins.size())
             curSkin = 0;

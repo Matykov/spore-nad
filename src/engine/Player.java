@@ -17,7 +17,7 @@ public class Player extends Creature implements Serializable
 
     {
         super(position, speed, agility, fattiness);
-        System.out.println(CurrentDir());
+        //System.out.println(CurrentDir());
         this.body = new Body();
         this.creatureParts.add(new Eye());
         //getNewColor();

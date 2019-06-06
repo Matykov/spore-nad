@@ -87,7 +87,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
             //var time = (System.nanoTime() - start)/1000000;
             //System.out.println(time);
             try {
-                Thread.sleep(100);
+                Thread.sleep(30);
             }
             catch (InterruptedException ie){
                 System.out.println("Interrupted");

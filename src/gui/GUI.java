@@ -90,6 +90,12 @@ public class GUI
             return;
         }
         if(game != null) {
+            try{
+                Thread.sleep(100);
+            }
+            catch (InterruptedException ie){
+                System.out.println(ie);
+            }
             frame.getContentPane().removeAll();
             frame.add(new ClientClientWindow(frame, (ClientGame) game));
             frame.requestFocus();
