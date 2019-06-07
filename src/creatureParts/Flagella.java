@@ -3,7 +3,7 @@ package creatureParts;
 import engine.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,11 +15,11 @@ public class Flagella extends CreaturePart{
     public Flagella()
     {
         this.angleOffset = Math.PI;
-        this.skins = new ArrayList<BufferedImage>();
+        this.skins = new ArrayList<ImageIcon>();
 
         BufferedReader reader;
         try {
-            FileReader file = new FileReader(Player.CurrentDir() + "\\flagella.txt");
+            FileReader file = new FileReader("src\\playerIni\\flagella.txt");
             reader = new BufferedReader(file);
             skin = reader.readLine().replaceAll("but", "");
         }
@@ -28,13 +28,14 @@ public class Flagella extends CreaturePart{
         }
 
         try {
-            var skin1 =ImageIO.read( new File(skin));
-            var skin2 =ImageIO.read( new File(skin.replaceAll("A", "B")));
+            var skin1 =skin;
+            var skin2 = skin.replaceAll("A", "B");
+
 
             for(int i=0;i<10;i++)
-                skins.add(skin1);
+                this.skins.add(new ImageIcon(ImageIO.read(new File(skin1))));
             for(int i=0;i<10;i++)
-                skins.add(skin2);
+                this.skins.add(new ImageIcon(ImageIO.read(new File(skin2))));
         }catch(IOException ioe){
             System.out.println("can't load body sprite");
 

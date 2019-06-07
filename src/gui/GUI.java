@@ -36,6 +36,14 @@ public class GUI
         }
         invokeMainMenu();
     }
+    public void invokeMainMenu() {
+        frame.getContentPane().removeAll();
+        this.menu = new Menu(this);
+        frame.getContentPane().add(this.menu);
+        frame.repaint();
+        frame.pack();
+
+    }
 
     public void invokeSPMode()
     {
@@ -98,14 +106,7 @@ public class GUI
         }
     }
 
-    public void invokeMainMenu() {
-        frame.getContentPane().removeAll();
-        this.menu = new Menu(this);
-        frame.getContentPane().add(this.menu);
-        frame.repaint();
-        frame.pack();
 
-    }
 
     public void repaint()
     {

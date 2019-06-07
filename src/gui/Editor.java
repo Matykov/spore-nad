@@ -124,9 +124,9 @@ public class Editor extends JPanel
         backBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    FileWriter fileBody = new FileWriter(Player.CurrentDir() + "\\colors.txt");
-                    FileWriter fileFlagella = new FileWriter(Player.CurrentDir() + "\\flagella.txt");
-                    FileWriter fileSpike = new FileWriter(Player.CurrentDir() + "\\spikes.txt");
+                    FileWriter fileBody = new FileWriter("src\\playerIni\\colors.txt");
+                    FileWriter fileFlagella = new FileWriter("src\\playerIni\\flagella.txt");
+                    FileWriter fileSpike = new FileWriter("src\\playerIni\\spikes.txt");
                     fileBody.write(colorList.getSelectedItem().toString());
                     fileFlagella.write(flagellaList.getSelectedItem().toString());
                     fileSpike.write(spikesList.getSelectedItem().toString());

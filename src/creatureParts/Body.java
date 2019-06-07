@@ -16,7 +16,7 @@ public class Body extends CreaturePart {
     {
         BufferedReader reader;
         try {
-            FileReader file = new FileReader(Player.CurrentDir() + "\\colors.txt");
+            FileReader file = new FileReader("src\\playerIni\\colors.txt");
             reader = new BufferedReader(file);
             skin = reader.readLine().replaceAll("but", "");
         }
