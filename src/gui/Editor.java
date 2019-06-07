@@ -15,7 +15,6 @@ import java.awt.*;
 public class Editor extends JPanel
 
 {
-    static String part;
     static String bodySelected = "src/skins/body1.png";
     static String flagellaSelected = "src/skins/flagella1Abut.png";
     static String spikeSelected = "src/skins/spike1A.png";
