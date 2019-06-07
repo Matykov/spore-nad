@@ -29,7 +29,7 @@ public class Editor extends JPanel
         var frame = gui.frame;
 
         //Рисуем игрока ._.
-        Preview prev = new Preview(frame.getGraphics());
+        Preview prev = new Preview();
         frame.add(prev).setLocation(350,300);
         frame.add(prev).setSize(600,600);
         frame.add(prev).setBackground(Color.BLACK);
@@ -120,6 +120,7 @@ public class Editor extends JPanel
         backBut.setOpaque(false);
         backBut.setContentAreaFilled(false);
         backBut.setBorderPainted(false);
+
         //Запись параметров внешности в файл при выходе из редактора
         backBut.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -157,9 +158,6 @@ public class Editor extends JPanel
     }
 
     public static class Preview extends JPanel {
-        Preview(Graphics gr){
-            paintComponent(gr);
-        }
 
         public void paintComponent(Graphics g) {
 
