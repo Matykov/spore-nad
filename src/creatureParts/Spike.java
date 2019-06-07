@@ -3,7 +3,7 @@ package creatureParts;
 import engine.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,14 +15,14 @@ public class Spike extends CreaturePart {
     public Spike()
     {
         this.angleOffset = Math.PI/2;
-        this.skins = new ArrayList<BufferedImage>();
+        this.skins = new ArrayList<>();
         BufferedReader reader;
         try {
 
             FileReader file = new FileReader(Player.CurrentDir() + "\\spikes.txt");
             reader = new BufferedReader(file);
             skin = reader.readLine().replaceAll("but", "");
-            skins.add(ImageIO.read( new File(skin)));
+            skins.add(new ImageIcon(ImageIO.read( new File(skin))));
         }
         catch(IOException ioe) {
             System.err.println(ioe.toString());

@@ -1,6 +1,7 @@
 package creatureParts;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,9 +13,9 @@ public class Eye extends CreaturePart
     {
         this.angleOffset = 0.0;
         try {
-            this.skins = new ArrayList<BufferedImage>();
+            this.skins = new ArrayList<>();
             //TODO: rework eye skin
-            skins.add(ImageIO.read(new File("src/skins/eye.png")));
+            skins.add(new ImageIcon(ImageIO.read(new File("src/skins/eye.png"))));
         }catch(IOException ioe){
             System.out.println("Can't load eye skin");
         }

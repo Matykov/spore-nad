@@ -11,9 +11,9 @@ import java.awt.*;
 public class Player extends Creature implements Serializable
 {
     public static String CurrentDir(){
-        String path=System.getProperty("java.class.path");
-        String FileSeparator=(String)System.getProperty("file.separator");
-        return path.substring(0, path.lastIndexOf(FileSeparator)+1);
+        //String path=System.getProperty("java.class.path");
+        //String FileSeparator=(String)System.getProperty("file.separator");
+        return /*path.substring(0, path.lastIndexOf(FileSeparator)+1)*/ "src/playerIni/";
     }
     public Player(Point position, int speed, int agility, int fattiness)
 
