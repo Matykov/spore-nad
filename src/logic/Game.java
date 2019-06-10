@@ -87,13 +87,15 @@ public class Game implements Serializable
                         //System.out.println(tick);
                         if (System.currentTimeMillis() - tick >= 30) {
                             moveBot((Bot) creature);
-                            tick = System.currentTimeMillis();
                         }
                     }
 
                     //observe sector position
                     observeSectorPosition(i, j, creature);
                     //tick++;
+                }
+                if (System.currentTimeMillis() - tick >= 30) {
+                    tick = System.currentTimeMillis();
                 }
                 curSec.getCreatures().removeAll(deadCreatures);
             }
@@ -162,7 +164,7 @@ public class Game implements Serializable
             bot.turn(angle);
         }
 
-        bot.move(5);
+        bot.move(-5);
     }
 
 //    public void tick()
