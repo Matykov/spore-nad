@@ -23,8 +23,8 @@ public class Player extends Creature implements Serializable
         this.body = new Body(true);
         this.creatureParts.add(new Eye());
         this.creatureParts.add(new Flagella(Math.PI));
-        this.creatureParts.add(new Spike(0));
-        this.creatureParts.add(new Spike(1));
+        this.creatureParts.add(new Spike(0, true));
+        this.creatureParts.add(new Spike(1, true));
         //getNewColor();
             //g.setColor(new Color(0x842D4E));
         //getNewColor();

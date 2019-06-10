@@ -205,8 +205,9 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     }
 
     @Override
-    public void update(){
+    public boolean update(){
         //level.refreshPlayers();
         this.observeCreatures();
+        return false;
     }
 }

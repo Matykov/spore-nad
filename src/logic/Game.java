@@ -245,7 +245,7 @@ public class Game implements Serializable
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }
 
-    public void update()
+    public boolean update()
     {
         observeCreatures();
         if (getPercentCompletion() >= 1)
@@ -253,6 +253,7 @@ public class Game implements Serializable
             //System.out.println("level completed");
             isLevelCompleted = true;
         }
+        return isLevelCompleted || player.IsDead;
     }
 
     public double getPercentCompletion()

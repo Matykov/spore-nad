@@ -21,6 +21,7 @@ public class ClientGame extends Game implements IRunOver{
     private int playerId;
     private boolean playerUpdated;
     private NetPlayer dummyPlayer;
+    private Boolean gameEnded = false;
 
     public NetSectorMap getSectorNet(){
         return (NetSectorMap)curSectors;
@@ -83,13 +84,26 @@ public class ClientGame extends Game implements IRunOver{
         playerUpdated = false;
     }
 
+    public void setGameEnded()
+    {
+        this.gameEnded = true;
+        try {
+            this.outputStream.close();
+            this.inputStream.close();
+            this.client.closeConnection();
+        }catch (IOException ioe){
+            System.out.println(ioe);
+        }
+
+    }
+
     @Override
     public NetPlayer getPlayer(){
         return (NetPlayer)dummyPlayer;
     }
 
     @Override
-    public void update(){
+    public boolean update(){
             try {
                 playerUpdated = false;
                 ObjectOutputStream oos = new ObjectOutputStream(outputStream);
@@ -119,5 +133,6 @@ public class ClientGame extends Game implements IRunOver{
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
             }
+        return gameEnded;
     }
 }

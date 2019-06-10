@@ -17,7 +17,7 @@ public class Bot extends Creature
         this.body = new Body();
         this.creatureParts.add(new Eye());
         this.creatureParts.add(new Flagella());
-        this.creatureParts.add(new Spike(0));
-        this.creatureParts.add(new Spike(1));
+        this.creatureParts.add(new Spike(0, false));
+        this.creatureParts.add(new Spike(1, false));
     }
 }
