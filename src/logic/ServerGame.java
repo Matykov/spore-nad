@@ -135,13 +135,14 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     public void observeCreatures()
     {
+        ArrayList<Creature> deadCreatures = new ArrayList<>();
         for (var player : players)
         {
             if(player.isActive())
             {
                 var sector = player.getSector((NetSectorMap) curSectors);
                 eatFood(sector, player);
-                eatCreatures(sector, player);
+                eatCreatures(sector, player, deadCreatures);
                 var maxWidth = NetSectorMap.netSize * curSectors.sectorSize.width - 1;
                 var maxHeight = NetSectorMap.netSize * curSectors.sectorSize.height - 1;
                 if(player.sectorPosition.x <= 1)
@@ -155,6 +156,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
                 tick++;
             }
         }
+        players.removeAll(deadCreatures);
     }
 
     @Override
@@ -188,7 +190,7 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     }
 
     @Override
-    protected void eatCreatures(Sector curSec, Creature creature)
+    protected void eatCreatures(Sector curSec, Creature creature, ArrayList<Creature> deadCreatures)
     {
         for(var preyCreature : players)
         {

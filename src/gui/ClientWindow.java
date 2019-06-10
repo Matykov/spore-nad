@@ -108,9 +108,17 @@ public class ClientWindow extends GameWindow
                 game.getSectorNet().sectorSize.height);
         drawFood(g, sector);
         var creatures = new ArrayList<Creature>(sector.creatures);
+        ArrayList<Creature> deadCreatures = new ArrayList<>();
         for (Creature creature : creatures)
+        {
+            if(creature.IsDead)
+            {
+                deadCreatures.add(creature);
+                continue;
+            }
             drawCreature(g, creature, sector);
-
+        }
+        creatures.removeAll(deadCreatures);
         g.setTransform(oldForm);
     }
 

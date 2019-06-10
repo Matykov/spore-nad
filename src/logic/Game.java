@@ -70,12 +70,9 @@ public class Game implements Serializable
                     curSec.location.x /= scale;
                     curSec.location.y /= scale;
                 }
+                ArrayList<Creature> deadCreatures = new ArrayList<>();
                 for (Creature creature: curSec.getCreatures())
                 {
-                    if(rescaled){
-                        //creature.sectorPosition.x /= scale;
-                        //creature.sectorPosition.y /= scale;
-                    }
                     creature.absPosition = new Point(creature.sectorPosition.x + curSec.location.x,
                             creature.sectorPosition.y + curSec.location.y);
 
@@ -83,36 +80,40 @@ public class Game implements Serializable
                     eatFood(curSec, creature);
 
                     //creature eating
-                    eatCreatures(curSec, creature);
+                    eatCreatures(curSec, creature, deadCreatures);
 
                     //move bot
                     if (creature instanceof Bot) {
-                        if (tick == 500) {
+                        //System.out.println(tick);
+                        if (System.currentTimeMillis() - tick >= 30) {
                             moveBot((Bot) creature);
-                            tick = 0;
+                            tick = System.currentTimeMillis();
                         }
                     }
 
                     //observe sector position
                     observeSectorPosition(i, j, creature);
-                    tick++;
+                    //tick++;
                 }
+                curSec.getCreatures().removeAll(deadCreatures);
             }
         }
     }
 
-    protected void eatCreatures(Sector curSec, Creature creature)
+    protected void eatCreatures(Sector curSec, Creature creature, ArrayList<Creature> deadCreatures)
     {
         for (Creature preyCreature: curSec.getCreatures())
         {
-            if (creature.getFattiness() > preyCreature.getFattiness() &&
-                    dist(creature.sectorPosition, preyCreature.sectorPosition) <=
-                            creature.getFattiness() - preyCreature.getFattiness())
+            if(!preyCreature.IsDead)
             {
-                var nutrition = creature.eat(preyCreature);
-                if (creature instanceof Player)
-                {
-                    progressBar += nutrition;
+                if (creature.getFattiness() > preyCreature.getFattiness() &&
+                        dist(creature.sectorPosition, preyCreature.sectorPosition) <=
+                                creature.getFattiness() - preyCreature.getFattiness()) {
+                    var nutrition = creature.eat(preyCreature);
+                    deadCreatures.add(preyCreature);
+                    if (creature instanceof Player) {
+                        progressBar += nutrition;
+                    }
                 }
             }
         }
@@ -164,10 +165,10 @@ public class Game implements Serializable
         bot.move(5);
     }
 
-    public void tick()
-    {
-        tick++;
-    }
+//    public void tick()
+//    {
+//        tick++;
+//    }
 
     protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
