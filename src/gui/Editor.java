@@ -4,6 +4,7 @@ import engine.Player;
 import logic.Game;
 
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -162,13 +163,15 @@ public class Editor extends JPanel
 
             super.paintComponent(g);
 
+            g = (Graphics2D)g;
+
             try {
                 BufferedImage body = ImageIO.read(new File(Editor.bodySelected.replaceAll("but", "")));
                 BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
                 BufferedImage flagellaL = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
                 BufferedImage flagellaR = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "").replaceAll("A", "B")));
-                BufferedImage spikeL = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
-                BufferedImage spikeR = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "").replaceAll("A","B")));
+                BufferedImage spikeL = ImageIO.read(new File("src\\skins\\spike.png"));
+                BufferedImage spikeR = ImageIO.read(new File("src\\skins\\spike.png"));
 
                 g.drawImage(body, 30,0, 100,100, null);
                 g.drawImage(eye, 60,10, 36,36, null);
@@ -180,8 +183,17 @@ public class Editor extends JPanel
                 else
                     g.drawImage(flagellaR, 65, 80, 30, 50, null);
 
-                g.drawImage(spikeL, 15,-10, 30,50, null);
-                g.drawImage(spikeR, 115,-10, 30,50, null);
+                var oldForm = ((Graphics2D) g).getTransform();
+                AffineTransform partsAT = (AffineTransform) (oldForm.clone());
+                Point pos = new Point(50, 50);
+                partsAT.rotate(-Math.PI/4, pos.x, pos.y);
+                //partsAT.translate(pos.x, pos.y);
+                ((Graphics2D) g).setTransform(partsAT);
+                g.drawImage(spikeL, 45,-20, 30,50, null);
+                partsAT.rotate(Math.PI/2, pos.x, pos.y);
+                ((Graphics2D) g).setTransform(partsAT);
+                g.drawImage(spikeR, 65,-60, 30,50, null);
+                ((Graphics2D) g).setTransform(oldForm);
 
             } catch (IOException e) {
                 e.printStackTrace();

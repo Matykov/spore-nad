@@ -5,11 +5,12 @@ import engine.NetPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class NetSectorMap extends SectorMap {
     private ArrayList<NetPlayer> players;
-    public static int netSize = 13;
+    public static int netSize = 12;
     public static final int avgPiecesCount = 7;
     private static final int avgSectorFoodCount = 2;
     private static final int avgSectorBotCount = 0;
@@ -69,4 +70,15 @@ public class NetSectorMap extends SectorMap {
         return s;
     }
 
+    @Override
+    public ArrayList<Sector> getSectors()
+    {
+        var l = new ArrayList<Sector>();
+        for (var j = 0; j < netSize; j++)
+        {
+            l.addAll(Arrays.asList(sectors[j]));
+        }
+
+        return l;
+    }
 }

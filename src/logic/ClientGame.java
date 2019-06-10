@@ -91,6 +91,16 @@ public class ClientGame extends Game implements IRunOver{
                 message.run(this);
                 System.out.println("player income: " + ((NetPlayer) player).getId() + " fattines: " + player.sectorPosition);
                 dummyPlayer.setFattines(player.getFattiness());
+                var maxWidth = NetSectorMap.netSize * curSectors.sectorSize.width - 1;
+                var maxHeight = NetSectorMap.netSize * curSectors.sectorSize.height - 1;
+                if(dummyPlayer.sectorPosition.x <= 1)
+                    dummyPlayer.sectorPosition.x = maxWidth;
+                if(dummyPlayer.sectorPosition.x >= maxWidth)
+                    dummyPlayer.sectorPosition.x = 1;
+                if(dummyPlayer.sectorPosition.y <= 1)
+                    dummyPlayer.sectorPosition.y = maxHeight;
+                if(dummyPlayer.sectorPosition.y >= maxHeight)
+                    dummyPlayer.sectorPosition.y = 1;
                 //observeCreatures();
                 playerUpdated = true;
             } catch (IOException ioe) {

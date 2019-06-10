@@ -109,26 +109,26 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
-        var creaturePosX = creature.sectorPosition.x;
-        var creaturePosY = creature.sectorPosition.y;
-
-        if (creaturePosX < 0)
-        {
-            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorMap.netSize - 1;
-            ((NetPlayer)creature).sectorPosition.x = curSectors.sectorSize.width;
-        }
-        else if (creaturePosX > curSectors.sectorSize.width) {
-            var newX = curXNet + 1 < NetSectorMap.netSize ? curXNet + 1 : 0;
-            ((NetPlayer)creature).sectorPosition.x = 0;
-        }
-        if (creaturePosY < 0) {
-            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorMap.netSize - 1;
-            ((NetPlayer)creature).sectorPosition.y = curSectors.sectorSize.height;
-        }
-        else if (creaturePosY > curSectors.sectorSize.height) {
-            var newY = curYNet + 1 < NetSectorMap.netSize ? curYNet + 1 : 0;
-            ((NetPlayer)creature).sectorPosition.y = 0;
-        }
+//        var creaturePosX = creature.sectorPosition.x;
+//        var creaturePosY = creature.sectorPosition.y;
+//
+//        if (creaturePosX < 0)
+//        {
+//            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorMap.netSize - 1;
+//            ((NetPlayer)creature).sectorPosition.x = curSectors.sectorSize.width;
+//        }
+//        else if (creaturePosX > curSectors.sectorSize.width) {
+//            var newX = curXNet + 1 < NetSectorMap.netSize ? curXNet + 1 : 0;
+//            ((NetPlayer)creature).sectorPosition.x = 0;
+//        }
+//        if (creaturePosY < 0) {
+//            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorMap.netSize - 1;
+//            ((NetPlayer)creature).sectorPosition.y = curSectors.sectorSize.height;
+//        }
+//        else if (creaturePosY > curSectors.sectorSize.height) {
+//            var newY = curYNet + 1 < NetSectorMap.netSize ? curYNet + 1 : 0;
+//            ((NetPlayer)creature).sectorPosition.y = 0;
+//        }
 
     }
 
@@ -142,6 +142,16 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
                 var sector = player.getSector((NetSectorMap) curSectors);
                 eatFood(sector, player);
                 eatCreatures(sector, player);
+                var maxWidth = NetSectorMap.netSize * curSectors.sectorSize.width - 1;
+                var maxHeight = NetSectorMap.netSize * curSectors.sectorSize.height - 1;
+                if(player.sectorPosition.x <= 1)
+                    player.sectorPosition.x = maxWidth;
+                if(player.sectorPosition.x >= maxWidth)
+                    player.sectorPosition.x = 2;
+                if(player.sectorPosition.y <= 1)
+                    player.sectorPosition.y = maxHeight;
+                if(player.sectorPosition.y >= maxHeight)
+                    player.sectorPosition.y = 2;
                 tick++;
             }
         }

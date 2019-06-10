@@ -48,7 +48,7 @@ public class Creature implements Serializable
         Speed = speed;
         Agility = agility;
         Fattiness = fattiness;
-        Direction = 0;
+        Direction = 0.0;
         this.creatureParts.add(new creatureParts.Eye());
 
 
@@ -170,14 +170,14 @@ public class Creature implements Serializable
     }
     public Sector getSector(NetSectorMap net)
     {
-        if (sectorPosition.x >= net.sectorSize.width * NetSectorMap.netSize)
-            sectorPosition.x = 0;
-        if (sectorPosition.x <= 0)
-            sectorPosition.x = net.sectorSize.width * NetSectorMap.netSize;
-        if (sectorPosition.y >= net.sectorSize.height * NetSectorMap.netSize)
-            sectorPosition.y = 0;
-        if (sectorPosition.y <= 0)
-            sectorPosition.y = net.sectorSize.height * NetSectorMap.netSize;
+        if (sectorPosition.x >= net.sectorSize.width * NetSectorMap.netSize - 1)
+            sectorPosition.x = 2;
+        if (sectorPosition.x <= 1)
+            sectorPosition.x = net.sectorSize.width * NetSectorMap.netSize - 1;
+        if (sectorPosition.y >= net.sectorSize.height * NetSectorMap.netSize - 1)
+            sectorPosition.y = 2;
+        if (sectorPosition.y <= 1)
+            sectorPosition.y = net.sectorSize.height * NetSectorMap.netSize - 1;
 
         return net.sectors[sectorPosition.x / net.sectorSize.width][sectorPosition.y / net.sectorSize.height];
     }

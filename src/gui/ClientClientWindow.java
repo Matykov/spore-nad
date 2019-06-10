@@ -66,17 +66,21 @@ public class ClientClientWindow extends ClientWindow {
         var playerSector = ((ClientGame)game).getDummyPlayer().getSector(((ClientGame) game).getSectorNet());
         for (var sector: sectors)
         {
-            if((sector.location.x <= playerSector.location.x + 1 && sector.location.x >= playerSector.location.x - 1)
-                    && sector.location.y <= playerSector.location.y + 1 && sector.location.y >= playerSector.location.y - 1)
+            if(((sector.location.x <= (playerSector.location.x + 1)
+                    || (playerSector.location.x == NetSectorMap.netSize - 1 && sector.location.x == 0))
+                    && (sector.location.x >= playerSector.location.x - 1
+                        || (playerSector.location.x == 0 && sector.location.x == NetSectorMap.netSize - 1)))
+                    && (sector.location.y <= (playerSector.location.y + 1)
+                    || (playerSector.location.y == NetSectorMap.netSize - 1 && sector.location.y == 0)) &&
+                    (sector.location.y >= playerSector.location.y - 1
+                    || (playerSector.location.y == 0 && sector.location.y == NetSectorMap.netSize - 1)))
                 drawSector(g, origXform, sector);
         }
-
-        if (!(game instanceof ClientGame) &&!(game instanceof ServerGame))
-            drawProgressBar(g);
-
         drawPlayer(g);
+        MapShift = new Point(frame.getWidth() / 2 - ((ClientGame)game).getDummyPlayer().sectorPosition.x,
+                frame.getHeight() / 2 - ((ClientGame)game).getDummyPlayer().sectorPosition.y);
         //drawFlagella(g, origXform, game.getPlayer(), null);
-        drawEye(g, origXform, game.getPlayer(), null);
+        //drawEye(g, origXform, game.getPlayer(), null);
         //drawSpike(g, origXform, game.getPlayer(), null);
 
     }
@@ -108,7 +112,10 @@ public class ClientClientWindow extends ClientWindow {
         try{
             bi = ImageIO.read(new File("src/skins/world/Sector.png"));
             g.drawImage(bi,sector.location.x * game.getSectorNet().sectorSize.width,
-                    sector.location.y * game.getSectorNet().sectorSize.height, null);
+                    sector.location.y * game.getSectorNet().sectorSize.height,
+                    (int)(game.getSectorNet().sectorSize.width),
+                    (int)(game.getSectorNet().sectorSize.height),
+                    null);
         }
         catch (IOException ex)
         {

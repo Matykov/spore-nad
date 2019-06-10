@@ -69,17 +69,17 @@ public abstract class GameWindow extends JPanel
             Double angle;
             pos = new Point(translateX(sector, creature.sectorPosition.x),
                     translateY(sector, creature.sectorPosition.y));
-            angle = creature.getDirection() + Math.PI;
+            angle = creature.getDirection() + creaturePart.getAngleOffset();
             partsAT.rotate(angle, pos.x, pos.y);
             partsAT.translate(pos.x, pos.y);
             //g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
             Image bi = creaturePart.getSkin();
             g.drawImage(bi,
-                    (int)(-bi.getWidth(null) * game.scale),
-                    (int)(-creature.getFattiness() * game.scale),
-                    (int)(game.scale * creature.getFattiness()),
-                    (int)(game.scale * creature.getFattiness()),
+                    (int)((-viewFattiness/2) * creaturePart.getPosMultiplier().x),
+                    (int)(-viewFattiness * creaturePart.getPosMultiplier().y),
+                    (int)(viewFattiness),
+                    (int)(viewFattiness),
                     null);
             g.setTransform(oldForm);
         }

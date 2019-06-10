@@ -132,19 +132,21 @@ public class ClientWindow extends GameWindow
             AffineTransform partsAT = (AffineTransform) (oldForm.clone());
             Point pos;
             Double angle;
-            pos = new Point(frame.getWidth() / 2, frame.getHeight() / 2);
+            pos = new Point(frame.getWidth()  / 2, frame.getHeight() / 2);
             angle = player.getDirection() + creaturePart.getAngleOffset();
             partsAT.rotate(angle, pos.x, pos.y);
-            partsAT.translate(pos.x, pos.y);
+            partsAT.translate(pos.x, pos.y );
             g.drawOval(pos.x, pos.y, 7, 7);
             g.setTransform(partsAT);
+
             Image bi = creaturePart.getSkin();
             g.drawImage(bi,
-                    (int)(-bi.getWidth(null) * game.scale),
-                    (int)(-player.getFattiness() * game.scale),
-                    (int)(game.scale * player.getFattiness()),
-                    (int)(game.scale * player.getFattiness()),
+                    (int)((-viewFattiness/2) * creaturePart.getPosMultiplier().x),
+                    (int)(-viewFattiness * creaturePart.getPosMultiplier().y),
+                    (int)(viewFattiness),
+                    (int)(viewFattiness),
                     null);
+            g.setTransform(oldForm);
         }
 
 
