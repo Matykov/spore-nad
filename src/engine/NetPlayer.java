@@ -2,6 +2,10 @@ package engine;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import creatureParts.Body;
+import creatureParts.CreaturePart;
 import logic.IRunOver;
 
 public class NetPlayer extends Player implements Serializable, IRunOver {
@@ -34,5 +38,13 @@ public class NetPlayer extends Player implements Serializable, IRunOver {
     public void checkLive(){
         if(live >= ttl)
             deactivate();
+    }
+    public void setBody(Body body)
+    {
+        this.body = body;
+    }
+    public void setCreatureParts(ArrayList<CreaturePart> ceatureParrts)
+    {
+        this.creatureParts = creatureParts;
     }
 }

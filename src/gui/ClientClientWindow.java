@@ -98,7 +98,7 @@ public class ClientClientWindow extends ClientWindow {
         var creatures = ((ClientGame)game).getPlayers();
         for (Creature creature : creatures) {
             if(((NetPlayer)creature).isActive())
-                drawCreature(g, creature);
+                drawCreature(g, creature, creature.getSector((NetSectorMap) game.getSectorNet()));
             //drawEye(g, mapAT, creature, sector);
         }
 
@@ -145,15 +145,15 @@ public class ClientClientWindow extends ClientWindow {
 
     }
 
-    protected void drawCreature(Graphics g, Creature creature)
-    {
-        var sector = creature.getSector((NetSectorMap) game.getSectorNet());
-        g.setColor(new Color(0, 150, 200));
-        g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
-                translateY(sector, creature.sectorPosition.y - creature.getFattiness()),
-                creature.getFattiness() * 2,
-                creature.getFattiness() * 2);
-    }
+//    protected void drawCreature(Graphics g, Creature creature)
+//    {
+//        var sector = creature.getSector((NetSectorMap) game.getSectorNet());
+//        g.setColor(new Color(0, 150, 200));
+//        g.fillOval(translateX(sector, creature.sectorPosition.x - creature.getFattiness()),
+//                translateY(sector, creature.sectorPosition.y - creature.getFattiness()),
+//                creature.getFattiness() * 2,
+//                creature.getFattiness() * 2);
+//    }
 
 
 }

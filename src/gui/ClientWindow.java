@@ -25,20 +25,6 @@ public class ClientWindow extends GameWindow
 
     public ClientWindow(JFrame frame, Game game)
     {
-//        BufferedReader reader;
-//        try {
-//            FileReader file = new FileReader("C:\\Users\\BigBird\\Desktop\\colors.txt");
-//            reader = new BufferedReader(file);
-//
-//            color =  reader.readLine();
-//            System.out.println(color);
-//            //file.flush();
-//        }catch(IOException ioe) {
-//            System.err.println(ioe.toString());
-//            //gui.invokeMainMenu();
-//        }
-
-
         MapShift = new Point(frame.getWidth() / 2 - game.getPlayer().sectorPosition.x,
                 frame.getHeight() / 2 - game.getPlayer().sectorPosition.y);
         this.frame = frame;

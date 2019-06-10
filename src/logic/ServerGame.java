@@ -29,6 +29,13 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
         return players;
     }
 
+    public void registerPlayer(NetPlayer player)
+    {
+        player.activate();
+        players.get(onlinePlayers).setBody(player.getBody());
+        players.get(onlinePlayers).setCreatureParts(player.getCreatureParts());
+    }
+
     public void setPlayer(NetPlayer player)
     {
         player.activate();
@@ -55,8 +62,24 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     }
 
     @Override
-    public void onConnectRead(InputStream stream) throws IOException {
-
+    public void onConnectRead(InputStream stream) throws IOException
+    {
+//        ObjectInputStream ois = new ObjectInputStream(stream);
+//        try
+//        {
+//            IMessage message = (IMessage) ois.readObject();
+//            if(message!=null) {
+//                message.run(this);
+//                for (var player : players){
+//                    if(player.isActive())
+//                        System.out.printf("player id: %d in x: %d y: %d\n", player.getId(),
+//                                player.sectorPosition.x, player.sectorPosition.y);
+//                }
+//                readyToWrite = true;
+//            }
+//        }catch(ClassNotFoundException ignored){
+//            System.out.println(ignored.toString());
+//        }
     }
 
     @Override
@@ -82,11 +105,9 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
 
     public void run(){
         while(true){
-            //var start = System.nanoTime();
             update();
-            //var time = (System.nanoTime() - start)/1000000;
-            //System.out.println(time);
-            try {
+            try
+            {
                 Thread.sleep(100);
             }
             catch (InterruptedException ie){
@@ -109,27 +130,6 @@ public class ServerGame extends Game implements IServerWorker, Serializable, IRu
     @Override
     protected void observeSectorPosition(int curXNet, int curYNet, Creature creature)
     {
-//        var creaturePosX = creature.sectorPosition.x;
-//        var creaturePosY = creature.sectorPosition.y;
-//
-//        if (creaturePosX < 0)
-//        {
-//            var newX = curXNet - 1 >= 0 ? curXNet - 1 : NetSectorMap.netSize - 1;
-//            ((NetPlayer)creature).sectorPosition.x = curSectors.sectorSize.width;
-//        }
-//        else if (creaturePosX > curSectors.sectorSize.width) {
-//            var newX = curXNet + 1 < NetSectorMap.netSize ? curXNet + 1 : 0;
-//            ((NetPlayer)creature).sectorPosition.x = 0;
-//        }
-//        if (creaturePosY < 0) {
-//            var newY = curYNet - 1 >= 0 ? curYNet - 1 : NetSectorMap.netSize - 1;
-//            ((NetPlayer)creature).sectorPosition.y = curSectors.sectorSize.height;
-//        }
-//        else if (creaturePosY > curSectors.sectorSize.height) {
-//            var newY = curYNet + 1 < NetSectorMap.netSize ? curYNet + 1 : 0;
-//            ((NetPlayer)creature).sectorPosition.y = 0;
-//        }
-
     }
 
     @Override

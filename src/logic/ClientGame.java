@@ -2,10 +2,14 @@ package logic;
 
 import engine.Food;
 import engine.NetPlayer;
+import engine.Player;
 import logger.*;
 import netParts.PlayerMessage;
+import netParts.RegisterPlayerSkinsMessage;
+import netParts.RegistrationMessage;
 import netParts.old.Client;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -31,13 +35,19 @@ public class ClientGame extends Game implements IRunOver{
             this.playerUpdated = false;
             try {
                 ObjectInputStream ois = new ObjectInputStream(inputStream);
-                System.out.println(ois.toString());
+//                ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+//                oos.writeObject(
+//                        new RegisterPlayerSkinsMessage(
+//                                new NetPlayer(new Point(0,0), 0, 0, 0, 0)));
                 IMessage message = (IMessage) ois.readObject();
                 message.run(this);
                 System.out.printf("I'v got id: %d \n", this.playerId);
 
 
                 this.dummyPlayer = (NetPlayer) this.player;
+                var temp = new Player(new Point(), 0, 0, 0);
+                this.dummyPlayer.setCreatureParts(temp.getCreatureParts());
+                this.dummyPlayer.setBody(temp.getBody());
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
             }
