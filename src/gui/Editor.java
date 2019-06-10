@@ -170,8 +170,8 @@ public class Editor extends JPanel
                 BufferedImage eye = ImageIO.read(new File("src\\skins\\eye.png"));
                 BufferedImage flagellaL = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "")));
                 BufferedImage flagellaR = ImageIO.read(new File(Editor.flagellaSelected.replaceAll("but", "").replaceAll("A", "B")));
-                BufferedImage spikeL = ImageIO.read(new File("src\\skins\\spike.png"));
-                BufferedImage spikeR = ImageIO.read(new File("src\\skins\\spike.png"));
+                BufferedImage spikeL = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
+                BufferedImage spikeR = ImageIO.read(new File(Editor.spikeSelected.replaceAll("but", "")));
 
                 g.drawImage(body, 30,0, 100,100, null);
                 g.drawImage(eye, 60,10, 36,36, null);
@@ -189,10 +189,10 @@ public class Editor extends JPanel
                 partsAT.rotate(-Math.PI/4, pos.x, pos.y);
                 //partsAT.translate(pos.x, pos.y);
                 ((Graphics2D) g).setTransform(partsAT);
-                g.drawImage(spikeL, 45,-20, 30,50, null);
+                g.drawImage(spikeL, 45,-15, null);
                 partsAT.rotate(Math.PI/2, pos.x, pos.y);
                 ((Graphics2D) g).setTransform(partsAT);
-                g.drawImage(spikeR, 65,-60, 30,50, null);
+                g.drawImage(spikeR, 55,-55, null);
                 ((Graphics2D) g).setTransform(oldForm);
 
             } catch (IOException e) {

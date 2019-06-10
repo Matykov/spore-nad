@@ -21,6 +21,7 @@ public class Spike extends CreaturePart {
         this.posMultiplier = new Point(1, 2);
         this.skins = new ArrayList<>();
         BufferedReader reader;
+
         try {
             FileReader file = new FileReader(Player.CurrentDir() + "spikes.txt");
             reader = new BufferedReader(file);
