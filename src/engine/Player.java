@@ -25,52 +25,6 @@ public class Player extends Creature implements Serializable
         this.creatureParts.add(new Flagella(Math.PI));
         this.creatureParts.add(new Spike(0, true));
         this.creatureParts.add(new Spike(1, true));
-        //getNewColor();
-            //g.setColor(new Color(0x842D4E));
-        //getNewColor();
-
     }
-//    public void getNewColor(){
-//        String color;
-//        BufferedReader reader;
-//        try {
-//            FileReader file = new FileReader(CurrentDir() + "\\colors.txt");
-//            reader = new BufferedReader(file);
-//
-//            color =  reader.readLine();
-//            System.out.println(color);
-//            if (color != null)
-//                switch (color) {
-//                    case "red":
-//                        bodyColor = Color.red;
-//                        break;
-//                    case "blue":
-//                        bodyColor = Color.blue;
-//                        break;
-//                    case "green":
-//                        bodyColor = Color.green;
-//                        break;
-//                    case "yellow":
-//                        bodyColor = Color.yellow;
-//                        break;
-//                    case "orange":
-//                        bodyColor = Color.orange;
-//                        break;
-//                    //default:
-//                    //  g.setColor(Color.red);
-//
-//                }
-//            else
-//                //g.setColor(new Color(0x842D4E));
-//                bodyColor = Color.red;
-//            //g.setColor(Player.bodyColor);
-//
-//        }catch(IOException ioe) {
-//            System.err.println(ioe.toString());
-//
-//        }
-//        System.out.println(bodyColor);
-//    }
-
 
 }

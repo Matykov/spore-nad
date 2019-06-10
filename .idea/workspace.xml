@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc6ba002-9a91-4571-87d6-c474325a9236" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/netParts/DeadMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/creatureParts/Spike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/creatureParts/Spike.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Level.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/Levels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Levels.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/ClientGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/ClientGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/logic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logic/ServerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logic/ServerGame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -73,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/logic/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="255" column="48" selection-start-line="255" selection-start-column="48" selection-end-line="255" selection-end-column="48" />
+            <state relative-caret-position="434">
+              <caret line="249" column="16" lean-forward="true" selection-start-line="249" selection-start-column="16" selection-end-line="249" selection-end-column="16" />
               <folding>
                 <element signature="e#8433#8434#0" expanded="true" />
                 <element signature="e#8508#8509#0" expanded="true" />
@@ -86,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/logic/SectorMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
+            <state relative-caret-position="408">
               <caret line="68" column="32" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -98,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/engine/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+            <state relative-caret-position="442">
+              <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -119,8 +114,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="916">
-              <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="e#2045#2046#0" expanded="true" />
                 <element signature="e#2086#2087#0" expanded="true" />
@@ -132,8 +127,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/engine/Levels.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" lean-forward="true" selection-start-line="1" selection-end-line="3" />
+            <state relative-caret-position="136">
+              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -218,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/logic/SectorNet.java" />
         <option value="$PROJECT_DIR$/src/logic/NetSectorNet.java" />
         <option value="$PROJECT_DIR$/src/engine/Food.java" />
-        <option value="$PROJECT_DIR$/src/engine/Level.java" />
         <option value="$PROJECT_DIR$/src/logic/SectorMap.java" />
         <option value="$PROJECT_DIR$/src/ClientMain.java" />
         <option value="$PROJECT_DIR$/src/StartGame.java" />
@@ -241,10 +235,11 @@
         <option value="$PROJECT_DIR$/src/logic/ClientGame.java" />
         <option value="$PROJECT_DIR$/src/logic/ServerGame.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/engine/Levels.java" />
-        <option value="$PROJECT_DIR$/src/engine/Player.java" />
         <option value="$PROJECT_DIR$/src/engine/Bot.java" />
         <option value="$PROJECT_DIR$/src/creatureParts/Spike.java" />
+        <option value="$PROJECT_DIR$/src/engine/Levels.java" />
+        <option value="$PROJECT_DIR$/src/engine/Level.java" />
+        <option value="$PROJECT_DIR$/src/engine/Player.java" />
         <option value="$PROJECT_DIR$/src/logic/Game.java" />
       </list>
     </option>
@@ -748,7 +743,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560152549598</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="random spikes for bots(now they look like clowns) + now you can die and game has it's end">
+      <created>1560156712928</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1560156712928</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -883,7 +885,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change moving, add ProgressBar" />
     <MESSAGE value="fixed mainwindow" />
     <MESSAGE value="fixed mainwindow + eye" />
     <MESSAGE value="bot" />
@@ -908,7 +909,8 @@
     <MESSAGE value="Отрисовка прогресса" />
     <MESSAGE value="В процессе отрисовки игрока в эдиторе" />
     <MESSAGE value="now we have skins online!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="now we have skins online!!!" />
+    <MESSAGE value="random spikes for bots(now they look like clowns) + now you can die and game has it's end" />
+    <option name="LAST_COMMIT_MESSAGE" value="random spikes for bots(now they look like clowns) + now you can die and game has it's end" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1247,34 +1249,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="916">
-          <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
-          <folding>
-            <element signature="e#2045#2046#0" expanded="true" />
-            <element signature="e#2086#2087#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Levels.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" lean-forward="true" selection-start-line="1" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/engine/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/Menu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
@@ -1294,12 +1268,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/logic/SectorMap.java">
+    <entry file="file://$PROJECT_DIR$/src/creatureParts/Spike.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="68" column="32" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
+        <state relative-caret-position="306">
+          <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Levels.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/engine/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2045#2046#0" expanded="true" />
+            <element signature="e#2086#2087#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1311,17 +1300,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/creatureParts/Spike.java">
+    <entry file="file://$PROJECT_DIR$/src/engine/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+        <state relative-caret-position="442">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/logic/SectorMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="68" column="32" selection-start-line="68" selection-start-column="32" selection-end-line="68" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/logic/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="255" column="48" selection-start-line="255" selection-start-column="48" selection-end-line="255" selection-end-column="48" />
+        <state relative-caret-position="434">
+          <caret line="249" column="16" lean-forward="true" selection-start-line="249" selection-start-column="16" selection-end-line="249" selection-end-column="16" />
           <folding>
             <element signature="e#8433#8434#0" expanded="true" />
             <element signature="e#8508#8509#0" expanded="true" />

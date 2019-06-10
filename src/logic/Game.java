@@ -185,10 +185,10 @@ public class Game implements Serializable
 
             }
             else {
-                //curSec.removeCreature(creature);
+                curSec.removeCreature(creature);
                 //creature.die();
                 var newX = curXNet - 1 >= 0 ? curXNet - 1 : SectorMap.netSize - 1;
-                //curSectors.sectors[curYNet][newX].creatures.add(creature);
+                curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
             creature.sectorPosition.x = curSectors.sectorSize.width;
@@ -200,10 +200,10 @@ public class Game implements Serializable
             }
             else
             {
-                //curSec.removeCreature(creature);
+                curSec.removeCreature(creature);
                 //creature.die();
                 var newX = curXNet + 1 < SectorMap.netSize ? curXNet + 1 : 0;
-                //curSectors.sectors[curYNet][newX].creatures.add(creature);
+                curSectors.sectors[curYNet][newX].creatures.add(creature);
             }
 
             creature.sectorPosition.x = 0;
@@ -215,10 +215,10 @@ public class Game implements Serializable
             }
             else
             {
-                //curSec.removeCreature(creature);
+                curSec.removeCreature(creature);
                 //creature.die();
                 var newY = curYNet - 1 >= 0 ? curYNet - 1 : SectorMap.netSize - 1;
-                //curSectors.sectors[newY][curXNet].creatures.add(creature);
+                curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
 
             creature.sectorPosition.y = curSectors.sectorSize.height;
@@ -230,10 +230,10 @@ public class Game implements Serializable
             }
             else
             {
-                //curSec.removeCreature(creature);
+                curSec.removeCreature(creature);
                 //creature.die();
                 var newY = curYNet + 1 < SectorMap.netSize ? curYNet + 1 : 0;
-                //curSectors.sectors[newY][curXNet].creatures.add(creature);
+                curSectors.sectors[newY][curXNet].creatures.add(creature);
             }
             creature.sectorPosition.y = 0;
         }
