@@ -97,7 +97,7 @@ public class GUI
             System.out.println("Port must be int value");
             return;
         }
-        if(game != null) {
+        if(game.getPlayer() != null) {
             frame.getContentPane().removeAll();
             frame.add(new ClientClientWindow(frame, (ClientGame) game));
             frame.requestFocus();
