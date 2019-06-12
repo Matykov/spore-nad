@@ -46,14 +46,27 @@ public class Editor extends JPanel
         gbc.insets = new Insets(5,0,5,40);
         add(colorLable, gbc);
 
+        ImageIcon body1 = new ImageIcon("src/skins/body1but.png");
+        ImageIcon body2 = new ImageIcon("src/skins/body2but.png");
+        ImageIcon body3 = new ImageIcon("src/skins/body3but.png");
+        ImageIcon body4 = new ImageIcon("src/skins/body4but.png");
+
         ImageIcon[] colors = {
-                new ImageIcon("src/skins/body1but.png"),
-                new ImageIcon("src/skins/body2but.png"),
-                new ImageIcon("src/skins/body3but.png"),
-                new ImageIcon("src/skins/body4but.png")
+                body1, body2, body3, body4
         };
+
+        BufferedReader readerBody;
+        String skinBody = "src/skins/body1but.png";
+        try {
+            FileReader file = new FileReader(Player.CurrentDir() + "colors.txt");
+            readerBody = new BufferedReader(file);
+            skinBody = readerBody.readLine();
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.toString());
+        }
+
         JComboBox colorList = new JComboBox(colors);
-        colorList.setPreferredSize(new Dimension(25,30));
 
         colorList.setEditable(false);
         gbc.gridx = 2;
@@ -62,6 +75,25 @@ public class Editor extends JPanel
         MyItemListener actionListener1 = new MyItemListener();
         colorList.addItemListener(actionListener1);
 
+        switch (skinBody){
+            case "src/skins/body1but.png":
+                colorList.setSelectedItem(body1);
+                break;
+            case "src/skins/body2but.png":
+                colorList.setSelectedItem(body2);
+                break;
+            case "src/skins/body3but.png":
+                colorList.setSelectedItem(body3);
+                break;
+            case "src/skins/body4but.png":
+                colorList.setSelectedItem(body4);
+                break;
+        }
+
+        colorList.setPreferredSize(new Dimension(25,30));
+
+
+
         //Жгутики
         JLabel flagellaLable = new JLabel(new ImageIcon("src/skins/labels/flagellaLabel.png"));
 
@@ -69,20 +101,54 @@ public class Editor extends JPanel
         gbc.gridy = 3;
         add(flagellaLable, gbc);
 
+        ImageIcon flagella1 = new ImageIcon("src/skins/flagella1Abut.png");
+        ImageIcon flagella2 = new ImageIcon("src/skins/flagella2Abut.png");
+        ImageIcon flagella3 = new ImageIcon("src/skins/flagella3Abut.png");
+        ImageIcon flagella4 = new ImageIcon("src/skins/flagella4Abut.png");
+
+
         ImageIcon[] flagella = {
-                new ImageIcon("src/skins/flagella1Abut.png"),
-                new ImageIcon("src/skins/flagella2Abut.png"),
-                new ImageIcon("src/skins/flagella3Abut.png"),
-                new ImageIcon("src/skins/flagella4Abut.png")
+               flagella1, flagella2, flagella3, flagella4
         };
+
         JComboBox flagellaList = new JComboBox(flagella);
+
+
+        BufferedReader readerFlagella;
+        String skinFlagella = "src/skins/flagella1Abut.png";
+        try {
+            FileReader file = new FileReader(Player.CurrentDir() + "flagella.txt");
+            readerFlagella = new BufferedReader(file);
+            skinFlagella = readerFlagella.readLine();
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.toString());
+        }
+
         flagellaList.setPreferredSize(new Dimension(25,30));
         flagellaList.setEditable(false);
         gbc.gridx = 2;
         gbc.gridy = 3;
         add(flagellaList, gbc);
+
         MyItemListener actionListener2 = new MyItemListener();
         flagellaList.addItemListener(actionListener2);
+
+        switch (skinFlagella){
+            case "src/skins/flagella1Abut.png":
+                flagellaList.setSelectedItem(flagella1);
+                break;
+            case "src/skins/flagella2Abut.png":
+                flagellaList.setSelectedItem(flagella2);
+                break;
+            case "src/skins/flagella3Abut.png":
+                flagellaList.setSelectedItem(flagella3);
+                break;
+            case "src/skins/flagella4Abut.png":
+                flagellaList.setSelectedItem(flagella4);
+                break;
+        }
+
 
         //Шипы
         JLabel spikesLabel = new JLabel(new ImageIcon("src/skins/labels/spikesLabel.png"));
@@ -90,14 +156,31 @@ public class Editor extends JPanel
         gbc.gridy = 2;
         add(spikesLabel, gbc);
 
+        ImageIcon spike1 = new ImageIcon("src/skins/spike1Abut.png");
+        ImageIcon spike2 = new ImageIcon("src/skins/spike2Abut.png");
+        ImageIcon spike3 = new ImageIcon("src/skins/spike3Abut.png");
+        ImageIcon spike4 = new ImageIcon("src/skins/spike4Abut.png");
+
+
         ImageIcon[] spikes = {
-                new ImageIcon("src/skins/spike1Abut.png"),
-                new ImageIcon("src/skins/spike2Abut.png"),
-                new ImageIcon("src/skins/spike3Abut.png"),
-                new ImageIcon("src/skins/spike4Abut.png")
+                spike1, spike2, spike3, spike4
         };
 
+
         JComboBox spikesList = new JComboBox(spikes);
+
+        BufferedReader readerSpike;
+        String skinSpike = "src/skins/spike1Abut.png";
+        try {
+            FileReader file = new FileReader(Player.CurrentDir() + "spikes.txt");
+            readerSpike = new BufferedReader(file);
+            skinSpike = readerSpike.readLine();
+        }
+        catch(IOException ioe) {
+            System.err.println(ioe.toString());
+        }
+
+
         spikesList.setPreferredSize(new Dimension(55,30));
         spikesList.setEditable(false);
         gbc.gridx = 2;
@@ -105,6 +188,21 @@ public class Editor extends JPanel
         add(spikesList, gbc);
         MyItemListener actionListener3 = new MyItemListener();
         spikesList.addItemListener(actionListener3);
+
+        switch (skinSpike){
+            case "src/skins/spike1Abut.png":
+                spikesList.setSelectedItem(spike1);
+                break;
+            case "src/skins/spike2Abut.png":
+                spikesList.setSelectedItem(spike2);
+                break;
+            case "src/skins/spike3Abut.png":
+                spikesList.setSelectedItem(spike3);
+                break;
+            case "src/skins/spike4Abut.png":
+                spikesList.setSelectedItem(spike4);
+                break;
+        }
 
 
         gbc.gridx = 1;
