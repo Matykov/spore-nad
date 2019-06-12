@@ -35,7 +35,7 @@ public class ClientGame extends Game implements IRunOver{
             this.progressBar = 0;
             this.playerUpdated = false;
             try {
-                ObjectInputStream ois = new ObjectInputStream(inputStream);
+                    ObjectInputStream ois = new ObjectInputStream(inputStream);
 //                ObjectOutputStream oos = new ObjectOutputStream(outputStream);
 //                oos.writeObject(
 //                        new RegisterPlayerSkinsMessage(
@@ -51,6 +51,8 @@ public class ClientGame extends Game implements IRunOver{
                 this.dummyPlayer.setBody(temp.getBody());
             } catch (ClassNotFoundException ignored) {
                 System.out.println(ignored.toString());
+            }catch(NullPointerException npe){
+                System.out.println("can not connect to server");
             }
         }catch(IOException ioe){
             this.client.closeConnection();
